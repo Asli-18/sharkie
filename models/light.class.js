@@ -5,9 +5,8 @@ class Light extends MovableObject {
     width = 720;
     height = 580;
 
-
     constructor() {
         super().loadImage('assets/img/background/light-left.png');
-
+        this.animate();
     }
 }
