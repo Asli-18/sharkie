@@ -25,13 +25,19 @@ class World {
 
     canvas;
     ctx;
+    keyboard;
 
-    constructor(canvas) {
+    constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
+        this.keyboard = keyboard;
         this.draw();
+        this.setWorld();
     }
 
+    setWorld(){
+        this.sharkie.world = this;
+    }
     draw() {
 
 
@@ -67,7 +73,17 @@ class World {
     }
 
     addToMap(movebleObject) {
+        if(movebleObject.otherDirection){
+            this.ctx.save();
+            this.ctx.translate(movebleObject.width, 0);
+            this.ctx.scale(-1, 1);
+            movebleObject.x = movebleObject.x * -1;
+        }
         this.ctx.drawImage(movebleObject.img, movebleObject.x, movebleObject.y, movebleObject.width, movebleObject.height);
+        if(movebleObject.otherDirection){
+             movebleObject.x = movebleObject.x * -1;
+            this.ctx.restore();
+        }
     }
 
 }
