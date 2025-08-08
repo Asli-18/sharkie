@@ -1,12 +1,13 @@
 class Seabed extends MovableObject {
     x = 0;
     y = 0;
-    width = 720;
+    width = 1440;
     height = 480;
 
 
-    constructor() {
-        super().loadImage('assets/img/background/seabed-dark-1.png');
-
+    constructor(x, y) {
+        super().loadImage('assets/img/background/seabed-dark-full.png');
+        this.x = x;
+        this.y = y;
     }
 }

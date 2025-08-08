@@ -1,11 +1,13 @@
 class SeaBackground extends MovableObject {
     x = 0;
-    y  = 0;
-    width = 720;
+    y = 0;
+    width = 1440;
     height = 480;
 
 
-    constructor() {
-        super().loadImage('assets/img/background/sea-background-dark-1.png');
+    constructor(x, y) {
+        super().loadImage('assets/img/background/sea-background-dark-full.png');
+        this.x = x;
+        this.y = y;
     }
 }

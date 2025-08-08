@@ -1,11 +1,13 @@
 class Water extends MovableObject {
     x = 0;
-    y  = 0;
-    width = 720;
+    y = 0;
+    width = 1440;
     height = 480;
 
 
-    constructor() {
-        super().loadImage('assets/img/background/water-dark-1.png');
+    constructor(x, y) {
+        super().loadImage('assets/img/background/water-dark-full.png');
+        this.x = x;
+        this.y = y;
     }
 }

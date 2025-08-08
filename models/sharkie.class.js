@@ -9,7 +9,7 @@ class Sharkie extends MovableObject {
     ];
     speed = 10;
     world;
-   
+
 
     constructor() {
         super().loadImage('assets/img/sharkie/sharkie-swim-1.png');
@@ -24,10 +24,11 @@ class Sharkie extends MovableObject {
                 this.x += this.speed;
                 this.otherDirection = false;
             }
-            if (this.world.sharkie.world.keyboard.LEFT) {
+            if (this.world.sharkie.world.keyboard.LEFT && this.x > -1000) {
                 this.x -= this.speed;
                 this.otherDirection = true;
             }
+            this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
         setInterval(() => {
             if (this.world.sharkie.world.keyboard.RIGHT || this.world.sharkie.world.keyboard.LEFT) {
