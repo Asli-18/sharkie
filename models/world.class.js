@@ -26,6 +26,7 @@ class World {
     canvas;
     ctx;
     keyboard;
+    camera_x = -100;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -39,27 +40,13 @@ class World {
         this.sharkie.world = this;
     }
     draw() {
-
-
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         this.addObjectsToMap(this.lights);
-        // this.lights.forEach(light => {
-        //     this.addToMap(light);
-        // });
         this.addObjectsToMap(this.backgrounds);
-        // this.backgrounds.forEach(background => {
-        //     this.addToMap(background);
-        // });
         this.addToMap(this.sharkie);
-
         this.addObjectsToMap(this.enemies);
-
-        // this.enemies.forEach(enemy => {
-        //     this.addToMap(enemy);
-        // });
-
-
+        
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
