@@ -7,7 +7,7 @@ class MovableObject {
     imageCache = {};
     currentImage = 0;
     speed = 0.15;
- otherDirection;
+    otherDirection;
     // constructor(x, y) {
     //     this.x = x;
     //     this.y = y;
@@ -33,12 +33,12 @@ class MovableObject {
     }
 
     swimRight() {
-        console.log("swiming right!");
+        console.log("swimming right!");
 
     }
 
     swimLeft() {
-        console.log("swiming left!");
+        console.log("swimming left!");
 
     }
 }
