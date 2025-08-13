@@ -1,5 +1,5 @@
 class PufferFish extends MovableObject {
-    // IMAGES_SWING = [
+    // IMAGES_SWIMMING = [
     //     'assets/img/enemy/puffer-fisch-swim-green-1.png',
     //     'assets/img/enemy/puffer-fisch-swim-green-2.png',
     //     'assets/img/enemy/puffer-fisch-swim-green-3.png',
@@ -20,8 +20,8 @@ class PufferFish extends MovableObject {
 
     // animate() {
     //     setInterval(() => {
-    //         let i = this.currentImage % this.IMAGES_SWING.length;
-    //         let path = this.IMAGES_SWING[i];
+    //         let i = this.currentImage % this.IMAGES_SWIMMING.length;
+    //         let path = this.IMAGES_SWIMMING[i];
     //         this.img = this.imageCache[path];
     //         this.currentImage++;
     //     }, 100);

@@ -24,13 +24,14 @@ const level_one = new Level(
         new Light(2880, 0),
     ],
     [
-        new JellyFish('assets/img/enemy/jelly-fish-green-1.png'),
-        new JellyFish('assets/img/enemy/jelly-fish-pink-1.png'),
-        new PufferFish('assets/img/enemy/puffer-fish-swim-green-1.png'),
-        new JellyFish('assets/img/enemy/jelly-fish-lila-1.png'),
-        new JellyFish('assets/img/enemy/jelly-fish-yellow-1.png'),
-        new PufferFish('assets/img/enemy/puffer-fish-swim-salmon-1.png'),
-        new PufferFish('assets/img/enemy/puffer-fish-swim-salmon-1.png'),
-        new PufferFish('assets/img/enemy/puffer-fish-swim-pink-1.png')
+        new JellyFish(),
+        new JellyFish(),
+        // new PufferFish(),
+        new JellyFish(),
+        new JellyFish(),
+        // new PufferFish(),
+        // new PufferFish(),
+        // new PufferFish(),
+        new Whale()
     ]
 );
