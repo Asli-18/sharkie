@@ -1,8 +1,6 @@
 class World {
-    lights = level_one.lights;
-    backgrounds = level_one.backgrounds;
+    level = level_one;
     sharkie = new Sharkie();
-    enemies = level_one.enemies;
 
     canvas;
     ctx;
@@ -24,10 +22,10 @@ class World {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
         this.ctx.translate(this.camera_x, 0);
 
-        this.addObjectsToMap(this.lights);
-        this.addObjectsToMap(this.backgrounds);
+        this.addObjectsToMap(this.level.lights);
+        this.addObjectsToMap(this.level.backgrounds);
         this.addToMap(this.sharkie);
-        this.addObjectsToMap(this.enemies);
+        this.addObjectsToMap(this.level.enemies);
 
         this.ctx.translate(-this.camera_x, 0);
 
