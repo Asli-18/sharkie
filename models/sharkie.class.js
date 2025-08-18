@@ -20,12 +20,12 @@ class Sharkie extends MovableObject {
     animate() {
 
         setInterval(() => {
-            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+            if (this.world.sharkie.world.keyboard.RIGHT && this.x < this.world.sharkie.world.level.level_end_x) {
                 this.x += this.speed;
                 this.otherDirection = false;
                 console.log("x koordinate: ", this.x);
             }
-            if (this.world.keyboard.LEFT && this.x > -1000) {
+            if (this.world.sharkie.world.keyboard.LEFT && this.x > -1000) {
                 this.x -= this.speed;
                 this.otherDirection = true;
                 console.log("x koordinate: ", this.x);
@@ -33,7 +33,7 @@ class Sharkie extends MovableObject {
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
         setInterval(() => {
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+            if (this.world.sharkie.world.keyboard.RIGHT || this.world.sharkie.world.keyboard.LEFT) {
                 this.x += this.speed;
 
                 let i = this.currentImage % this.IMAGES_SWIMMING.length;
@@ -41,7 +41,7 @@ class Sharkie extends MovableObject {
                 this.img = this.imageCache[path];
                 this.currentImage++;
             }
-        }, 50);
+        }, 120);
     }
 
     swimUp() {
