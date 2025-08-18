@@ -42,6 +42,10 @@ class World {
     }
 
     addToMap(movebleObject) {
+        if (!movebleObject.img) {
+            console.warn("Fehler: Object ohne gültigem img:", movebleObject);
+            return; 
+        }
         if (movebleObject.otherDirection) {
             this.ctx.save();
             this.ctx.translate(movebleObject.width, 0);
