@@ -3,7 +3,7 @@ class Whale extends MovableObject {
     y = 0;
     width = 350;
     height = 350;
-    IMAGES_INTRODUCE = [
+    IMAGES_WHALE_INTRODUCE = [
         'assets/img/enemy/monster-whale-introduce-1.png',
         'assets/img/enemy/monster-whale-introduce-2.png',
         'assets/img/enemy/monster-whale-introduce-3.png',
@@ -15,7 +15,7 @@ class Whale extends MovableObject {
         'assets/img/enemy/monster-whale-introduce-9.png',
         'assets/img/enemy/monster-whale-introduce-10.png',
     ];
-    IMAGES_FLOATING = [
+    IMAGES_WHALE_FLOATING = [
         'assets/img/enemy/monster-whale-floating-1.png',
         'assets/img/enemy/monster-whale-floating-2.png',
         'assets/img/enemy/monster-whale-floating-3.png',
@@ -34,8 +34,8 @@ class Whale extends MovableObject {
 
     constructor(imagePath = 'assets/img/enemy/monster-whale-introduce-1.png') {
         super().loadImage(imagePath);
-        this.loadImages(this.IMAGES_INTRODUCE);
-        this.loadImages(this.IMAGES_FLOATING);
+        this.loadImages(this.IMAGES_WHALE_INTRODUCE);
+        this.loadImages(this.IMAGES_WHALE_FLOATING);
         // this.x = 250 + Math.random() * 500;
         // this.y = 30 + Math.random() * 400;
         this.speed = 0.15 + Math.random() * 0.28;
@@ -44,8 +44,8 @@ class Whale extends MovableObject {
 
     animate() {
         setInterval(() => {
-            let i = this.currentImage % this.IMAGES_INTRODUCE.length;
-            let path = this.IMAGES_INTRODUCE[i];
+            let i = this.currentImage % this.IMAGES_WHALE_INTRODUCE.length;
+            let path = this.IMAGES_WHALE_INTRODUCE[i];
             this.img = this.imageCache[path];
             this.currentImage++;
         }, 100);
