@@ -26,6 +26,8 @@ class World {
         this.addObjectsToMap(this.level.backgrounds);
         this.addToMap(this.sharkie);
         this.addObjectsToMap(this.level.enemies);
+        this.addObjectsToMap(this.level.progress);
+        this.addObjectsToMap(this.level.coin);
 
         this.ctx.translate(-this.camera_x, 0);
 
