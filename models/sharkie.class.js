@@ -7,6 +7,54 @@ class Sharkie extends MovableObject {
         'assets/img/sharkie/sharkie-swim-5.png',
         'assets/img/sharkie/sharkie-swim-6.png'
     ];
+    IMAGES_IDLE = [
+        'assets/img/sharkie/sharkie-idle-1.png',
+        'assets/img/sharkie/sharkie-idle-2.png',
+        'assets/img/sharkie/sharkie-idle-3.png',
+        'assets/img/sharkie/sharkie-idle-4.png',
+        'assets/img/sharkie/sharkie-idle-5.png',
+        'assets/img/sharkie/sharkie-idle-6.png',
+        'assets/img/sharkie/sharkie-idle-7.png',
+        'assets/img/sharkie/sharkie-idle-8.png',
+        'assets/img/sharkie/sharkie-idle-9.png',
+        'assets/img/sharkie/sharkie-idle-10.png',
+        'assets/img/sharkie/sharkie-idle-11.png',
+        'assets/img/sharkie/sharkie-idle-12.png',
+        'assets/img/sharkie/sharkie-idle-13.png',
+        'assets/img/sharkie/sharkie-idle-14.png',
+        'assets/img/sharkie/sharkie-idle-15.png',
+        'assets/img/sharkie/sharkie-idle-16.png',
+        'assets/img/sharkie/sharkie-idle-17.png',
+        'assets/img/sharkie/sharkie-idle-18.png'
+    ];
+
+    IMAGES_DEAD_ELECTRO_SHOCK = [
+        'assets/img/sharkie/sharkie-dead-electro-shock-1.png',
+        'assets/img/sharkie/sharkie-dead-electro-shock-2.png',
+        'assets/img/sharkie/sharkie-dead-electro-shock-3.png',
+        'assets/img/sharkie/sharkie-dead-electro-shock-4.png',
+        'assets/img/sharkie/sharkie-dead-electro-shock-5.png',
+        'assets/img/sharkie/sharkie-dead-electro-shock-6.png',
+        'assets/img/sharkie/sharkie-dead-electro-shock-7.png',
+        'assets/img/sharkie/sharkie-dead-electro-shock-8.png',
+        'assets/img/sharkie/sharkie-dead-electro-shock-9.png',
+        'assets/img/sharkie/sharkie-dead-electro-shock-10.png'
+    ];
+
+    IMAGES_HURT_POISONED = [
+        'assets/img/sharkie/sharkie-hurt-poisoned-2.png',
+        'assets/img/sharkie/sharkie-hurt-poisoned-3.png',
+        'assets/img/sharkie/sharkie-hurt-poisoned-4.png',
+        'assets/img/sharkie/sharkie-hurt-poisoned-5.png'
+    ];
+    IMAGES_SWIMMING = [
+        'assets/img/sharkie/sharkie-swim-1.png',
+        'assets/img/sharkie/sharkie-swim-2.png',
+        'assets/img/sharkie/sharkie-swim-3.png',
+        'assets/img/sharkie/sharkie-swim-4.png',
+        'assets/img/sharkie/sharkie-swim-5.png',
+        'assets/img/sharkie/sharkie-swim-6.png'
+    ];
     speed = 4;
     world;
 
@@ -29,6 +77,16 @@ class Sharkie extends MovableObject {
                 this.x -= this.speed;
                 this.otherDirection = true;
                 console.log("x koordinate: ", this.x);
+            }
+            if (this.world.sharkie.world.keyboard.UP && this.y > -45) {
+                this.y -= this.speed;
+                this.otherDirection = false;
+                console.log("y koordinate: ", this.y);
+            }
+            if (this.world.sharkie.world.keyboard.DOWN && this.y < 320) {
+                this.y += this.speed;
+                this.otherDirection = false;
+                console.log("y koordinate: ", this.y);
             }
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
