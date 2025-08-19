@@ -11,6 +11,21 @@ class JellyFish extends MovableObject {
         'assets/img/enemy/jelly-fish-green-3.png',
         'assets/img/enemy/jelly-fish-green-4.png'
     ];
+
+    // IMAGES_PUFFER_FISH_YELLOW = [
+    //     'assets/img/enemy/jelly-fish-yellow-1.png',
+    //     'assets/img/enemy/jelly-fish-yellow-2.png',
+    //     'assets/img/enemy/jelly-fish-yellow-3.png',
+    //     'assets/img/enemy/jelly-fish-yellow-4.png'
+    // ]; 
+
+    // IMAGES_PUFFER_FISH_GREEN = [
+    //     'assets/img/enemy/jelly-fish-green-1.png',
+    //     'assets/img/enemy/jelly-fish-green-2.png',
+    //     'assets/img/enemy/jelly-fish-green-3.png',
+    //     'assets/img/enemy/jelly-fish-green-4.png'
+    // ];
+
     speed = 0.05;
     direction = 1;
     // 'assets/img/enemy/jelly-fish-lila-1.png'
