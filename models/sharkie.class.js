@@ -57,11 +57,16 @@ class Sharkie extends MovableObject {
     ];
     speed = 4;
     world;
+    rotationAngle = 0; 
 
 
     constructor() {
         super().loadImage('assets/img/sharkie/sharkie-swim-1.png');
         this.loadImages(this.IMAGES_SWIMMING);
+        this.loadImages(this.IMAGES_IDLE);
+        this.loadImages(this.IMAGES_DEAD_ELECTRO_SHOCK);
+        this.loadImages(this.IMAGES_HURT_POISONED);
+
         this.animate();
     }
 
@@ -83,13 +88,21 @@ class Sharkie extends MovableObject {
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
         setInterval(() => {
-            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
 
-                let i = this.currentImage % this.IMAGES_SWIMMING.length;
-                let path = this.IMAGES_SWIMMING[i];
-                this.img = this.imageCache[path];
-                this.currentImage++;
+            if (this.isDead()) {
+
             }
+            // else if() {
+
+            // }
+            else {
+                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                    this.playAnimation(this.IMAGES_SWIMMING);
+
+                }
+            }
+
+
         }, 120);
     }
 
