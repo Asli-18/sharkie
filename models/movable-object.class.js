@@ -33,12 +33,25 @@ class MovableObject {
     }
 
     swimRight() {
-        console.log("swimming right!");
-
+        this.x += this.speed;
+        this.otherDirection = false;
+        console.log("x koordinate: ", this.x);
     }
 
     swimLeft() {
-        console.log("swimming left!");
+        this.x -= this.speed;
+        this.otherDirection = true;
+        console.log("x koordinate: ", this.x);
+    }
+    swimUp() {
+        this.y -= this.speed;
+        this.otherDirection = false;
+        console.log("y koordinate: ", this.y);
+    }
 
+    swimDown() {
+        this.y += this.speed;
+        this.otherDirection = false;
+        console.log("y koordinate: ", this.y);
     }
 }
