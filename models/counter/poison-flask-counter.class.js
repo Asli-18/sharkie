@@ -1,6 +1,4 @@
 class PoisonFlaskCounter extends MovableObject{
-    x = 0;
-    y = 0;
     width = 65;
     height = 65;
 
