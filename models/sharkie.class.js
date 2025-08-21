@@ -68,31 +68,22 @@ class Sharkie extends MovableObject {
     animate() {
 
         setInterval(() => {
-            if (this.world.sharkie.world.keyboard.RIGHT && this.x < this.world.sharkie.world.level.level_end_x) {
-                this.x += this.speed;
-                this.otherDirection = false;
-                console.log("x koordinate: ", this.x);
+            if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
+                this.swimRight();
             }
-            if (this.world.sharkie.world.keyboard.LEFT && this.x > -1000) {
-                this.x -= this.speed;
-                this.otherDirection = true;
-                console.log("x koordinate: ", this.x);
+            if (this.world.keyboard.LEFT && this.x > -1000) {
+                this.swimLeft();
             }
-            if (this.world.sharkie.world.keyboard.UP && this.y > -45) {
-                this.y -= this.speed;
-                this.otherDirection = false;
-                console.log("y koordinate: ", this.y);
+            if (this.world.keyboard.UP && this.y > -45) {
+                this.swimUp();
             }
-            if (this.world.sharkie.world.keyboard.DOWN && this.y < 320) {
-                this.y += this.speed;
-                this.otherDirection = false;
-                console.log("y koordinate: ", this.y);
+            if (this.world.keyboard.DOWN && this.y < 320) {
+                this.swimDown();
             }
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
         setInterval(() => {
-            if (this.world.sharkie.world.keyboard.RIGHT || this.world.sharkie.world.keyboard.LEFT) {
-                this.x += this.speed;
+            if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
 
                 let i = this.currentImage % this.IMAGES_SWIMMING.length;
                 let path = this.IMAGES_SWIMMING[i];
@@ -102,7 +93,5 @@ class Sharkie extends MovableObject {
         }, 120);
     }
 
-    swimUp() {
 
-    }
 }
