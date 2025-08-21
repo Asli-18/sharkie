@@ -1,6 +1,4 @@
 class HealthCounter extends MovableObject{
-    x = 0;
-    y = 0;
     width = 45;
     height = 45;
 
