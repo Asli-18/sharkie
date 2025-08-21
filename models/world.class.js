@@ -13,6 +13,8 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
+        this.coinCounter = new CoinCounter(10, 40, 0);
+
     }
 
     setWorld() {
@@ -26,10 +28,14 @@ class World {
         this.addObjectsToMap(this.level.backgrounds);
         this.addToMap(this.sharkie);
         this.addObjectsToMap(this.level.enemies);
-        this.addObjectsToMap(this.level.progress);
+
         this.addObjectsToMap(this.level.coin);
 
         this.ctx.translate(-this.camera_x, 0);
+
+        this.addObjectsToMap(this.level.progress);
+
+       
 
         let self = this;
         requestAnimationFrame(function () {
@@ -46,7 +52,7 @@ class World {
     addToMap(movebleObject) {
         if (!movebleObject.img) {
             console.warn("Fehler: Object ohne gültigem img:", movebleObject);
-            return; 
+            return;
         }
         if (movebleObject.otherDirection) {
             this.ctx.save();
