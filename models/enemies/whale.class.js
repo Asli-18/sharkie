@@ -1,5 +1,5 @@
 class Whale extends MovableObject {
-    x = 2600;
+    x = 2800;
     y = 0;
     width = 350;
     height = 350;
