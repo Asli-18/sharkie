@@ -6,6 +6,7 @@ class World {
     ctx;
     keyboard;
     camera_x = 0;
+    
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -13,12 +14,25 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.coinCounter = new CoinCounter(10, 40, 0);
-
+        // this.coinCounter = new CoinCounter(10, 40, 0);
+        this.checkCollisions();
     }
 
     setWorld() {
         this.sharkie.world = this;
+    }
+
+    checkCollisions() {
+        setInterval(() => {
+            this.level.enemies.forEach((enemy) =>{
+                if(this.sharkie.isColliding(enemy)){
+                    console.log('Collision with Sharkie ', enemy);
+                    this.sharkie.hit(); 
+                    console.log('Sharkie-Energy: ', this.sharkie.energy);
+                    
+                }
+            });
+        }, 200);
     }
     draw() {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -35,7 +49,7 @@ class World {
 
         this.addObjectsToMap(this.level.progress);
 
-       
+
 
         let self = this;
         requestAnimationFrame(function () {
@@ -55,16 +69,26 @@ class World {
             return;
         }
         if (movebleObject.otherDirection) {
-            this.ctx.save();
-            this.ctx.translate(movebleObject.width, 0);
-            this.ctx.scale(-1, 1);
-            movebleObject.x = movebleObject.x * -1;
+            this.flipImage(movebleObject);
         }
-        this.ctx.drawImage(movebleObject.img, movebleObject.x, movebleObject.y, movebleObject.width, movebleObject.height);
+        movebleObject.draw(this.ctx);
+        movebleObject.drawFrame(this.ctx);
         if (movebleObject.otherDirection) {
-            movebleObject.x = movebleObject.x * -1;
-            this.ctx.restore();
+            this.flipImageBack(movebleObject);
         }
     }
+
+    flipImage(movebleObject) {
+        this.ctx.save();
+        this.ctx.translate(movebleObject.width, 0);
+        this.ctx.scale(-1, 1);
+        movebleObject.x = movebleObject.x * -1;
+    }
+
+    flipImageBack(movebleObject) {
+        movebleObject.x = movebleObject.x * -1;
+        this.ctx.restore();
+    }
+
 
 }
