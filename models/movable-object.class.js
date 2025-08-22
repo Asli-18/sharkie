@@ -26,7 +26,7 @@ class MovableObject {
     }
 
     isAboveGround() {
-        return this.y < 180;
+        return this.y < 700;
     }
 
     loadImage(path) {
@@ -91,23 +91,23 @@ class MovableObject {
     swimRight() {
         this.x += this.speed;
         this.otherDirection = false;
-        console.log("x koordinate: ", this.x);
+        // console.log("x koordinate: ", this.x);
     }
 
     swimLeft() {
         this.x -= this.speed;
         this.otherDirection = true;
-        console.log("x koordinate: ", this.x);
+        // console.log("x koordinate: ", this.x);
     }
     swimUp() {
         this.y -= this.speed;
         // this.otherDirection = false;
-        console.log("y koordinate: ", this.y);
+        // console.log("y koordinate: ", this.y);
     }
 
     swimDown() {
         this.y += this.speed;
         // this.otherDirection = false;
-        console.log("y koordinate: ", this.y);
+        // console.log("y koordinate: ", this.y);
     }
 }
