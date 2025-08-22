@@ -9,10 +9,25 @@ class MovableObject {
     speed = 0.15;
     otherDirection;
     energy = 100;
+    speedY = 0;
+    acceleration = 2.5;
     // constructor(x, y) {
     //     this.x = x;
     //     this.y = y;
     // }
+
+    applyGravity() {
+        setInterval(() => {
+            if (this.isAboveGround()) {
+                this.y -= this.speedY;
+                this.speedY -= this.acceleration;
+            }
+        }, 1000 / 25);
+    }
+
+    isAboveGround() {
+        return this.y < 180;
+    }
 
     loadImage(path) {
         this.img = new Image();
@@ -22,6 +37,7 @@ class MovableObject {
     draw(ctx) {
         ctx.drawImage(this.img, this.x, this.y, this.width, this.height);
     }
+
 
     drawFrame(ctx) {
         if (this instanceof Sharkie || this instanceof JellyFish || this instanceof PufferFish || this instanceof Coin || this instanceof Whale) {
