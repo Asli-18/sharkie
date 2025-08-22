@@ -47,18 +47,16 @@ class Sharkie extends MovableObject {
         'assets/img/sharkie/sharkie-hurt-poisoned-4.png',
         'assets/img/sharkie/sharkie-hurt-poisoned-5.png'
     ];
-    IMAGES_SWIMMING = [
-        'assets/img/sharkie/sharkie-swim-1.png',
-        'assets/img/sharkie/sharkie-swim-2.png',
-        'assets/img/sharkie/sharkie-swim-3.png',
-        'assets/img/sharkie/sharkie-swim-4.png',
-        'assets/img/sharkie/sharkie-swim-5.png',
-        'assets/img/sharkie/sharkie-swim-6.png'
-    ];
+    // IMAGES_SWIMMING = [
+    //     'assets/img/sharkie/sharkie-swim-1.png',
+    //     'assets/img/sharkie/sharkie-swim-2.png',
+    //     'assets/img/sharkie/sharkie-swim-3.png',
+    //     'assets/img/sharkie/sharkie-swim-4.png',
+    //     'assets/img/sharkie/sharkie-swim-5.png',
+    //     'assets/img/sharkie/sharkie-swim-6.png'
+    // ];
     speed = 4;
-    world;
-    rotationAngle = 0;
-
+    
 
     constructor() {
         super().loadImage('assets/img/sharkie/sharkie-swim-1.png');
@@ -93,14 +91,13 @@ class Sharkie extends MovableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_ELECTRO_SHOCK);
             }
+            else if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
+                  this.playAnimation(this.IMAGES_SWIMMING);
+            }
             else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_IDLE);
             }
-            else {
-                if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
-                    this.playAnimation(this.IMAGES_SWIMMING);
-                }
-            }
+
 
 
         }, 120);
