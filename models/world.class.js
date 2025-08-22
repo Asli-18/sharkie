@@ -1,6 +1,6 @@
 class World {
     level = level_one;
-    sharkie = new Sharkie();
+    sharkie = new Sharkie(this);
 
     canvas;
     ctx;
