@@ -49,5 +49,5 @@ window.addEventListener('keyup', (event) => {
     if (event.keyCode == 40) {
         keyboard.DOWN = false;
     }
-    console.log(event);
+    // console.log(event);
 });
