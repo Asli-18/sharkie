@@ -56,7 +56,7 @@ class Sharkie extends MovableObject {
     //     'assets/img/sharkie/sharkie-swim-6.png'
     // ];
     speed = 4;
-    
+
 
     constructor() {
         super().loadImage('assets/img/sharkie/sharkie-swim-1.png');
@@ -91,11 +91,14 @@ class Sharkie extends MovableObject {
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_ELECTRO_SHOCK);
             }
-            else if(this.world.keyboard.RIGHT || this.world.keyboard.LEFT){
-                  this.playAnimation(this.IMAGES_SWIMMING);
+            else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.playAnimation(this.IMAGES_SWIMMING);
             }
             else if (this.isAboveGround()) {
                 this.playAnimation(this.IMAGES_IDLE);
+            }
+            else if (this.world.keyboard.UP || this.world.keyboard.DOWN) {
+                this.playAnimation(this.IMAGES_SWIMMING);
             }
 
 
