@@ -34,9 +34,32 @@ const level_one = new Level(
         new Whale()
     ],
     [
-        new PoisonFlask(50, 100),
-        new PoisonFlask(),
-        new PoisonFlask()
+        new PoisonFlask(330, 410),
+        new PoisonFlask(365, 400),
+        new PoisonFlask(400, 410),
+        // -----
+        new PoisonFlask(1180, 200),
+        new PoisonFlask(1220, 200),
+        new PoisonFlask(1260, 200),
+        new PoisonFlask(1300, 200),
+        new PoisonFlask(1340, 200),
+        new PoisonFlask(1380, 200),
+        new PoisonFlask(1420, 200),
+        new PoisonFlask(1460, 200),
+
+        new PoisonFlask(1700, 410),
+        new PoisonFlask(1735, 400),
+        new PoisonFlask(1770, 410),
+
+        // ->
+        new PoisonFlask(1900, 200),
+        new PoisonFlask(1940, 200),
+        new PoisonFlask(1980, 200),
+        new PoisonFlask(2040, 200),
+        new PoisonFlask(1960, 130),
+        new PoisonFlask(2000, 165),
+        new PoisonFlask(1960, 270),
+        new PoisonFlask(2000, 235),
     ],
     [
         new Coin(150, 400),
@@ -72,5 +95,14 @@ const level_one = new Level(
         new Coin(1445, 110),
         new Coin(1460, 140),
         new Coin(1400, 110),
+        // ->
+        new Coin(2400, 210),// 1900
+        new Coin(2440, 210),// 1940
+        new Coin(2480, 210),// 1980
+        new Coin(2540, 210),// 2040
+        new Coin(2460, 140),// 1960
+        new Coin(2500, 175),// 2000
+        new Coin(2460, 280),// 1960
+        new Coin(2500, 245),// 2000
     ]
 );
