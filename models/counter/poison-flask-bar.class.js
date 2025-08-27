@@ -1,11 +1,42 @@
-class PoisonFlaskBar extends MovableObject{
-    width = 65;
-    height = 65;
+class PoisonFlaskBar extends DrawableObject {
+    IMAGES_POISON_FLASK_BAR = [ //assets\img\resource-display\progressbar-poisoned-bubble-green-0.png
+        'assets/img/resource-display/progressbar-poisoned-bubble-green-0.png',
+        'assets/img/resource-display/progressbar-poisoned-bubble-green-20.png',
+        'assets/img/resource-display/progressbar-poisoned-bubble-green-40.png',
+        'assets/img/resource-display/progressbar-poisoned-bubble-green-60.png',
+        'assets/img/resource-display/progressbar-poisoned-bubble-green-80.png',
+        'assets/img/resource-display/progressbar-poisoned-bubble-green-100.png'
+    ];
 
+    percentage = 100;
 
-    constructor(x, y) {
-        super().loadImage('assets/img/resource-display/poisoned-bubble-100.png');
-        this.x = x;
-        this.y = y;
+    constructor() {
+        super().loadImages(this.IMAGES_POISON_FLASK_BAR);
+        this.x = 10;
+        this.y = 80;
+        this.height = 40;
+        this.width = 140;
+        this.setPercentage(0);
+    }
+    setPercentage(percentage) {
+        this.percentage = percentage;
+        let path = this.IMAGES_POISON_FLASK_BAR[this.resolveImageIndex()];
+        this.img = this.imageCache[path];
+    }
+
+    resolveImageIndex() {
+        if (this.percentage == 100) {
+            return 5;
+        } else if (this.percentage > 80) {
+            return 4;
+        } else if (this.percentage > 60) {
+            return 3;
+        } else if (this.percentage > 40) {
+            return 2;
+        } else if (this.percentage > 20) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 }
