@@ -18,7 +18,7 @@ class DrawableObject {
     }
 
     drawFrame(ctx) {
-        if (this instanceof Sharkie || this instanceof JellyFish || this instanceof PufferFish || this instanceof Coin ||  this instanceof PoisonFlask || this instanceof Whale) {
+        if (this instanceof Sharkie || this instanceof JellyFish || this instanceof PufferFish || this instanceof Coin || this instanceof PoisonFlask || this instanceof Whale) {
             ctx.beginPath();
             ctx.lineWidth = '2';
             ctx.strokeStyle = 'purple';
@@ -34,4 +34,6 @@ class DrawableObject {
             this.imageCache[path] = img;
         });
     }
+
+
 }
