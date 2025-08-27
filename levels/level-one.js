@@ -34,9 +34,9 @@ const level_one = new Level(
         new Whale()
     ],
     [
-        new CoinBar(10, 10, 0),
-        new HealthBar(10, 50),
-        new PoisonFlaskBar(3, 100)
+        new PoisonFlask(50, 100),
+        new PoisonFlask(),
+        new PoisonFlask()
     ],
     [
         new Coin(150, 400),
