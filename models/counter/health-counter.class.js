@@ -1,5 +1,5 @@
 class HealthCounter extends DrawableObject {
-    IMAGES = [
+    IMAGES_HEALT_BAR = [
         'assets/img/resource-display/progressbar-life-green-0.png',
         'assets/img/resource-display/progressbar-life-green-20.png',
         'assets/img/resource-display/progressbar-life-green-40.png',
@@ -11,7 +11,7 @@ class HealthCounter extends DrawableObject {
     percentage = 100;
 
     constructor() {
-        super().loadImages(this.IMAGES);
+        super().loadImages(this.IMAGES_HEALT_BAR);
         this.x = 10;
         this.y = 0;
         this.height = 50;
@@ -21,7 +21,7 @@ class HealthCounter extends DrawableObject {
 
     setPercentage(percentage) {
         this.percentage = percentage;
-        let path = this.IMAGES[this.resolveImageIndex()];
+        let path = this.IMAGES_HEALT_BAR[this.resolveImageIndex()];
         this.img = this.imageCache[path];
 
 
