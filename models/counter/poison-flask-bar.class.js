@@ -11,7 +11,8 @@ class PoisonFlaskBar extends DrawableObject {
     percentage = 100;
 
     constructor() {
-        super().loadImages(this.IMAGES_POISON_FLASK_BAR);
+        super();
+        this.loadImages(this.IMAGES_POISON_FLASK_BAR);
         this.x = 10;
         this.y = 80;
         this.height = 40;
