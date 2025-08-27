@@ -106,6 +106,9 @@ class Sharkie extends MovableObject {
     speed = 4;
     lastKeyPress = Date.now();
 
+    coin = 0;
+    poison = 0;
+
     constructor() {
         super().loadImage('assets/img/sharkie/sharkie-swim-1.png');
         this.world = world;
@@ -131,7 +134,7 @@ class Sharkie extends MovableObject {
                 this.swimLeft();
                 this.lastKeyPress = Date.now();
             }
-            if (this.world.keyboard.UP && this.y > -45) {
+            if (this.world.keyboard.UP && this.y > 50) {
                 this.swimUp();
                 this.lastKeyPress = Date.now();
             }
@@ -158,7 +161,7 @@ class Sharkie extends MovableObject {
                 this.playAnimation(this.IMAGES_SWIMMING);
                 this.lastKeyPress = Date.now();
             }
-            
+
             else if (this.isAboveGround()) {
                 if (idleTime > 1000 && idleTime < 6000) {
                     this.playAnimation(this.IMAGES_IDLE_SHORT);
