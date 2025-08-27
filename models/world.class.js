@@ -15,7 +15,6 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        // this.coinCounter = new CoinCounter(10, 40, 0);
         this.checkCollisions();
     }
 
@@ -27,13 +26,37 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.sharkie.isColliding(enemy)) {
-                    console.log('Collision with Sharkie ', enemy);
+                    // console.log('Collision with Enemy: ', enemy);
                     this.sharkie.hit();
-                    console.log('Sharkie-Energy: ', this.sharkie.energy);
+                    // console.log('Sharkie-Energy: ', this.sharkie.energy);
                     this.healthBar.setPercentage(this.sharkie.energy);
                 }
             });
+            this.level.coin.forEach((coin, index) => {
+                if (this.sharkie.isColliding(coin)) {
+                    console.log('Sharkie collected coin');
+                    this.sharkie.coin++;
+                    // 1 Coin = 5 %
+                    let percentage = this.sharkie.coin * 5;
+                    if (percentage > 100) percentage = 100;
+                    this.coinBar.setPercentage(percentage);
+                    this.level.coin.splice(index, 1);
+                }
+            });
+            this.level.poison_flask.forEach((flask, index) => {
+                if (this.sharkie.isColliding(flask)) {
+                    console.log('Sharkie collected poison flask');
+                    this.sharkie.poison++;
+                    // 1 Flasche = 5 %
+                    let percentage = this.sharkie.poison * 5;  
+                    if (percentage > 100) percentage = 100;
+                    this.poisonFlaskBar.setPercentage(percentage);
+                    this.level.poison_flask.splice(index, 1);
+                }
+            });
+
         }, 200);
+
     }
     draw() {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
