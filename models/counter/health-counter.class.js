@@ -12,6 +12,11 @@ class HealthCounter extends DrawableObject {
 
     constructor() {
         super().loadImages(this.IMAGES);
+        this.x = 10;
+        this.y = 0;
+        this.height = 50;
+        this.width = 150;
+        this.setPercentage(100);
     }
 
     setPercentage(percentage) {
