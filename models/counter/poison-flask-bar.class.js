@@ -1,4 +1,4 @@
-class PoisonFlaskCounter extends MovableObject{
+class PoisonFlaskBar extends MovableObject{
     width = 65;
     height = 65;
 

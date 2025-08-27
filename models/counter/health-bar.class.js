@@ -1,4 +1,4 @@
-class HealthCounter extends DrawableObject {
+class HealthBar extends DrawableObject {
     IMAGES_HEALT_BAR = [
         'assets/img/resource-display/progressbar-life-green-0.png',
         'assets/img/resource-display/progressbar-life-green-20.png',

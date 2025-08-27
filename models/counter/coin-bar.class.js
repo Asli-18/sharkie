@@ -1,4 +1,4 @@
-class CoinCounter extends MovableObject {
+class CoinBar extends MovableObject {
 
     width = 45;
     height = 45;
