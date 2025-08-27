@@ -13,7 +13,7 @@ class PoisonFlask extends MovableObject {
     ];
 
     constructor(x, y) {
-        super();
+        super().loadImage('assets/img/resource-display/poisoned-bubble-bottle-1.png');
         this.loadImages(this.IMAGES);
         this.x = x;
         this.y = y;
