@@ -42,12 +42,47 @@
     <script src="./js/game.js" defer></script>
 </head>
 
-<body onload="init()">
-    <h1>Sharkie</h1>
+<body id="full-screen-mode" class="day" onload="">
+    <div class="container">
 
+        <div id="start-screen" class="start-screen">
 
-    <canvas id="canvas" width="720" height="480"></canvas>
+            <h1>Sharkie</h1>
+            <div id="wrapper" class="wrapper">
+                <img class="sharkie" src="../assets/img/sharkie/sharkie-idle-13.png" alt="">
+              
+                <div class="controle-wrapper">
 
+                    <div class="controle">
+                        <button class="btn-hover" id="toggleMode"><img class="size"
+                                src="./assets/icon/night-mode-icon.png" alt=""></button>
+                        <button onclick="openFullScreen()" class="btn-hover" id="full-screen-btn"> <img class="size" src="./assets/icon/full-screen-icon.png"
+                                alt=""></button>
+                        <button class="btn-hover"><img class="size" src="./assets/icon/audio-icon.png" alt=""></button>
+                        <button class="btn-hover"><img class="size" src="./assets/icon/info-icon.png" alt=""></button>
+                    </div>
+                    <button onclick="gameStart(); init()" class="start-btn btn-hover">START</button>
+
+                </div>
+            </div>
+        </div>
+
+        <canvas id="canvas" class="canvas" width="850" height="480">
+
+        </canvas>
+
+    </div>
+
+    <footer>
+        <div>
+            <span>&copy; 2025 Sharkie &hearts; Aslihan Erdogan</span>
+        </div>
+
+        <div class="legal-contaier">
+            <button class="btn-hover font-16">privacy policy</button>
+            <button class="btn-hover font-16">legal notice</button>
+        </div>
+    </footer>
 </body>
 
 </html>
