@@ -30,7 +30,7 @@ window.addEventListener('keydown', (event) => {
     }
     // console.log(event);
     // console.log("TRUE");
-    
+
 });
 window.addEventListener('keyup', (event) => {
     if (event.keyCode == 32) {
@@ -51,3 +51,65 @@ window.addEventListener('keyup', (event) => {
     }
     // console.log(event);
 });
+
+
+const body = document.body;
+const toggleBtn = document.getElementById("toggle-mode");
+
+toggleBtn.addEventListener("click", () => {
+    if (body.classList.contains("day")) {
+        body.classList.remove("day");
+        body.classList.add("night");
+        toggleBtn.innerHTML = `<img class="size" src="./assets/icon/day-mode-icon.png"></img>`;
+    } else {
+        body.classList.remove("night");
+        body.classList.add("day");
+        toggleBtn.innerHTML = `<img class="size" src="./assets/icon/night-mode-icon.png" alt="">`;
+    }
+});
+
+
+function gameStart() {
+    let start = document.getElementById('start-screen');
+    start.classList.add('d-none');
+}
+const fullScreenBtn = document.getElementById('full-screen-btn');
+const fullScreenMode = document.getElementById('full-screen-mode');
+
+fullScreenBtn.addEventListener("click", () => {
+    if (!document.fullscreenElement) {
+        openFullScreen();
+    } else {
+        closeFullscreen();
+    }
+});
+
+function openFullScreen() {
+    if (fullScreenMode.requestFullscreen) {
+        fullScreenMode.requestFullscreen();
+    } else if (fullScreenMode.mozRequestFullScreen) { 
+        // Firefox
+        fullScreenMode.mozRequestFullScreen();
+    } else if (fullScreenMode.webkitRequestFullscreen) { 
+        // Chrome, Safari & Opera
+        fullScreenMode.webkitRequestFullscreen();
+    } else if (fullScreenMode.msRequestFullscreen) { 
+        // IE/Edge
+        fullScreenMode.msRequestFullscreen();
+    }
+}
+
+function closeFullscreen() {
+    if (document.exitFullscreen) {
+        document.exitFullscreen();
+    } else if (document.mozCancelFullScreen) { 
+        // Firefox
+        document.mozCancelFullScreen();
+    } else if (document.webkitExitFullscreen) { 
+        // Chrome, Safari & Opera
+        document.webkitExitFullscreen();
+    } else if (document.msExitFullscreen) { 
+        // IE/Edge
+        document.msExitFullscreen();
+    }
+}
