@@ -7,9 +7,149 @@ body {
     flex-direction: column;
     align-items: center;
     font-family: 'LuckiestGuy';
+
+    margin: 0;
+    height: 100vh;
+
+
+
+    background: blue;
+    color: #c3047f;
+    position: relative;
 }
 
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: url("../assets/img/background/background.jpg") no-repeat center center;
+    background-size: cover;
+    z-index: -1;
+    transition: filter 0.5s ease, background-color 0.5s ease;
+}
 
-canvas {
+/* Day-Mode */
+body.day::before {
+    filter: brightness(1.1);
+}
+
+/* Night-Mode */
+body.night::before {
+    filter: brightness(0.4);
+    background-color: rgba(0, 0, 50, 0.3);
+    /* leichter blauer Overlay */
+    background-blend-mode: multiply;
+}
+
+h1 {
+    color: #c3047f;
+    font-size: 48px;
+    display: flex;
+    justify-content: center;
+}
+
+.canvas {
     background-color: black;
+    border-radius: 16px;
+    z-index: 2;
+    position: fixed;
+}
+
+.container {
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.start-screen {
+    background-image: url("assets/img/background/background-final-dark-1.png");
+    background-size: contain;
+    z-index: 9;
+    height: 480px;
+    width: 850px;
+    border-radius: 16px;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'LuckiestGuy';
+
+    color: #c3047f;
+}
+
+.controle {
+
+    height: 150px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+}
+
+.sharkie {
+    height: 300px;
+    width: 300px;
+
+}
+
+.wrapper {
+    display: flex;
+    justify-content: space-around;
+}
+
+.controle-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.legal-contaier {
+    font-size: 16px;
+}
+
+.start-btn {
+    font-size: 36px;
+    color: white;
+    background-color: #c3047f;
+    border-radius: 16px;
+    border: solid white 2px;
+    height: 64px;
+    width: 128px;
+}
+
+.font-16 {
+    font-size: 16px;
+}
+
+.size {
+    height: 35px;
+    width: 35px;
+}
+
+.btn-hover:hover {
+    transform: scale(1.1);
+}
+
+span {
+    font-size: 18px;
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 150px;
+    width: 100%;
+
+}
+
+.d-none{
+    display: none;
 }
