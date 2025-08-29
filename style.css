@@ -183,9 +183,14 @@ p {
 }
 
 span {
-    font-size: 20px;
+    font-size: 24px;
 }
-
+h2{
+    font-size: 30px;
+}
+h3{
+    font-size: 28px;
+}
 footer {
     display: flex;
     align-items: center;
