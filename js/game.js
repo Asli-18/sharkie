@@ -113,3 +113,9 @@ function closeFullscreen() {
         document.msExitFullscreen();
     }
 }
+
+
+function toggleInfoScreen(){
+    const infoBtn = document.getElementById('info-screen-wrapper');
+    infoBtn.classList.toggle('d-none');
+}
