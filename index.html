@@ -45,7 +45,12 @@
 <body id="full-screen-mode" class="day" onload="">
     <div class="container">
 
-        <div id="info-screen-wrapper" class="info-screen-wrapper">
+        <div id="info-screen-wrapper" class="info-screen-wrapper d-none">
+            <div class="info-screen-head">
+                <h2>Sharkie</h2>
+                <button  onclick="toggleInfoScreen()" class="btn-hover"><img class="size " src="./assets/icon/close.png" alt="close icon"></button>
+            </div>
+
             <div id="info-screen" class="info-screen">
 
                 <h2>The adventure in the depths of the ocean begins!</h2>
@@ -132,12 +137,21 @@
                 <div class="controle-wrapper">
 
                     <div class="controle">
-                        <button class="btn-hover" id="toggle-mode"><img class="size"
-                                src="./assets/icon/night-mode-icon.png" alt=""></button>
-                        <button onclick="openFullScreen()" class="btn-hover" id="full-screen-btn"> <img class="size"
-                                src="./assets/icon/full-screen-icon.png" alt=""></button>
-                        <button class="btn-hover"><img class="size" src="./assets/icon/audio-icon.png" alt=""></button>
-                        <button onclick="toggleInfoScreen()" id="info-btn" class="btn-hover"><img class="size" src="./assets/icon/info-icon.png" alt=""></button>
+                        <button class="btn-hover" id="toggle-mode">
+                            <img class="size"
+                                src="./assets/icon/night-mode-icon.png" alt="">
+                            </button>
+                        <button onclick="openFullScreen()" class="btn-hover" id="full-screen-btn">
+                            <img class="size"
+                                src="./assets/icon/full-screen-icon.png" alt="">
+                            </button>
+                        <button class="btn-hover">
+                            <img class="size" src="./assets/icon/audio-icon.png" alt="">
+                        </button>
+                        <button onclick="toggleInfoScreen()" id="info-btn" class="btn-hover">
+                            <img class="size"
+                                src="./assets/icon/info-icon.png" alt="">
+                            </button>
                     </div>
                     <button onclick="gameStart(); init()" class="start-btn btn-hover">START</button>
 
