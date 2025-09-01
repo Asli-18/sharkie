@@ -36,6 +36,13 @@ class Whale extends MovableObject {
         super().loadImage(imagePath);
         this.loadImages(this.IMAGES_WHALE_INTRODUCE);
         this.loadImages(this.IMAGES_WHALE_FLOATING);
+        
+        this.offset = {
+            top: 100,
+            left: 20,
+            right: 30,
+            bottom: 60,
+        };
         // this.x = 250 + Math.random() * 500;
         // this.y = 30 + Math.random() * 400;
         this.speed = 0.15 + Math.random() * 0.28;

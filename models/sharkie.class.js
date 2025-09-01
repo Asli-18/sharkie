@@ -111,6 +111,14 @@ class Sharkie extends MovableObject {
 
     constructor() {
         super().loadImage('assets/img/sharkie/sharkie-swim-1.png');
+
+        this.offset = {
+            top: 85,
+            left: 40,
+            right: 40,
+            bottom: 40,
+        };
+
         this.world = world;
         this.loadImages(this.IMAGES_SWIMMING);
         this.loadImages(this.IMAGES_IDLE_SHORT);
