@@ -5,6 +5,19 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 2.5;
     lastHit = 0;
+
+  offset = {
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  };
+
+
+
+
+
+
     // constructor(x, y) {
     //     this.x = x;
     //     this.y = y;
@@ -23,11 +36,20 @@ class MovableObject extends DrawableObject {
         return this.y < 700;
     }
 
+    // isColliding(movebleObject) {
+    //     return this.x + this.width > movebleObject.x &&
+    //         this.y + this.height > movebleObject.y &&
+    //         this.x < movebleObject.x &&
+    //         this.y < movebleObject.y + movebleObject.height;
+    // }
+
     isColliding(movebleObject) {
-        return this.x + this.width > movebleObject.x &&
-            this.y + this.height > movebleObject.y &&
-            this.x < movebleObject.x &&
-            this.y < movebleObject.y + movebleObject.height;
+        return (
+            this.x + this.width - this.offset.right > movebleObject.x + movebleObject.offset.left &&
+            this.y + this.height - this.offset.bottom > movebleObject.y + movebleObject.offset.top &&
+            this.x + this.offset.left < movebleObject.x + movebleObject.width - movebleObject.offset.right &&
+            this.y + this.offset.top < movebleObject.y + movebleObject.height - movebleObject.offset.bottom
+        );
     }
 
     hit() {
@@ -46,7 +68,7 @@ class MovableObject extends DrawableObject {
     }
 
     isDead() {
-        return this.energy == 0;
+        return this.energy == 15;
     }
 
     animate() {
