@@ -36,13 +36,6 @@ class MovableObject extends DrawableObject {
         return this.y < 700;
     }
 
-    // isColliding(movebleObject) {
-    //     return this.x + this.width > movebleObject.x &&
-    //         this.y + this.height > movebleObject.y &&
-    //         this.x < movebleObject.x &&
-    //         this.y < movebleObject.y + movebleObject.height;
-    // }
-
     isColliding(movebleObject) {
         return (
             this.x + this.width - this.offset.right > movebleObject.x + movebleObject.offset.left &&
