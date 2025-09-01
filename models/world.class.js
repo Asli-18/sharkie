@@ -26,9 +26,9 @@ class World {
         setInterval(() => {
             this.level.enemies.forEach((enemy) => {
                 if (this.sharkie.isColliding(enemy)) {
-                    // console.log('Collision with Enemy: ', enemy);
+                    console.log('Collision with Enemy: ', enemy);
                     this.sharkie.hit();
-                    // console.log('Sharkie-Energy: ', this.sharkie.energy);
+                    console.log('Sharkie-Energy: ', this.sharkie.energy);
                     this.healthBar.setPercentage(this.sharkie.energy);
                 }
             });
@@ -106,6 +106,7 @@ class World {
         }
         movebleObject.draw(this.ctx);
         movebleObject.drawFrame(this.ctx);
+        movebleObject.drawCollisionBorder(this.ctx);
         if (movebleObject.otherDirection) {
             this.flipImageBack(movebleObject);
         }
