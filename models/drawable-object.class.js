@@ -27,6 +27,22 @@ class DrawableObject {
         }
     }
 
+    drawCollisionBorder(ctx) {
+        if ( this instanceof Sharkie || this instanceof JellyFish || this instanceof PufferFish || this instanceof Whale) {
+            ctx.beginPath();
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = 'yellow';
+
+            const rectX = this.x + this.offset.left;
+            const rectY = this.y + this.offset.top;
+            const rectWidth = this.width - this.offset.right - this.offset.left;
+            const rectHeight = this.height - this.offset.bottom - this.offset.top;
+
+            ctx.rect(rectX, rectY, rectWidth, rectHeight);
+            ctx.stroke();
+        }
+    }
+
     loadImages(array) {
         array.forEach((path) => {
             let img = new Image();
