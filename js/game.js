@@ -28,6 +28,15 @@ window.addEventListener('keydown', (event) => {
     if (event.keyCode == 40) {
         keyboard.DOWN = true;
     }
+    if (event.keyCode == 87) {
+        keyboard.W = true;
+    }
+    if (event.keyCode == 69) {
+        keyboard.E = true;
+    }
+    if (event.keyCode == 70) {
+        keyboard.F = true;
+    }
     // console.log(event);
     // console.log("TRUE");
 
@@ -87,13 +96,13 @@ fullScreenBtn.addEventListener("click", () => {
 function openFullScreen() {
     if (fullScreenMode.requestFullscreen) {
         fullScreenMode.requestFullscreen();
-    } else if (fullScreenMode.mozRequestFullScreen) { 
+    } else if (fullScreenMode.mozRequestFullScreen) {
         // Firefox
         fullScreenMode.mozRequestFullScreen();
-    } else if (fullScreenMode.webkitRequestFullscreen) { 
+    } else if (fullScreenMode.webkitRequestFullscreen) {
         // Chrome, Safari & Opera
         fullScreenMode.webkitRequestFullscreen();
-    } else if (fullScreenMode.msRequestFullscreen) { 
+    } else if (fullScreenMode.msRequestFullscreen) {
         // IE/Edge
         fullScreenMode.msRequestFullscreen();
     }
@@ -102,20 +111,20 @@ function openFullScreen() {
 function closeFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
-    } else if (document.mozCancelFullScreen) { 
+    } else if (document.mozCancelFullScreen) {
         // Firefox
         document.mozCancelFullScreen();
-    } else if (document.webkitExitFullscreen) { 
+    } else if (document.webkitExitFullscreen) {
         // Chrome, Safari & Opera
         document.webkitExitFullscreen();
-    } else if (document.msExitFullscreen) { 
+    } else if (document.msExitFullscreen) {
         // IE/Edge
         document.msExitFullscreen();
     }
 }
 
 
-function toggleInfoScreen(){
+function toggleInfoScreen() {
     const infoBtn = document.getElementById('info-screen-wrapper');
     infoBtn.classList.toggle('d-none');
 }
