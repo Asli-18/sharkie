@@ -1,0 +1,3 @@
+class AirBubbles extends ThrowableObject{
+
+}

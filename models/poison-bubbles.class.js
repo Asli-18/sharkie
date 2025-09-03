@@ -1,0 +1,3 @@
+class PoisonBubbles extends ThrowableObject{
+
+}
