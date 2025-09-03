@@ -45,6 +45,13 @@ class Sharkie extends MovableObject {
         'assets/img/sharkie/sharkie-long-idle-14.png'
     ];
 
+    IMAGES_SLEPP = [
+        'assets/img/sharkie/sharkie-long-idle-11.png',
+        'assets/img/sharkie/sharkie-long-idle-12.png',
+        'assets/img/sharkie/sharkie-long-idle-13.png',
+        'assets/img/sharkie/sharkie-long-idle-14.png'
+    ];
+
     IMAGES_HURT_POISONED = [
         'assets/img/sharkie/sharkie-hurt-poisoned-2.png',
         'assets/img/sharkie/sharkie-hurt-poisoned-3.png',
@@ -123,6 +130,7 @@ class Sharkie extends MovableObject {
         this.loadImages(this.IMAGES_SWIMMING);
         this.loadImages(this.IMAGES_IDLE_SHORT);
         this.loadImages(this.IMAGES_IDLE_LONG);
+        this.loadImages(this.IMAGES_SLEPP);
         this.loadImages(this.IMAGES_DEAD_ELECTRO_SHOCK);
         this.loadImages(this.IMAGES_DEAD_TO_RISE);
         this.loadImages(this.IMAGES_DEAD_WITHOUT_RISING);
@@ -169,22 +177,32 @@ class Sharkie extends MovableObject {
                 this.playAnimation(this.IMAGES_SWIMMING);
                 this.lastKeyPress = Date.now();
             }
-
-            else if (this.isAboveGround()) {
-                if (idleTime > 1000 && idleTime < 6000) {
-                    this.playAnimation(this.IMAGES_IDLE_SHORT);
-                } else if (idleTime >= 6000) {
-                    this.playAnimation(this.IMAGES_IDLE_LONG);
-                }
-                // this.playAnimation(this.IMAGES_IDLE_SHORT);
-            }
-
-
-
             else if (this.world.keyboard.UP || this.world.keyboard.DOWN) {
                 this.playAnimation(this.IMAGES_SWIMMING);
                 this.lastKeyPress = Date.now();
             }
+            else if (this.isAboveGround()) {
+                if (idleTime < 1000) {
+                    this.playAnimation(this.IMAGES_IDLE_SHORT);
+                    console.log("just moved");
+                } else if (idleTime >= 1000 && idleTime < 6000) {
+                    this.playAnimation(this.IMAGES_IDLE_SHORT);
+                    console.log("idle short");
+                } else if (idleTime >= 6000 && idleTime < 7000) {
+                    this.playAnimation(this.IMAGES_IDLE_LONG);
+                    console.log("idle long");
+                } else {
+                    this.playAnimation(this.IMAGES_SLEPP);
+                    console.log("sleep");
+                }
+            }
+
+            // this.playAnimation(this.IMAGES_IDLE_SHORT);
+
+
+
+
+
 
 
 
