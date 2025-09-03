@@ -13,6 +13,8 @@
     <script src="./models/core/drawable-object.class.js" defer></script>
     <script src="./models/core/movable-object.class.js" defer></script>
     <script src="./models/core/throwable-object.class.js" defer></script>
+    <script src="./models/core/keyboard.class.js" defer></script>
+
 
     <script src="./models/landscape/light.class.js" defer></script>
     <script src="./models/landscape/seabed.class.js" defer></script>
@@ -25,7 +27,8 @@
     <script src="./models/enemies/puffer-fish.class.js" defer></script>
     <script src="./models/enemies/whale.class.js" defer></script>
 
-    <script src="./models/core/keyboard.class.js" defer></script>
+    <script src="./models/air-bubbles.class.js" defer></script>
+    <script src="./models/poison-bubbles.class.js" defer></script>
 
     <script src="./models/counter/coin-bar.class.js" defer></script>
     <script src="./models/counter/health-bar.class.js" defer></script>
@@ -49,19 +52,20 @@
         <div id="info-screen-wrapper" class="info-screen-wrapper d-none">
             <div class="info-screen-head">
                 <h2>The adventure in the depths of the ocean begins!</h2>
-                <button  onclick="toggleInfoScreen()" class="btn-hover"><img class="size " src="./assets/icon/close.png" alt="close icon"></button>
+                <button onclick="toggleInfoScreen()" class="btn-hover"><img class="size " src="./assets/icon/close.png"
+                        alt="close icon"></button>
             </div>
 
             <div id="info-screen" class="info-screen">
 
-                
+
 
                 <span>Are you ready, Sharkie?</span><br><br>
 
                 <span>You’re not just a cute little shark – you’re fast, determined, and ready to stir things up in the
                     ocean.</span>
 
-                    <br>
+                <br>
 
                 <h3>But beware, dangers lurk in the deep:</h3>
                 <p>
@@ -72,7 +76,8 @@
 
                     <span><img class="size-20" src="./assets/img/enemy/puffer-fish-bubbleswim-green-3.png" alt="">
                         Pufferfish –
-                        They may look harmless, but get too close and their spikes shoot out – and bam: damage!</span><br>
+                        They may look harmless, but get too close and their spikes shoot out – and bam:
+                        damage!</span><br>
 
                     <span><img class="size-20" src="./assets/img/enemy/jelly-fish-yellow-1.png" alt="">Jellyfish –
                         Living
@@ -81,7 +86,8 @@
                     <span><img class="size-20" src="./assets/img/enemy/monster-whale-floating-6.png" alt=""> And then he
                         awaits
                         you…
-                        at the edge of the abyss: the Monster Whale – massive, furious, and nearly unbeatable.</span><br>
+                        at the edge of the abyss: the Monster Whale – massive, furious, and nearly
+                        unbeatable.</span><br>
 
                     <span>> Air bubbles? Barely scratch him, just 1% damage.</span>
 
@@ -101,7 +107,7 @@
 
                 <span> PS: Collect, dodge, aim true – and face your destiny.</span><br><br>
                 <span>The deep sea has been waiting for you.</span>
-                
+
 
             </div>
         </div>
@@ -117,20 +123,17 @@
 
                     <div class="controle">
                         <button class="btn-hover" id="toggle-mode">
-                            <img class="size"
-                                src="./assets/icon/night-mode-icon.png" alt="">
-                            </button>
+                            <img class="size" src="./assets/icon/night-mode-icon.png" alt="">
+                        </button>
                         <button onclick="openFullScreen()" class="btn-hover" id="full-screen-btn">
-                            <img class="size"
-                                src="./assets/icon/full-screen-icon.png" alt="">
-                            </button>
+                            <img class="size" src="./assets/icon/full-screen-icon.png" alt="">
+                        </button>
                         <button class="btn-hover">
                             <img class="size" src="./assets/icon/audio-icon.png" alt="">
                         </button>
                         <button onclick="toggleInfoScreen()" id="info-btn" class="btn-hover">
-                            <img class="size"
-                                src="./assets/icon/info-icon.png" alt="">
-                            </button>
+                            <img class="size" src="./assets/icon/info-icon.png" alt="">
+                        </button>
                     </div>
                     <button onclick="gameStart(); init()" class="start-btn btn-hover">START</button>
 
