@@ -8,6 +8,9 @@ class World {
     healthBar = new HealthBar();
     coinBar = new CoinBar();
     poisonFlaskBar = new PoisonFlaskBar();
+    airBubbles = [];
+    poisonBubbles = [];
+
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -15,49 +18,64 @@ class World {
         this.keyboard = keyboard;
         this.draw();
         this.setWorld();
-        this.checkCollisions();
+        this.run();
     }
 
     setWorld() {
         this.sharkie.world = this;
     }
 
-    checkCollisions() {
+    run() {
         setInterval(() => {
-            this.level.enemies.forEach((enemy) => {
-                if (this.sharkie.isColliding(enemy)) {
-                    console.log('Collision with Enemy: ', enemy);
-                    this.sharkie.hit();
-                    console.log('Sharkie-Energy: ', this.sharkie.energy);
-                    this.healthBar.setPercentage(this.sharkie.energy);
-                }
-            });
-            this.level.coin.forEach((coin, index) => {
-                if (this.sharkie.isColliding(coin)) {
-                    console.log('Sharkie collected coin');
-                    this.sharkie.coin++;
-                    // 1 Coin = 5 %
-                    let percentage = this.sharkie.coin * 5;
-                    if (percentage > 100) percentage = 100;
-                    this.coinBar.setPercentage(percentage);
-                    this.level.coin.splice(index, 1);
-                }
-            });
-            this.level.poison_flask.forEach((flask, index) => {
-                if (this.sharkie.isColliding(flask)) {
-                    console.log('Sharkie collected poison flask');
-                    this.sharkie.poison++;
-                    // 1 Flasche = 5 %
-                    let percentage = this.sharkie.poison * 5;  
-                    if (percentage > 100) percentage = 100;
-                    this.poisonFlaskBar.setPercentage(percentage);
-                    this.level.poison_flask.splice(index, 1);
-                }
-            });
-
+            this.checkCollisions();
+            this.checkBubbles();
         }, 200);
-
     }
+
+    checkCollisions() {
+        this.level.enemies.forEach((enemy) => {
+            if (this.sharkie.isColliding(enemy)) {
+                console.log('Collision with Enemy: ', enemy);
+                this.sharkie.hit();
+                console.log('Sharkie-Energy: ', this.sharkie.energy);
+                this.healthBar.setPercentage(this.sharkie.energy);
+            }
+        });
+        this.level.coin.forEach((coin, index) => {
+            if (this.sharkie.isColliding(coin)) {
+                console.log('Sharkie collected coin');
+                this.sharkie.coin++;
+                // 1 Coin = 5 %
+                let percentage = this.sharkie.coin * 5;
+                if (percentage > 100) percentage = 100;
+                this.coinBar.setPercentage(percentage);
+                this.level.coin.splice(index, 1);
+            }
+        });
+        this.level.poison_flask.forEach((flask, index) => {
+            if (this.sharkie.isColliding(flask)) {
+                console.log('Sharkie collected poison flask');
+                this.sharkie.poison++;
+                // 1 Flasche = 5 %
+                let percentage = this.sharkie.poison * 5;
+                if (percentage > 100) percentage = 100;
+                this.poisonFlaskBar.setPercentage(percentage);
+                this.level.poison_flask.splice(index, 1);
+            }
+        });
+    }
+
+    checkBubbles() {
+        if (this.keyboard.W) {
+            let air_bubbles = new AirBubbles(this.sharkie.x + 200, this.sharkie.y + 100);
+            this.airBubbles.push(air_bubbles);
+        }
+        if (this.keyboard.E) {
+            let poison_bubbles = new PoisonBubbles(this.sharkie.x + 200, this.sharkie.y + 100);
+            this.poisonBubbles.push(poison_bubbles);
+        }
+    }
+
     draw() {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -77,6 +95,8 @@ class World {
         this.addObjectsToMap(this.level.enemies);
         this.addObjectsToMap(this.level.poison_flask);
         this.addObjectsToMap(this.level.coin);
+        this.addObjectsToMap(this.airBubbles);
+        this.addObjectsToMap(this.poisonBubbles);
 
         this.ctx.translate(-this.camera_x, 0);
 

@@ -106,5 +106,8 @@ const level_one = new Level(
         new Coin(2500, 175),// 2000
         new Coin(2460, 280),// 1960
         new Coin(2500, 245),// 2000
-    ]
+    ],
+    [new AirBubbles()],
+    [new PoisonBubbles()],
+
 );

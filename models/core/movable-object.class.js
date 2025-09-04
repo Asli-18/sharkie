@@ -3,25 +3,25 @@ class MovableObject extends DrawableObject {
     otherDirection;
     energy = 100;
     speedY = 0;
+    speedY = 0;
     acceleration = 2.5;
     lastHit = 0;
 
-  offset = {
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-  };
+    offset = {
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+    };
 
 
 
 
 
 
-    // constructor(x, y) {
-    //     this.x = x;
-    //     this.y = y;
-    // }
+    constructor() {
+        super();
+    }
 
     applyGravity() {
         setInterval(() => {
@@ -30,10 +30,24 @@ class MovableObject extends DrawableObject {
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25);
+
+
+    }
+    propelBubble() {
+        setInterval(() => {
+            if (this.isAboveGround()) {
+                this.x -= this.speedX;
+                this.speedX -= this.acceleration;
+            }
+        }, 1000 / 15);
     }
 
     isAboveGround() {
-        return this.y < 700;
+        if (this instanceof AirBubbles || this instanceof PoisonBubbles) {
+            return true;
+        } else {
+            return this.y < 700;
+        }
     }
 
     isColliding(movebleObject) {
