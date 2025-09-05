@@ -31,6 +31,18 @@ const level_one = new Level(
         new JellyFish(),
         new PufferFish(),
         new PufferFish(),
+        new JellyFish(),
+        new PufferFish(),
+        new JellyFish(),
+        new JellyFish(),
+        new PufferFish(),
+        new PufferFish(),
+        new JellyFish(),
+        new PufferFish(),
+        new JellyFish(),
+        new JellyFish(),
+        new PufferFish(),
+        new PufferFish(),
         new Whale()
     ],
     [

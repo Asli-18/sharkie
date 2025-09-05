@@ -27,7 +27,7 @@ class PufferFish extends MovableObject {
     constructor(imagePath = 'assets/img/enemy/puffer-fish-swim-salmon-1.png') {
         super().loadImage(imagePath);
         this.loadImages(this.IMAGES_SWIMMING);
-        this.x = 200 + Math.random() * 500;
+        this.x = 200 + Math.random() * 2500;
         this.y = 30 + Math.random() * 400;
         this.speed = 0.15 + Math.random() * 0.20;
 

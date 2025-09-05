@@ -32,7 +32,7 @@ class JellyFish extends MovableObject {
     constructor(imagePath = 'assets/img/enemy/jelly-fish-yellow-1.png') {
         super().loadImage(imagePath);
         this.loadImages(this.IMAGES_SWIMMING);
-        this.x = 250 + Math.random() * 500;
+        this.x = 250 + Math.random() * 2500;
         this.y = 30 + Math.random() * 400;
         this.speed = 0.05 + Math.random() * 0.1;
         this.animate();
