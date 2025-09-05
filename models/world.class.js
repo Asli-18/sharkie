@@ -42,7 +42,7 @@ class World {
             }
         });
         this.level.coin.forEach((coin, index) => {
-            if (this.sharkie.isColliding(coin)) {
+            if (this.sharkie.isColliding(coin) && this.coinBar.percentage < 100) {
                 console.log('Sharkie collected coin');
                 this.sharkie.coin++;
                 // 1 Coin = 5 %
@@ -53,7 +53,7 @@ class World {
             }
         });
         this.level.poison_flask.forEach((flask, index) => {
-            if (this.sharkie.isColliding(flask)) {
+            if (this.sharkie.isColliding(flask) && this.poisonFlaskBar.percentage < 100) {
                 console.log('Sharkie collected poison flask');
                 this.sharkie.poison++;
                 // 1 Flasche = 5 %
