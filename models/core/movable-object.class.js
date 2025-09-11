@@ -113,4 +113,17 @@ class MovableObject extends DrawableObject {
         // this.otherDirection = false;
         // console.log("y koordinate: ", this.y);
     }
+
+    setVariant(variant) {
+        if (this.SWIMMING_VARIANTS[variant]) {
+            this.images = this.SWIMMING_VARIANTS[variant];
+        }
+    }
+
+    animation() {
+        let i = this.currentImage % this.images.length;
+        let path = this.images[i];
+        this.img = this.imageCache[path];
+        this.currentImage++;
+    }
 }

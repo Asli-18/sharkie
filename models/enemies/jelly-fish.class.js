@@ -28,25 +28,22 @@ class JellyFish extends MovableObject {
 
     constructor(variant = "yellowGreen") {
         super();
-        this.initJellyFish(variant);
+        this.init(variant);
     }
 
-    initJellyFish(variant) {
-        this.setVariant(variant);
+    init(variant) {
+        super.setVariant(variant);
         this.loadImages(this.images);
         this.setRandomPosition();
         this.setRandomSpeed();
         this.animate();
     }
 
-    setVariant(variant) {
-        // this.images = this.SWIMMG_VARIANTS[variant] || this.SWIMMG_VARIANTS.yellowGreen;
-        if (this.SWIMMING_VARIANTS[variant]) {
-            this.images = this.SWIMMING_VARIANTS[variant];
-        } else {
-            this.images = this.SWIMMING_VARIANTS.yellowGreen;
-        }
-    }
+    // setVariant(variant) {
+    //     if (this.SWIMMING_VARIANTS[variant]) {
+    //         this.images = this.SWIMMING_VARIANTS[variant];
+    //     } 
+    // }
 
     setRandomPosition() {
         this.x = 250 + Math.random() * 2500;
@@ -58,18 +55,18 @@ class JellyFish extends MovableObject {
     }
 
     animate() {
-        setInterval(() => this.animationJellyFish(), 250);
-        setInterval(() => this.moveJellyFish(), 1000 / 60);
+        setInterval(() => super.animation(), 250);
+        setInterval(() => this.move(), 1000 / 60);
     }
 
-    animationJellyFish() {
-        let i = this.currentImage % this.images.length;
-        let path = this.images[i];
-        this.img = this.imageCache[path];
-        this.currentImage++;
-    }
+    // animation() {
+    //     let i = this.currentImage % this.images.length;
+    //     let path = this.images[i];
+    //     this.img = this.imageCache[path];
+    //     this.currentImage++;
+    // }
 
-    moveJellyFish() {
+    move() {
         this.y += this.speed * this.direction;
         if (this.y > 400 || this.y < 50) {
             this.direction *= -1;
