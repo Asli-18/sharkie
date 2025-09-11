@@ -84,6 +84,7 @@ class MovableObject extends DrawableObject {
         }, 1000 / 60);
     }
 
+    // animation for sharkie
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
@@ -120,6 +121,7 @@ class MovableObject extends DrawableObject {
         }
     }
 
+    // animation for jelly fish and pufferfish
     animation() {
         let i = this.currentImage % this.images.length;
         let path = this.images[i];
