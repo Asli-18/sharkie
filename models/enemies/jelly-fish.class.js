@@ -3,7 +3,7 @@ class JellyFish extends MovableObject {
     height = 50;
     speed = 0.05;
     direction = 1;
-    VARIANTS = {
+    SWIMMING_VARIANTS = {
         yellowGreen: [
             'assets/img/enemy/jelly-fish-yellow-1.png',
             'assets/img/enemy/jelly-fish-yellow-2.png',
@@ -40,11 +40,11 @@ class JellyFish extends MovableObject {
     }
 
     setVariant(variant) {
-        // this.images = this.VARIANTS[variant] || this.VARIANTS.yellowGreen;
-        if (this.VARIANTS[variant]) {
-            this.images = this.VARIANTS[variant];
+        // this.images = this.SWIMMG_VARIANTS[variant] || this.SWIMMG_VARIANTS.yellowGreen;
+        if (this.SWIMMING_VARIANTS[variant]) {
+            this.images = this.SWIMMING_VARIANTS[variant];
         } else {
-            this.images = this.VARIANTS.yellowGreen;
+            this.images = this.SWIMMING_VARIANTS.yellowGreen;
         }
     }
 
