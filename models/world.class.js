@@ -126,6 +126,7 @@ class World {
         }
         movebleObject.draw(this.ctx);
         movebleObject.drawFrame(this.ctx);
+        // movebleObject.drawHitbox(this.ctx);
         movebleObject.drawCollisionBorder(this.ctx);
         if (movebleObject.otherDirection) {
             this.flipImageBack(movebleObject);

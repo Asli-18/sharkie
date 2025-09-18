@@ -27,8 +27,17 @@ class DrawableObject {
         }
     }
 
+    // drawHitbox(ctx) {
+    //     const hitbox = { x: this.x, y: this.y, width: this.width, height: this.height };
+    //     ctx.beginPath();
+    //     ctx.lineWidth = 2;
+    //     ctx.strokeStyle = 'blue';
+    //     ctx.rect(hitbox.x, hitbox.y, hitbox.width, hitbox.height);
+    //     ctx.stroke();
+    // }
+
     drawCollisionBorder(ctx) {
-        if ( this instanceof Sharkie || this instanceof JellyFish || this instanceof PufferFish || this instanceof Whale) {
+        if (this instanceof Sharkie || this instanceof JellyFish || this instanceof PufferFish || this instanceof Whale) {
             ctx.beginPath();
             ctx.lineWidth = 2;
             ctx.strokeStyle = 'yellow';

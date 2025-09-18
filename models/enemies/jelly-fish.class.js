@@ -3,6 +3,8 @@ class JellyFish extends MovableObject {
     height = 50;
     speed = 0.05;
     direction = 1;
+    isDead = false;
+    energy = 5;
     SWIMMING_VARIANTS = {
         yellowGreen: [
             'assets/img/enemy/jelly-fish-yellow-1.png',
@@ -26,9 +28,35 @@ class JellyFish extends MovableObject {
         ]
     }
 
-    constructor(variant = "yellowGreen") {
+    DEAD_VARIANTS = {
+        yellowGreen: [
+            'assets/img/enemy/jelly-fish-dead-yellow-1.png',
+            'assets/img/enemy/jelly-fish-dead-yellow-2.png',
+            'assets/img/enemy/jelly-fish-dead-yellow-3.png',
+            'assets/img/enemy/jelly-fish-dead-yellow-4.png',
+            'assets/img/enemy/jelly-fish-dead-green-1.png',
+            'assets/img/enemy/jelly-fish-dead-green-2.png',
+            'assets/img/enemy/jelly-fish-dead-green-3.png',
+            'assets/img/enemy/jelly-fish-dead-green-4.png'
+        ],
+        lilaPink: [
+            'assets/img/enemy/jelly-fish-dead-lila-1.png',
+            'assets/img/enemy/jelly-fish-dead-lila-2.png',
+            'assets/img/enemy/jelly-fish-dead-lila-3.png',
+            'assets/img/enemy/jelly-fish-dead-lila-4.png',
+            'assets/img/enemy/jelly-fish-dead-pink-1.png',
+            'assets/img/enemy/jelly-fish-dead-pink-2.png',
+            'assets/img/enemy/jelly-fish-dead-pink-3.png',
+            'assets/img/enemy/jelly-fish-dead-pink-4.png'
+        ]
+    }
+
+    constructor(variant = "yellowGreen", world = null) {
         super();
+        this.world = world;
+        this.variant = variant;
         this.init(variant);
+
     }
 
     init(variant) {
@@ -57,14 +85,45 @@ class JellyFish extends MovableObject {
     animate() {
         setInterval(() => super.animation(), 250);
         setInterval(() => this.move(), 1000 / 60);
+        // setInterval(() => {
+        //     if (this.isHurt()) {
+        //         this.loadImages(this.DEAD_VARIANTS);
+        //     }
+        // }, 120
+        // );
     }
 
-    // animation() {
-    //     let i = this.currentImage % this.images.length;
-    //     let path = this.images[i];
-    //     this.img = this.imageCache[path];
-    //     this.currentImage++;
-    // }
+
+    die() {
+        if (this.isDead) return;
+        this.isDead = true;
+        this.speed = 0;
+        this.images = this.DEAD_VARIANTS[this.variant];
+        this.currentImage = 0;
+        this.loadImages(this.images);
+        let frame = 0;
+        const deathAnimationInterval = setInterval(() => {
+            if (frame < this.images.length) {
+                this.currentImage = frame;
+                frame++;
+            } else {
+                clearInterval(deathAnimationInterval);
+                const floatUpInterval = setInterval(() => {
+                    if (this.y > 0) {
+                        this.y -= 3.5;
+                    } else {
+                        clearInterval(floatUpInterval);
+                        if (this.world && this.world.level && this.world.level.enemies) {
+                            const idx = this.world.level.enemies.indexOf(this);
+                            if (idx > -1) {
+                                this.world.level.enemies.splice(idx, 1);
+                            }
+                        }
+                    }
+                }, 1000 / 60);
+            }
+        }, 100);
+    }
 
     move() {
         this.y += this.speed * this.direction;

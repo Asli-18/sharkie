@@ -129,7 +129,7 @@ class Sharkie extends MovableObject {
         'assets/img/sharkie/sharkie-attack-bubble-trap-with-bubble-formation-7.png',
         'assets/img/sharkie/sharkie-attack-bubble-trap-with-bubble-formation-8.png'
     ];
-// sharkie-attack-fin-slap-1
+    // sharkie-attack-fin-slap-1
     IMAGES_ATTACK_FIN_SLAP = [
         'assets/img/sharkie/sharkie-attack-fin-slap-1.png',
         'assets/img/sharkie/sharkie-attack-fin-slap-2.png',
@@ -223,9 +223,9 @@ class Sharkie extends MovableObject {
                 this.playAnimation(this.IMAGES_ATTACK_WHITE_BUBBLES);
                 this.lastKeyPress = Date.now();
             }
-            else if(this.world.keyboard.F){
-                this.playAnimation(this.IMAGES_ATTACK_FIN_SLAP);
-                this.lastKeyPress = Date.now(); //setzt letzten tastenschlag zurück
+            else if (this.world.keyboard.F) {
+                this.finSlapAttack();
+                this.lastKeyPress = Date.now();
             }
             else if (this.isAboveGround()) {
                 if (idleTime < 1000) {
@@ -254,5 +254,38 @@ class Sharkie extends MovableObject {
 
         }, 120);
     }
+    
+    finSlapAttack() {
+        this.playAnimation(this.IMAGES_ATTACK_FIN_SLAP);
+
+        let hitbox = {
+            x: this.otherDirection
+                ? this.x - 60
+                : this.x + this.width,
+            y: this.y + this.height / 3,
+            width: 60,
+            height: this.height / 2
+        };
+        // this.drawHitbox(this.world.ctx, hitbox);
+        this.world.level.enemies.forEach(enemy => {
+            if (enemy instanceof JellyFish && this.isCollidingWithHitbox(hitbox, enemy)) {
+                enemy.hit();
+                if (enemy.energy <= 0) {
+                    enemy.die(enemy.variant);
+                    console.log("Jellyfish wurde mit Fin Slap besiegt!");
+                }
+            }
+        });
+    }
+
+    isCollidingWithHitbox(hitbox, enemy) {
+        return (
+            hitbox.x < enemy.x + enemy.width &&
+            hitbox.x + hitbox.width > enemy.x &&
+            hitbox.y < enemy.y + enemy.height &&
+            hitbox.y + hitbox.height > enemy.y
+        );
+    }
+
 
 }
