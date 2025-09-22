@@ -32,7 +32,7 @@ class World {
             this.checkCollisionPoisonFlasks();
             this.checkAirBubbles();
             this.checkPoisonBubbles();
-
+            this.checkCollisionAirBubbles();
         }, 200);
     }
 
@@ -100,8 +100,6 @@ class World {
         }
     }
 
-
-
     spawnBubble(type) {
         if (type === "air") {
             const airBubble = new AirBubbles(this.sharkie.x + 180, this.sharkie.y + 90);
@@ -113,6 +111,14 @@ class World {
             this.poisonBubbles.push(poisonBubble);
             console.log('Poison Bubble');
         }
+    }
+
+    checkCollisionAirBubbles(){
+        this.level.enemies.forEach((enemy) => {
+            if(this.level.airBubbles.isColliding(enemy)){
+                this.enemy.isDead();
+            }
+        })
     }
 
     draw() {
