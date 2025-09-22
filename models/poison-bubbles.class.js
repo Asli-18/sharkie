@@ -1,10 +1,7 @@
 class PoisonBubbles extends ThrowableObject {
-    IMAGE = [
-        'assets/img/sharkie/green-bubble.png'
-    ];
-
+    
     constructor(x, y) {
-        super().loadImage(this.IMAGE);
+        super().loadImage('assets/img/sharkie/green-bubble.png');
         this.x = x;
         this.y = y;
         this.height = 35;
