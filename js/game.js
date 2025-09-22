@@ -58,9 +58,11 @@ window.addEventListener('keyup', (event) => {
     }
     if (event.keyCode == 87) {
         keyboard.W = false;
+        keyboard.canShootW = true;
     }
     if (event.keyCode == 69) {
         keyboard.E = false;
+        keyboard.canShootE = true;
     }
     if (event.keyCode == 70) {
         keyboard.F = false;
