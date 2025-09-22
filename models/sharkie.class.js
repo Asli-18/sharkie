@@ -107,27 +107,15 @@ class Sharkie extends MovableObject {
         'assets/img/sharkie/sharkie-dead-poisoned-without-rising-11.png',
         'assets/img/sharkie/sharkie-dead-poisoned-without-rising-12.png'
     ];
-    // sharkie-attack-bubble-trap-for-whale-green-bubble-1
-    IMAGES_ATTACK_GREEN_BUBBLES = [
-        'assets/img/sharkie/sharkie-attack-bubble-trap-for-whale-green-bubble-1.png',
-        'assets/img/sharkie/sharkie-attack-bubble-trap-for-whale-green-bubble-2.png',
-        'assets/img/sharkie/sharkie-attack-bubble-trap-for-whale-green-bubble-3.png',
-        'assets/img/sharkie/sharkie-attack-bubble-trap-for-whale-green-bubble-4.png',
-        'assets/img/sharkie/sharkie-attack-bubble-trap-for-whale-green-bubble-5.png',
-        'assets/img/sharkie/sharkie-attack-bubble-trap-for-whale-green-bubble-6.png',
-        'assets/img/sharkie/sharkie-attack-bubble-trap-for-whale-green-bubble-7.png',
-        'assets/img/sharkie/sharkie-attack-bubble-trap-for-whale-green-bubble-8.png'
-    ];
-    // sharkie-attack-bubble-trap-with-bubble-formation-1
-    IMAGES_ATTACK_WHITE_BUBBLES = [
-        'assets/img/sharkie/sharkie-attack-bubble-trap-with-bubble-formation-1.png',
-        'assets/img/sharkie/sharkie-attack-bubble-trap-with-bubble-formation-2.png',
-        'assets/img/sharkie/sharkie-attack-bubble-trap-with-bubble-formation-3.png',
-        'assets/img/sharkie/sharkie-attack-bubble-trap-with-bubble-formation-4.png',
-        'assets/img/sharkie/sharkie-attack-bubble-trap-with-bubble-formation-5.png',
-        'assets/img/sharkie/sharkie-attack-bubble-trap-with-bubble-formation-6.png',
-        'assets/img/sharkie/sharkie-attack-bubble-trap-with-bubble-formation-7.png',
-        'assets/img/sharkie/sharkie-attack-bubble-trap-with-bubble-formation-8.png'
+
+    IMAGES_ATTACK_BUBBLE = [
+        'assets/img/sharkie/sharkie-attack-bubble-trap-without-bubble-1.png',
+        'assets/img/sharkie/sharkie-attack-bubble-trap-without-bubble-2.png',
+        'assets/img/sharkie/sharkie-attack-bubble-trap-without-bubble-3.png',
+        'assets/img/sharkie/sharkie-attack-bubble-trap-without-bubble-4.png',
+        'assets/img/sharkie/sharkie-attack-bubble-trap-without-bubble-5.png',
+        'assets/img/sharkie/sharkie-attack-bubble-trap-without-bubble-6.png',
+        'assets/img/sharkie/sharkie-attack-bubble-trap-without-bubble-7.png'
     ];
     // sharkie-attack-fin-slap-1
     IMAGES_ATTACK_FIN_SLAP = [
@@ -146,6 +134,9 @@ class Sharkie extends MovableObject {
 
     coin = 0;
     poison = 0;
+
+    shootingBubble = false;
+    shootType = null;
 
     constructor() {
         super().loadImage('assets/img/sharkie/sharkie-swim-1.png');
@@ -167,8 +158,7 @@ class Sharkie extends MovableObject {
         this.loadImages(this.IMAGES_DEAD_WITHOUT_RISING);
         this.loadImages(this.IMAGES_HURT_POISONED);
         this.loadImages(this.IMAGES_HURT_ELECTRIC);
-        this.loadImages(this.IMAGES_ATTACK_GREEN_BUBBLES);
-        this.loadImages(this.IMAGES_ATTACK_WHITE_BUBBLES);
+        this.loadImages(this.IMAGES_ATTACK_BUBBLE);
         this.loadImages(this.IMAGES_ATTACK_FIN_SLAP);
         this.animate();
     }
@@ -215,12 +205,8 @@ class Sharkie extends MovableObject {
                 this.playAnimation(this.IMAGES_SWIMMING);
                 this.lastKeyPress = Date.now();
             }
-            else if (this.world.keyboard.E) {
-                this.playAnimation(this.IMAGES_ATTACK_GREEN_BUBBLES);
-                this.lastKeyPress = Date.now();
-            }
-            else if (this.world.keyboard.W) {
-                this.playAnimation(this.IMAGES_ATTACK_WHITE_BUBBLES);
+            else if (this.world.keyboard.E || this.world.keyboard.W) {
+                this.shootBubble();
                 this.lastKeyPress = Date.now();
             }
             else if (this.world.keyboard.F) {
@@ -242,19 +228,10 @@ class Sharkie extends MovableObject {
                     console.log("sleep");
                 }
             }
-
             // this.playAnimation(this.IMAGES_IDLE_SHORT);
-
-
-
-
-
-
-
-
         }, 120);
     }
-    
+
     finSlapAttack() {
         this.playAnimation(this.IMAGES_ATTACK_FIN_SLAP);
 
@@ -287,5 +264,15 @@ class Sharkie extends MovableObject {
         );
     }
 
-
+    shootBubble(callback) {
+        this.playAnimation(this.IMAGES_ATTACK_BUBBLE, 60);
+        const animationDuration = this.IMAGES_ATTACK_BUBBLE.length * 60;
+        setTimeout(() => {
+            if (typeof callback === 'function') {
+                callback();
+            } else {
+                console.warn('Sharkie No callback provided, skipping bubble spawn');
+            }
+        }, animationDuration);
+    }
 }

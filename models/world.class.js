@@ -27,12 +27,14 @@ class World {
 
     run() {
         setInterval(() => {
-            this.checkCollisions();
+            this.checkCollisionEnemies();
+            this.checkCollisionCoins();
+            this.checkCollisionPoisonFlasks();
             this.checkBubbles();
         }, 200);
     }
 
-    checkCollisions() {
+    checkCollisionEnemies() {
         this.level.enemies.forEach((enemy) => {
             if (this.sharkie.isColliding(enemy)) {
                 console.log('Collision with Enemy: ', enemy);
@@ -41,6 +43,8 @@ class World {
                 this.healthBar.setPercentage(this.sharkie.energy);
             }
         });
+    }
+    checkCollisionCoins() {
         this.level.coin.forEach((coin, index) => {
             if (this.sharkie.isColliding(coin) && this.coinBar.percentage < 100) {
                 console.log('Sharkie collected coin');
@@ -52,6 +56,9 @@ class World {
                 this.level.coin.splice(index, 1);
             }
         });
+    }
+
+    checkCollisionPoisonFlasks() {
         this.level.poison_flask.forEach((flask, index) => {
             if (this.sharkie.isColliding(flask) && this.poisonFlaskBar.percentage < 100) {
                 console.log('Sharkie collected poison flask');
@@ -66,13 +73,44 @@ class World {
     }
 
     checkBubbles() {
-        if (this.keyboard.W) {
-            let air_bubbles = new AirBubbles(this.sharkie.x + 200, this.sharkie.y + 100);
-            this.airBubbles.push(air_bubbles);
+        if (this.keyboard.W && this.keyboard.canShootW) {
+            console.log('[World] W pressed and canShootW = true');
+            this.keyboard.canShootW = false;
+
+            this.sharkie.shootBubble(() => {
+                console.log('[World] Spawning Air Bubble');
+                this.spawnBubble("air");
+                setTimeout(() => {
+                    this.keyboard.canShootW = true;
+                    console.log('[World] canShootW reset to true');
+                }, 300);
+            });
         }
-        if (this.keyboard.E) {
-            let poison_bubbles = new PoisonBubbles(this.sharkie.x + 200, this.sharkie.y + 100);
-            this.poisonBubbles.push(poison_bubbles);
+        if (this.keyboard.E && this.keyboard.canShootE) {
+            console.log('[World] E pressed and canShootE = true');
+            this.keyboard.canShootE = false;
+
+            this.sharkie.shootBubble(() => {
+                console.log('[World] Spawning Poison Bubble');
+                this.spawnBubble("poison");
+                setTimeout(() => {
+                    this.keyboard.canShootE = true;
+                    console.log('[World] canShootE reset to true');
+                }, 300);
+            });
+        }
+    }
+
+    spawnBubble(type) {
+        if (type === "air") {
+            const airBubble = new AirBubbles(this.sharkie.x + 180, this.sharkie.y + 90);
+            this.airBubbles.push(airBubble);
+            console.log('Air Bubble');
+        }
+        if (type === "poison") {
+            const poisonBubble = new PoisonBubbles(this.sharkie.x + 180, this.sharkie.y + 90);
+            this.poisonBubbles.push(poisonBubble);
+            console.log('Poison Bubble');
         }
     }
 
@@ -144,6 +182,4 @@ class World {
         movebleObject.x = movebleObject.x * -1;
         this.ctx.restore();
     }
-
-
 }
