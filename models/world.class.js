@@ -32,6 +32,7 @@ class World {
             this.checkCollisionPoisonFlasks();
             this.checkAirBubbles();
             this.checkPoisonBubbles();
+
         }, 200);
     }
 
@@ -73,6 +74,19 @@ class World {
         });
     }
 
+    checkAirBubbles() {
+        if (this.keyboard.W && this.keyboard.canShootW) {
+            this.keyboard.canShootW = false;
+            this.sharkie.shootBubble(() => {
+                console.log('Spawning Air Bubble');
+                this.spawnBubble("air");
+                setTimeout(() => {
+                    this.keyboard.canShootW = true;
+                }, 300);
+            });
+        }
+    }
+
     checkPoisonBubbles() {
         if (this.keyboard.E && this.keyboard.canShootE) {
             this.keyboard.canShootE = false;
@@ -86,18 +100,7 @@ class World {
         }
     }
 
-    checkAirBubbles() {
-        if (this.keyboard.W && this.keyboard.canShootW) {
-            this.keyboard.canShootW = false;
-            this.sharkie.shootBubble(() => {
-                console.log('Spawning Air Bubble');
-                this.spawnBubble("air");
-                setTimeout(() => {
-                    this.keyboard.canShootW = true;
-                }, 300);
-            });
-        }
-    }
+
 
     spawnBubble(type) {
         if (type === "air") {
