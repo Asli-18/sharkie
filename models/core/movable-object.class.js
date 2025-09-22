@@ -128,4 +128,49 @@ class MovableObject extends DrawableObject {
         this.img = this.imageCache[path];
         this.currentImage++;
     }
+
+    die() {
+        if (this.isDead) return;
+        this.isDead = true;
+        this.speed = 0;
+
+        this.images = this.DEAD_VARIANTS[this.variant];
+        this.currentImage = 0;
+        this.loadImages(this.images);
+        this.playDeathAnimation(() => {
+            this.floatUpAndRemove();
+        });
+    }
+
+    playDeathAnimation(callback) {
+        let frame = 0;
+        const interval = setInterval(() => {
+            if (frame < this.images.length) {
+                this.currentImage = frame;
+                frame++;
+            } else {
+                clearInterval(interval);
+                if (callback) callback();
+            }
+        }, 100);
+    }
+
+    floatUpAndRemove() {
+        const interval = setInterval(() => {
+            if (this.y > 0) {
+                this.y -= 3.5;
+            } else {
+                clearInterval(interval);
+                this.removeFromWorld();
+            }
+        }, 1000 / 60);
+    }
+
+    removeFromWorld() {
+        if (this.world.level.enemies) {
+            const index = this.world.level.enemies.indexOf(this);
+            if (index > -1) this.world.level.enemies.splice(index, 1);
+        }
+    }
+
 }

@@ -4,7 +4,7 @@ class JellyFish extends MovableObject {
     speed = 0.05;
     direction = 1;
     isDead = false;
-    energy = 5;
+    energy = 15;
     SWIMMING_VARIANTS = {
         yellowGreen: [
             'assets/img/enemy/jelly-fish-yellow-1.png',
@@ -91,38 +91,6 @@ class JellyFish extends MovableObject {
         //     }
         // }, 120
         // );
-    }
-
-
-    die() {
-        if (this.isDead) return;
-        this.isDead = true;
-        this.speed = 0;
-        this.images = this.DEAD_VARIANTS[this.variant];
-        this.currentImage = 0;
-        this.loadImages(this.images);
-        let frame = 0;
-        const deathAnimationInterval = setInterval(() => {
-            if (frame < this.images.length) {
-                this.currentImage = frame;
-                frame++;
-            } else {
-                clearInterval(deathAnimationInterval);
-                const floatUpInterval = setInterval(() => {
-                    if (this.y > 0) {
-                        this.y -= 3.5;
-                    } else {
-                        clearInterval(floatUpInterval);
-                        if (this.world && this.world.level && this.world.level.enemies) {
-                            const idx = this.world.level.enemies.indexOf(this);
-                            if (idx > -1) {
-                                this.world.level.enemies.splice(idx, 1);
-                            }
-                        }
-                    }
-                }, 1000 / 60);
-            }
-        }, 100);
     }
 
     move() {
