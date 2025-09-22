@@ -7,4 +7,8 @@ class Keyboard{
     W = false;
     E = false;
     F = false;
+
+    // key limit to fire only one bubble
+    canShootW = true;
+    canShootE = true;
 }
