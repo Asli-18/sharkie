@@ -245,11 +245,11 @@ class Sharkie extends MovableObject {
         };
         // this.drawHitbox(this.world.ctx, hitbox);
         this.world.level.enemies.forEach(enemy => {
-            if (enemy instanceof JellyFish && this.isCollidingWithHitbox(hitbox, enemy)) {
+            if (enemy instanceof JellyFish && this.isCollidingWithHitbox(hitbox, enemy) || enemy instanceof PufferFish && this.isCollidingWithHitbox(hitbox, enemy)) {
                 enemy.hit();
                 if (enemy.energy <= 0) {
                     enemy.die(enemy.variant);
-                    console.log("Jellyfish wurde mit Fin Slap besiegt!");
+                    console.log("die - fin slap");
                 }
             }
         });
