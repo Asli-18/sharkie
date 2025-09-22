@@ -1,6 +1,9 @@
 class PufferFish extends MovableObject {
     width = 50;
     height = 50;
+    energy = 15;
+
+    isDead = false;
 
     SWIMMING_VARIANTS = {
         salmonPink: [
@@ -71,8 +74,27 @@ class PufferFish extends MovableObject {
         ]
     }
 
+    DEAD_VARIANTS = {
+        salmonPink: [
+            'assets/img/enemy/puffer-fish-dead-salmon-1.png',
+            'assets/img/enemy/puffer-fish-dead-salmon-2.png',
+            'assets/img/enemy/puffer-fish-dead-salmon-3.png'
+        ],
+        greenSalmon: [
+            'assets/img/enemy/puffer-fish-dead-green-1.png',
+            'assets/img/enemy/puffer-fish-dead-green-2.png',
+            'assets/img/enemy/puffer-fish-dead-green-3.png'
+        ],
+        pinkGreen: [
+            'assets/img/enemy/puffer-fish-dead-pink-1.png',
+            'assets/img/enemy/puffer-fish-dead-pink-2.png',
+            'assets/img/enemy/puffer-fish-dead-pink-3.png'
+        ]
+    }
+
     constructor(variant = "salmonPink") {
         super();
+        this.variant = variant;
         this.init(variant);
     }
 
