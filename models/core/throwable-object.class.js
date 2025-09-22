@@ -1,15 +1,14 @@
 class ThrowableObject extends MovableObject {
 
-    constructor() {
+    constructor(x, y) {
         super();
-        this.x = 10;
-        this.y = 200;
+        this.x = x;
+        this.y = y;
         this.speedX = 1;
 
     }
 
     throw() {
-
         this.propelBubble();
     }
 
