@@ -23,7 +23,11 @@ class World {
 
     setWorld() {
         this.sharkie.world = this;
+        this.level.enemies.forEach(enemy => { enemy.world = this; });
+        this.airBubbles.forEach(bubble => bubble.world = this);
+        this.poisonBubbles.forEach(bubble => bubble.world = this);
     }
+
 
     run() {
         setInterval(() => {
@@ -33,6 +37,7 @@ class World {
             this.checkAirBubbles();
             this.checkPoisonBubbles();
             this.checkCollisionAirBubbles();
+            this.checkCollisionPoisonBubbles();
         }, 200);
     }
 
@@ -113,13 +118,36 @@ class World {
         }
     }
 
-    checkCollisionAirBubbles(){
-        this.level.enemies.forEach((enemy) => {
-            if(this.level.airBubbles.isColliding(enemy)){
-                this.enemy.isDead();
-            }
+    checkCollisionAirBubbles() {
+        this.airBubbles.forEach((bubble, bubbleIndex) => {
+            this.level.enemies.forEach((enemy, enemyIndex) => {
+                if (bubble.isColliding(enemy)) {
+                    enemy.die();
+                    this.airBubbles.splice(bubbleIndex, 1);
+                    console.log("die enemy - air bubble")
+                    // this.enemies.splice(enemyIndex, 1);
+                }
+            });
+        });
+    }
+
+    checkCollisionPoisonBubbles() {
+        console.log("world:", this.world);
+        console.log("level:", this.world?.level);
+        console.log("enemies:", this.world?.level?.enemies);
+
+        this.poisonBubbles.forEach((bubble, bubbleIndex) => {
+            this.level.enemies.forEach((enemy, enemyIndex) => {
+                if (bubble.isColliding(enemy)) {
+                    enemy.die();
+                    this.poisonBubbles.splice(bubbleIndex, 1);
+                    console.log("die enemy - poison bubble")
+                    // this.enemies.splice(enemyIndex, 1);
+                }
+            })
         })
     }
+
 
     draw() {
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
