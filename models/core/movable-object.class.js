@@ -75,7 +75,7 @@ class MovableObject extends DrawableObject {
     }
 
     isDead() {
-        return this.energy == 15;
+        return this.dead || this.energy <= 0;
     }
 
     animate() {
@@ -130,9 +130,9 @@ class MovableObject extends DrawableObject {
     }
 
     die() {
-        if (this.isDead) return;
-        this.isDead = true;
+        // if (this.isDead()) return;
         this.speed = 0;
+        this.dead = true;
 
         this.images = this.DEAD_VARIANTS[this.variant];
         this.currentImage = 0;
@@ -155,22 +155,34 @@ class MovableObject extends DrawableObject {
         }, 100);
     }
 
-    floatUpAndRemove() {
-        const interval = setInterval(() => {
-            if (this.y > 0) {
-                this.y -= 3.5;
-            } else {
-                clearInterval(interval);
-                this.removeFromWorld();
-            }
-        }, 1000 / 60);
-    }
-
-    removeFromWorld() {
-        if (this.world.level.enemies) {
-            const index = this.world.level.enemies.indexOf(this);
-            if (index > -1) this.world.level.enemies.splice(index, 1);
+floatUpAndRemove() {
+    console.log("floatUpAndRemove called");
+    const interval = setInterval(() => {
+        console.log("y =", this.y);
+        if (this.y > 0) {
+            this.y -= 3.5;
+        } else {
+            clearInterval(interval);
+            console.log("calling removeFromWorld()");
+            this.removeFromWorld();
         }
+    }, 1000 / 60);
+}
+
+
+ removeFromWorld() {
+    console.log("Removing from world:", this);
+    if (!this.world || !this.world.level || !this.world.level.enemies) return;
+
+    const index = this.world.level.enemies.indexOf(this);
+    console.log("Index in enemies array:", index);
+
+    if (index > -1) {
+        this.world.level.enemies.splice(index, 1);
+        console.log("Enemy removed!");
     }
+}
+
+
 
 }
