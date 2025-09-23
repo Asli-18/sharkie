@@ -92,8 +92,9 @@ class PufferFish extends MovableObject {
         ]
     }
 
-    constructor(variant = "salmonPink") {
+    constructor(variant = "salmonPink", world = null) {
         super();
+        this.world = world;
         this.variant = variant;
         this.init(variant);
     }
