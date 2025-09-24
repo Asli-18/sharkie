@@ -132,9 +132,7 @@ class World {
     }
 
     checkCollisionPoisonBubbles() {
-        console.log("world:", this.world);
-        console.log("level:", this.world?.level);
-        console.log("enemies:", this.world?.level?.enemies);
+
 
         this.poisonBubbles.forEach((bubble, bubbleIndex) => {
             this.level.enemies.forEach((enemy, enemyIndex) => {

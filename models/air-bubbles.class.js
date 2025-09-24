@@ -1,7 +1,8 @@
 class AirBubbles extends ThrowableObject {
 
     constructor(x, y) {
-        super().loadImage('assets/img/sharkie/white-bubble.png');
+        super();
+        this.loadImage('assets/img/sharkie/white-bubble.png');
         this.x = x;
         this.y = y;
         this.height = 30;
