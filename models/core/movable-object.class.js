@@ -128,7 +128,7 @@ class MovableObject extends DrawableObject {
         this.img = this.imageCache[path];
         this.currentImage++;
     }
-
+   
     die() {
         // if (this.isDead()) return;
         this.speed = 0;
@@ -148,40 +148,44 @@ class MovableObject extends DrawableObject {
             if (frame < this.images.length) {
                 this.currentImage = frame;
                 frame++;
+                console.log(this.images);
+                
             } else {
                 clearInterval(interval);
+                console.log("stopppt die Animation");
+                
                 if (callback) callback();
             }
         }, 100);
     }
 
-floatUpAndRemove() {
-    console.log("floatUpAndRemove called");
-    const interval = setInterval(() => {
-        console.log("y =", this.y);
-        if (this.y > 0) {
-            this.y -= 3.5;
-        } else {
-            clearInterval(interval);
-            console.log("calling removeFromWorld()");
-            this.removeFromWorld();
-        }
-    }, 1000 / 60);
-}
-
-
- removeFromWorld() {
-    console.log("Removing from world:", this);
-    if (!this.world || !this.world.level || !this.world.level.enemies) return;
-
-    const index = this.world.level.enemies.indexOf(this);
-    console.log("Index in enemies array:", index);
-
-    if (index > -1) {
-        this.world.level.enemies.splice(index, 1);
-        console.log("Enemy removed!");
+    floatUpAndRemove() {
+        console.log("floatUpAndRemove called");
+        const interval = setInterval(() => {
+            console.log("y =", this.y);
+            if (this.y > 0) {
+                this.y -= 3.5;
+            } else {
+                clearInterval(interval);
+                console.log("calling removeFromWorld()");
+                this.removeFromWorld();
+            }
+        }, 1000 / 60);
     }
-}
+
+
+    removeFromWorld() {
+        console.log("Removing from world:", this);
+        if (!this.world || !this.world.level || !this.world.level.enemies) return;
+
+        const index = this.world.level.enemies.indexOf(this);
+        console.log("Index in enemies array:", index);
+
+        if (index > -1) {
+            this.world.level.enemies.splice(index, 1);
+            console.log("Enemy removed!");
+        }
+    }
 
 
 
