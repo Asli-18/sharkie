@@ -1,10 +1,10 @@
 class ThrowableObject extends MovableObject {
 
-    constructor(x, y) {
+    constructor(x, y, otherDirection) {
         super();
         this.x = x;
         this.y = y;
-        this.speedX = 1;
+        this.speedX = this.checkDirection(otherDirection);
 
     }
 
@@ -12,5 +12,11 @@ class ThrowableObject extends MovableObject {
         this.propelBubble();
     }
 
-
+    checkDirection(otherDirection) {
+        if (otherDirection) {
+           return -5;
+        } else {
+            return 5;
+        }
+    }
 }
