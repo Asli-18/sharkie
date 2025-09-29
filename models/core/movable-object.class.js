@@ -6,6 +6,7 @@ class MovableObject extends DrawableObject {
     speedY = 0;
     acceleration = 2.5;
     lastHit = 0;
+    angle;
 
     offset = {
         top: 0,
@@ -105,12 +106,14 @@ class MovableObject extends DrawableObject {
     }
     swimUp() {
         this.y -= this.speed;
+        this.angle = -Math.PI / 6;
         // this.otherDirection = false;
         // console.log("y koordinate: ", this.y);
     }
 
     swimDown() {
         this.y += this.speed;
+        this.angle = Math.PI / 6;
         // this.otherDirection = false;
         // console.log("y koordinate: ", this.y);
     }
@@ -128,7 +131,7 @@ class MovableObject extends DrawableObject {
         this.img = this.imageCache[path];
         this.currentImage++;
     }
-   
+
     die() {
         // if (this.isDead()) return;
         this.speed = 0;
@@ -149,11 +152,11 @@ class MovableObject extends DrawableObject {
                 this.currentImage = frame;
                 frame++;
                 console.log(this.images);
-                
+
             } else {
                 clearInterval(interval);
                 console.log("stopppt die Animation");
-                
+
                 if (callback) callback();
             }
         }, 100);
