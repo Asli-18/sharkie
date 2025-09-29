@@ -83,40 +83,47 @@ class World {
         if (this.keyboard.W && this.keyboard.canShootW) {
             this.keyboard.canShootW = false;
             this.sharkie.shootBubble(() => {
-                console.log('Spawning Air Bubble');
                 this.spawnBubble("air");
-                setTimeout(() => {
-                    this.keyboard.canShootW = true;
-                }, 300);
+                setTimeout(() => this.keyboard.canShootW = true, 300);
             });
         }
     }
-
     checkPoisonBubbles() {
         if (this.keyboard.E && this.keyboard.canShootE) {
             this.keyboard.canShootE = false;
             this.sharkie.shootBubble(() => {
-                console.log('Spawning Poison Bubble');
                 this.spawnBubble("poison");
-                setTimeout(() => {
-                    this.keyboard.canShootE = true;
-                }, 300);
+                setTimeout(() => this.keyboard.canShootE = true, 300);
             });
         }
     }
 
     spawnBubble(type) {
+        if (this.sharkie.otherDirection) {
+            this.sharkie.otherDirection = false;
+            console.log("Sharkie darf nicht nach links schießen -> automatisch nach rechts gedreht");
+        }
         if (type === "air") {
             const airBubble = new AirBubbles(this.sharkie.x + 180, this.sharkie.y + 90);
             this.airBubbles.push(airBubble);
-            console.log('Air Bubble');
         }
         if (type === "poison") {
-            const poisonBubble = new PoisonBubbles(this.sharkie.x + 180, this.sharkie.y + 90);
-            this.poisonBubbles.push(poisonBubble);
-            console.log('Poison Bubble');
+            if (this.shouldDisplayPoisonFlaskBar()) {
+                const poisonBubble = new PoisonBubbles(this.sharkie.x + 180, this.sharkie.y + 90);
+                this.poisonBubbles.push(poisonBubble);
+                this.sharkie.world.poisonFlaskBar.setPercentage(this.sharkie.world.poisonFlaskBar.percentage - 10);
+            }
         }
     }
+
+    shouldDisplayPoisonFlaskBar() {
+        const world = this.sharkie.world;
+        return world &&
+            Array.isArray(world.poisonBubble) &&
+            world.poisonFlaskBar &&
+            world.poisonFlaskBar.percentage > 0;
+    }
+
 
     checkCollisionAirBubbles() {
         this.airBubbles.forEach((bubble, bubbleIndex) => {
