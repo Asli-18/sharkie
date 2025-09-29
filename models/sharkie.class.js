@@ -138,6 +138,10 @@ class Sharkie extends MovableObject {
     shootingBubble = false;
     shootType = null;
 
+    // false = rechts, true = links
+    otherDirection = false; 
+
+
     constructor() {
         super().loadImage('assets/img/sharkie/sharkie-swim-1.png');
 
@@ -168,10 +172,12 @@ class Sharkie extends MovableObject {
         setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.swimRight();
-                this.lastKeyPress = Date.now();  // Reset Timer
+                this.otherDirection = false;
+                this.lastKeyPress = Date.now();  
             }
             if (this.world.keyboard.LEFT && this.x > -1000) {
                 this.swimLeft();
+                this.otherDirection = true;
                 this.lastKeyPress = Date.now();
             }
             if (this.world.keyboard.UP && this.y > 50) {
