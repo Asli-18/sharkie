@@ -88,8 +88,9 @@ class World {
             });
         }
     }
+
     checkPoisonBubbles() {
-        if (this.keyboard.E && this.keyboard.canShootE) {
+        if (this.keyboard.E && this.keyboard.canShootE && this.poisonFlaskBar.percentage > 15) {
             this.keyboard.canShootE = false;
             this.sharkie.shootBubble(() => {
                 this.spawnBubble("poison");
@@ -119,7 +120,7 @@ class World {
     shouldDisplayPoisonFlaskBar() {
         const world = this.sharkie.world;
         return world &&
-            Array.isArray(world.poisonBubble) &&
+            Array.isArray(world.poisonBubbles) &&
             world.poisonFlaskBar &&
             world.poisonFlaskBar.percentage > 0;
     }
