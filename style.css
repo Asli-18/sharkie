@@ -122,12 +122,41 @@ h1 {
     font-size: larger;
 }
 
+.lose-screen {
+    position: absolute;
+    width: 850px;
+    height: 480px;
+    border-radius: 16px;
+    background: rgba(0, 0, 0, 0.651);
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 20;
+    text-align: center;
+}
+
+.lose-screen h1 {
+    font-size: 48px;
+    margin-bottom: 1rem;
+    color: #c3047f;
+}
+
+.lose-screen p {
+    font-size: 24px;
+    margin-bottom: 2rem;
+}
+
+.lose-screen .btn-wrapper {
+    display: flex;
+}
+
 button {
     background: none;
     border: none;
     cursor: pointer;
     font-family: 'LuckiestGuy';
-
     color: #c3047f;
 }
 

@@ -24,7 +24,14 @@ class HealthBar extends DrawableObject {
         this.percentage = percentage;
         let path = this.IMAGES_HEALT_BAR[this.resolveImageIndex()];
         this.img = this.imageCache[path];
+        console.log("HealthBar Percentage:", this.percentage);
+
+        if (this.percentage <= 0 && this.world) {
+            console.log("Game Over triggered!");
+            this.world.showLoseScreen();
+        }
     }
+
 
     resolveImageIndex() {
         if (this.percentage == 100) {

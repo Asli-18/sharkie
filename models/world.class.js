@@ -10,6 +10,8 @@ class World {
     poisonFlaskBar = new PoisonFlaskBar();
     airBubbles = [];
     poisonBubbles = [];
+    gameOver = false;
+    collisionInterval = null;
 
 
     constructor(canvas, keyboard) {
@@ -23,6 +25,10 @@ class World {
 
     setWorld() {
         this.sharkie.world = this;
+        this.healthBar.world = this;
+        this.coinBar.world = this;
+        this.poisonFlaskBar.world = this;
+
         this.level.enemies.forEach(enemy => { enemy.world = this; });
         this.airBubbles.forEach(bubble => bubble.world = this);
         this.poisonBubbles.forEach(bubble => bubble.world = this);
@@ -31,6 +37,7 @@ class World {
 
     run() {
         setInterval(() => {
+            if (this.gameOver) return;
             this.checkCollisionEnemies();
             this.checkCollisionCoins();
             this.checkCollisionPoisonFlasks();
@@ -156,8 +163,9 @@ class World {
 
 
     draw() {
-        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
+        if (this.gameOver) return;
 
+        this.ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         this.ctx.translate(this.camera_x, 0);
 
@@ -222,5 +230,13 @@ class World {
     flipImageBack(movebleObject) {
         movebleObject.x = movebleObject.x * -1;
         this.ctx.restore();
+    }
+
+    showLoseScreen() {
+        this.gameOver = true;
+        if (this.collisionInterval) {
+            clearInterval(this.collisionInterval);
+        }
+        document.getElementById("lose-screen").classList.remove("d-none");
     }
 }

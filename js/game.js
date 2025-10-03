@@ -132,8 +132,12 @@ function closeFullscreen() {
     }
 }
 
-
 function toggleInfoScreen() {
     const infoBtn = document.getElementById('info-screen-wrapper');
     infoBtn.classList.toggle('d-none');
+}
+
+function backToMenu() {
+    document.getElementById("lose-screen").classList.add("d-none");
+    document.getElementById("start-screen").classList.remove("d-none");
 }
