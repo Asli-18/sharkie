@@ -8,6 +8,7 @@ class World {
     healthBar = new HealthBar();
     coinBar = new CoinBar();
     poisonFlaskBar = new PoisonFlaskBar();
+    endbossHealthbar = new EndbossHealthBar();
     airBubbles = [];
     poisonBubbles = [];
     gameOver = false;
@@ -45,6 +46,12 @@ class World {
             this.checkPoisonBubbles();
             this.checkCollisionAirBubbles();
             this.checkCollisionPoisonBubbles();
+
+            this.level.enemies.forEach(enemy => {
+                if (enemy instanceof Whale) {
+                    enemy.update(this.sharkie);
+                }
+            });
         }, 200);
     }
 
@@ -147,20 +154,20 @@ class World {
     }
 
     checkCollisionPoisonBubbles() {
-
-
         this.poisonBubbles.forEach((bubble, bubbleIndex) => {
             this.level.enemies.forEach((enemy, enemyIndex) => {
                 if (bubble.isColliding(enemy)) {
-                    enemy.die();
+                    if (enemy instanceof Whale) {
+                        enemy.takeDamage(5);
+                        console.log("Endboss energie:", enemy.energy);
+                    } else {
+                        enemy.die();
+                    }
                     this.poisonBubbles.splice(bubbleIndex, 1);
-                    console.log("die enemy - poison bubble")
-                    // this.enemies.splice(enemyIndex, 1);
                 }
-            })
-        })
+            });
+        });
     }
-
 
     draw() {
         if (this.gameOver) return;
@@ -190,6 +197,7 @@ class World {
         this.addToMap(this.healthBar);
         this.addToMap(this.coinBar);
         this.addToMap(this.poisonFlaskBar);
+        this.addToMap(this.endbossHealthbar);
 
         let self = this;
         requestAnimationFrame(function () {
