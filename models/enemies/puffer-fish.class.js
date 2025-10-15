@@ -108,7 +108,7 @@ class PufferFish extends MovableObject {
     }
 
     setRandomPosition() {
-        this.x = 200 + Math.random() * 2500;
+        this.x = 200 + Math.random() * 1800;
         this.y = 30 + Math.random() * 400;
     }
 

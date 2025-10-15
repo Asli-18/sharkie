@@ -74,8 +74,8 @@ class JellyFish extends MovableObject {
     // }
 
     setRandomPosition() {
-        this.x = 250 + Math.random() * 2500;
-        this.y = 30 + Math.random() * 400;
+        this.x = 250 + Math.random() * 1800;
+        this.y = 30 + Math.random() * 350;
     }
 
     setRandomSpeed() {
