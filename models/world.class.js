@@ -83,12 +83,12 @@ class World {
         this.level.poison_flask.forEach((flask, index) => {
             if (this.sharkie.isColliding(flask) && this.poisonFlaskBar.percentage < 100) {
                 console.log('Sharkie collected poison flask');
-                this.sharkie.poison++;
-                // 1 Flasche = 5 %
-                let percentage = this.sharkie.poison * 5;
+
+                this.level.poison_flask.splice(index, 1);
+
+                let percentage = this.poisonFlaskBar.percentage + 5;
                 if (percentage > 100) percentage = 100;
                 this.poisonFlaskBar.setPercentage(percentage);
-                this.level.poison_flask.splice(index, 1);
             }
         });
     }
@@ -104,12 +104,19 @@ class World {
     }
 
     checkPoisonBubbles() {
-        if (this.keyboard.E && this.keyboard.canShootE && this.poisonFlaskBar.percentage > 15) {
+        if (this.keyboard.E && this.keyboard.canShootE && this.poisonFlaskBar.percentage >= 5) {
             this.keyboard.canShootE = false;
             this.sharkie.shootBubble(() => {
                 this.spawnBubble("poison");
+
+                let percentage = this.poisonFlaskBar.percentage - 5;
+                if (percentage < 0) percentage = 0;
+                this.poisonFlaskBar.setPercentage(percentage);
+
                 setTimeout(() => this.keyboard.canShootE = true, 300);
             });
+        } else if (this.keyboard.E && this.keyboard.canShootE) {
+            console.log("Nicht genug Poison-Energie, um Bubble zu schießen", this.poisonFlaskBar.percentage);
         }
     }
 

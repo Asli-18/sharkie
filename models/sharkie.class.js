@@ -139,7 +139,7 @@ class Sharkie extends MovableObject {
     shootType = null;
 
     // false = rechts, true = links
-    otherDirection = false; 
+    otherDirection = false;
 
 
     constructor() {
@@ -173,7 +173,7 @@ class Sharkie extends MovableObject {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.swimRight();
                 this.otherDirection = false;
-                this.lastKeyPress = Date.now();  
+                this.lastKeyPress = Date.now();
             }
             if (this.world.keyboard.LEFT && this.x > -1000) {
                 this.swimLeft();
@@ -197,6 +197,7 @@ class Sharkie extends MovableObject {
 
             if (this.isDead()) {
                 this.playAnimation(this.IMAGES_DEAD_ELECTRO_SHOCK);
+                this.poisonFlaskBar.setPercentage(0);
             }
 
             else if (this.isHurt()) {
@@ -281,4 +282,12 @@ class Sharkie extends MovableObject {
             }
         }, animationDuration);
     }
+
+    resetPoison() {
+        this.poison = 0;
+        if (this.world && this.world.poisonFlaskBar) {
+            this.world.poisonFlaskBar.setPercentage(0);
+        }
+    }
+
 }
