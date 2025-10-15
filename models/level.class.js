@@ -6,7 +6,7 @@ class Level {
     coin;
     air_bubbles;
     poison_bubbles;
-    level_end_x = 2880;
+    level_end_x = 4200;
 
     constructor(lights, backgrounds, enemies, poison_flask, coin, air_bubbles, poison_bubbles) {
         this.lights = lights;
