@@ -23,6 +23,10 @@ const level_one = new Level(
         new Seabed(2880, 0),
         new Light(2880, 0),
 
+        new Water(4320, 0),
+        new SeaBackground(4320, 0),
+        new Seabed(4320, 0),
+        new Light(4320, 0),
     ],
     [
         new JellyFish("lilaPink"),
@@ -31,19 +35,21 @@ const level_one = new Level(
         new JellyFish("lilaPink"),
         new PufferFish("pinkGreen"),
         new PufferFish("greenSalmon"),
-        new JellyFish(),
         new PufferFish("pinkGreen"),
         new JellyFish("lilaPink"),
         new JellyFish(),
-        new PufferFish("pinkGreen"),
-        new PufferFish("greenSalmon"),
-        new JellyFish(),
-        new PufferFish("greenSalmon"),
-        new JellyFish("lilaPink"),
-        new JellyFish("lilaPink"),
-        new PufferFish("pinkGreen"),
         new PufferFish("greenSalmon"),
         new Whale()
+        // new JellyFish(),
+        // new PufferFish("pinkGreen"),
+        // new PufferFish("greenSalmon"),
+        // new JellyFish(),
+
+        // new JellyFish("lilaPink"),
+        // new JellyFish("lilaPink"),
+        // new PufferFish("pinkGreen"),
+        // new PufferFish("greenSalmon"),
+
     ],
     [
         new PoisonFlask(300, 410),
@@ -73,6 +79,24 @@ const level_one = new Level(
         new PoisonFlask(2000, 165),
         new PoisonFlask(1960, 270),
         new PoisonFlask(2000, 235),
+
+        // new PoisonFlask(2400, 210),// 1900
+        // new PoisonFlask(2440, 210),// 1940
+        // new PoisonFlask(2480, 210),// 1980
+        // new PoisonFlask(2540, 210),// 2040
+        // new PoisonFlask(2460, 140),// 1960
+        // new PoisonFlask(2500, 175),// 2000
+        // new PoisonFlask(2460, 280),// 1960
+        // new PoisonFlask(2500, 245),// 2000
+
+        new PoisonFlask(2900, 210),// 1900
+        new PoisonFlask(2940, 210),// 1940
+        new PoisonFlask(2980, 210),// 1980
+        new PoisonFlask(3040, 210),// 2040
+        new PoisonFlask(2960, 140),// 1960
+        new PoisonFlask(3000, 175),// 2000
+        new PoisonFlask(2960, 280),// 1960
+        new PoisonFlask(3000, 245),// 2000
     ],
     [
         new Coin(150, 400),
