@@ -29,12 +29,13 @@ class World {
         this.healthBar.world = this;
         this.coinBar.world = this;
         this.poisonFlaskBar.world = this;
+        this.endbossHealthbar.world = this;
 
+        this.whale = this.level.enemies.find(enemy => enemy instanceof Whale);
         this.level.enemies.forEach(enemy => { enemy.world = this; });
         this.airBubbles.forEach(bubble => bubble.world = this);
         this.poisonBubbles.forEach(bubble => bubble.world = this);
     }
-
 
     run() {
         setInterval(() => {
@@ -146,15 +147,16 @@ class World {
             world.poisonFlaskBar.percentage > 0;
     }
 
-
     checkCollisionAirBubbles() {
         this.airBubbles.forEach((bubble, bubbleIndex) => {
-            this.level.enemies.forEach((enemy, enemyIndex) => {
+            this.level.enemies.forEach((enemy) => {
                 if (bubble.isColliding(enemy)) {
-                    enemy.die();
+                    if (enemy instanceof Whale) {
+                        enemy.takeDamage(1);
+                    } else {
+                        enemy.die();
+                    }
                     this.airBubbles.splice(bubbleIndex, 1);
-                    console.log("die enemy - air bubble")
-                    // this.enemies.splice(enemyIndex, 1);
                 }
             });
         });
@@ -165,8 +167,7 @@ class World {
             this.level.enemies.forEach((enemy, enemyIndex) => {
                 if (bubble.isColliding(enemy)) {
                     if (enemy instanceof Whale) {
-                        enemy.takeDamage(5);
-                        console.log("Endboss energie:", enemy.energy);
+                        enemy.takeDamage(10);
                     } else {
                         enemy.die();
                     }
@@ -254,4 +255,13 @@ class World {
         }
         document.getElementById("lose-screen").classList.remove("d-none");
     }
+
+    showWinScreen() {
+        this.gameOver = true;
+        if (this.collisionInterval) {
+            clearInterval(this.collisionInterval);
+        }
+        document.getElementById("win-screen").classList.remove("d-none");
+    }
+
 }

@@ -139,13 +139,13 @@ class Whale extends MovableObject {
         if (this.isDead) return;
         this.energy -= amount;
 
-        if (this.energy < 0) this.energy = 0;
+        if (this.energy < 15) this.energy = 0;
 
         if (this.world && this.world.endbossHealthbar) {
             this.world.endbossHealthbar.setPercentage(this.energy);
         }
 
-        if (this.energy <= 20) {
+        if (this.energy <= 15) {
             this.die();
         }
     }

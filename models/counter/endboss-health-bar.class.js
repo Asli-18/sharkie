@@ -24,15 +24,17 @@ class EndbossHealthBar extends DrawableObject {
         this.percentage = percentage;
         let path = this.IMAGES_HEALT_BAR[this.resolveImageIndex()];
         this.img = this.imageCache[path];
-        console.log("HealthBar Percentage:", this.percentage);
-
-        if (this.percentage <= 0 && this.world) {
-            console.log("Game Over triggered!");
-            this.world.showLoseScreen();
+        if (this.percentage <= 15 && this.world && !this.endbossDefeated) {
+            this.endbossDefeated = true;
+            if (this.world.whale) {
+                this.world.whale.die();
+            }
+            setTimeout(() => {
+                this.world.showWinScreen();
+            }, 3000);
         }
     }
-
-
+    
     resolveImageIndex() {
         if (this.percentage == 100) {
             return 5;

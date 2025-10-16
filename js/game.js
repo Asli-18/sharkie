@@ -139,5 +139,7 @@ function toggleInfoScreen() {
 
 function backToMenu() {
     document.getElementById("lose-screen").classList.add("d-none");
+    document.getElementById("win-screen").classList.add("d-none");
     document.getElementById("start-screen").classList.remove("d-none");
+    
 }
