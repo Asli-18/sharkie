@@ -15,6 +15,9 @@ const body = document.body;
 const toggleBtn = document.getElementById("toggle-mode");
 const fullScreenBtn = document.getElementById('full-screen-btn');
 const fullScreenMode = document.getElementById('full-screen-mode');
+const audioBtn = document.getElementById('audio-btn');
+const audioIcon = document.getElementById('audio-icon');
+let audioMuted = false;
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -140,10 +143,6 @@ function closeFullscreen() {
     }
 }
 
-const audioBtn = document.getElementById('audio-btn');
-const audioIcon = document.getElementById('audio-icon');
-let audioMuted = false;
-
 audioBtn.addEventListener('click', () => {
     if (audioMuted) {
         AUDIO_OCEAN.play();
@@ -155,7 +154,6 @@ audioBtn.addEventListener('click', () => {
         audioMuted = true;
     }
 });
-
 
 function toggleInfoScreen() {
     const infoBtn = document.getElementById('info-screen-wrapper');
