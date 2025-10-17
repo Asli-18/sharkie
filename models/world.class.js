@@ -70,6 +70,7 @@ class World {
         this.level.coin.forEach((coin, index) => {
             if (this.sharkie.isColliding(coin) && this.coinBar.percentage < 100) {
                 console.log('Sharkie collected coin');
+                AUDIO_COIN.currentTime = 0;
                 AUDIO_COIN.play();
                 this.sharkie.coin++;
 
@@ -87,6 +88,7 @@ class World {
         this.level.poison_flask.forEach((flask, index) => {
             if (this.sharkie.isColliding(flask) && this.poisonFlaskBar.percentage < 100) {
                 console.log('Sharkie collected poison flask');
+                AUDIO_BOTTLE.currentTime = 0;
                 AUDIO_BOTTLE.play();
                 this.level.poison_flask.splice(index, 1);
 
