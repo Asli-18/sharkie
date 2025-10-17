@@ -2,6 +2,8 @@ let canvas;
 let world;
 let keyboard = new Keyboard();
 let AUDIO_OCEAN = new Audio('audio/ocean.mp3');
+AUDIO_OCEAN.loop = true;
+AUDIO_OCEAN.volume = 0.3;
 let AUDIO_BUBBBLE = new Audio('audio/bubble_3.mp3')
 let AUDIO_COIN = new Audio('audio/coin.mp3');
 let AUDIO_BOTTLE = new Audio('audio/bottle.mp3');
@@ -20,7 +22,7 @@ function init() {
 
     console.log("My Character is ", world.sharkie);
 
-    AUDIO_OCEAN.play();
+    // AUDIO_OCEAN.play();
 }
 
 window.addEventListener('keydown', (event) => {
@@ -138,6 +140,23 @@ function closeFullscreen() {
     }
 }
 
+const audioBtn = document.getElementById('audio-btn');
+const audioIcon = document.getElementById('audio-icon');
+let audioMuted = false;
+
+audioBtn.addEventListener('click', () => {
+    if (audioMuted) {
+        AUDIO_OCEAN.play();
+        audioIcon.src = './assets/icon/audio-icon.png';
+        audioMuted = false;
+    } else {
+        AUDIO_OCEAN.pause();
+        audioIcon.src = './assets/icon/audio-muted-icon.png';
+        audioMuted = true;
+    }
+});
+
+
 function toggleInfoScreen() {
     const infoBtn = document.getElementById('info-screen-wrapper');
     infoBtn.classList.toggle('d-none');
@@ -147,5 +166,4 @@ function backToMenu() {
     document.getElementById("lose-screen").classList.add("d-none");
     document.getElementById("win-screen").classList.add("d-none");
     document.getElementById("start-screen").classList.remove("d-none");
-
 }
