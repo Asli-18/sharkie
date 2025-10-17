@@ -70,12 +70,15 @@ class World {
         this.level.coin.forEach((coin, index) => {
             if (this.sharkie.isColliding(coin) && this.coinBar.percentage < 100) {
                 console.log('Sharkie collected coin');
+                AUDIO_COIN.play();
                 this.sharkie.coin++;
+
                 // 1 Coin = 5 %
                 let percentage = this.sharkie.coin * 5;
                 if (percentage > 100) percentage = 100;
                 this.coinBar.setPercentage(percentage);
                 this.level.coin.splice(index, 1);
+
             }
         });
     }
@@ -84,7 +87,7 @@ class World {
         this.level.poison_flask.forEach((flask, index) => {
             if (this.sharkie.isColliding(flask) && this.poisonFlaskBar.percentage < 100) {
                 console.log('Sharkie collected poison flask');
-
+                AUDIO_BOTTLE.play();
                 this.level.poison_flask.splice(index, 1);
 
                 let percentage = this.poisonFlaskBar.percentage + 5;
@@ -152,8 +155,10 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (bubble.isColliding(enemy)) {
                     if (enemy instanceof Whale) {
+
                         enemy.takeDamage(1);
                     } else {
+                        AUDIO_DAMAGE.play();
                         enemy.die();
                     }
                     this.airBubbles.splice(bubbleIndex, 1);
@@ -169,6 +174,7 @@ class World {
                     if (enemy instanceof Whale) {
                         enemy.takeDamage(10);
                     } else {
+                        AUDIO_DAMAGE.play();
                         enemy.die();
                     }
                     this.poisonBubbles.splice(bubbleIndex, 1);

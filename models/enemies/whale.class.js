@@ -138,7 +138,7 @@ class Whale extends MovableObject {
     takeDamage(amount) {
         if (this.isDead) return;
         this.energy -= amount;
-
+        AUDIO_WHALE_DAMAGE.play();
         if (this.energy < 15) this.energy = 0;
 
         if (this.world && this.world.endbossHealthbar) {

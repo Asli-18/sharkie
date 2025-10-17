@@ -1,6 +1,18 @@
 let canvas;
 let world;
 let keyboard = new Keyboard();
+let AUDIO_OCEAN = new Audio('audio/ocean.mp3');
+let AUDIO_BUBBBLE = new Audio('audio/bubble_3.mp3')
+let AUDIO_COIN = new Audio('audio/coin.mp3');
+let AUDIO_BOTTLE = new Audio('audio/bottle.mp3');
+let AUDIO_SLAP = new Audio('audio/slap.mp3');
+let AUDIO_SHARKIE_DAMAGE = new Audio('audio/sharkie-damage.mp3');
+let AUDIO_WHALE_DAMAGE = new Audio('audio/whale-damage.mp3');
+let AUDIO_DAMAGE = new Audio('audio/damage.mp3');
+const body = document.body;
+const toggleBtn = document.getElementById("toggle-mode");
+const fullScreenBtn = document.getElementById('full-screen-btn');
+const fullScreenMode = document.getElementById('full-screen-mode');
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -8,7 +20,7 @@ function init() {
 
     console.log("My Character is ", world.sharkie);
 
-
+    AUDIO_OCEAN.play();
 }
 
 window.addEventListener('keydown', (event) => {
@@ -40,6 +52,7 @@ window.addEventListener('keydown', (event) => {
     // console.log("TRUE");
 
 });
+
 window.addEventListener('keyup', (event) => {
     if (event.keyCode == 32) {
         keyboard.SPACE = false;
@@ -70,10 +83,6 @@ window.addEventListener('keyup', (event) => {
     // console.log(event);
 });
 
-
-const body = document.body;
-const toggleBtn = document.getElementById("toggle-mode");
-
 toggleBtn.addEventListener("click", () => {
     if (body.classList.contains("day")) {
         body.classList.remove("day");
@@ -86,13 +95,10 @@ toggleBtn.addEventListener("click", () => {
     }
 });
 
-
 function gameStart() {
     let start = document.getElementById('start-screen');
     start.classList.add('d-none');
 }
-const fullScreenBtn = document.getElementById('full-screen-btn');
-const fullScreenMode = document.getElementById('full-screen-mode');
 
 fullScreenBtn.addEventListener("click", () => {
     if (!document.fullscreenElement) {
@@ -141,5 +147,5 @@ function backToMenu() {
     document.getElementById("lose-screen").classList.add("d-none");
     document.getElementById("win-screen").classList.add("d-none");
     document.getElementById("start-screen").classList.remove("d-none");
-    
+
 }
