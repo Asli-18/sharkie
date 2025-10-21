@@ -100,7 +100,7 @@ class PufferFish extends MovableObject {
     }
 
     init(variant) {
-        super.setVariant(variant);
+        this.setVariant(variant);
         this.loadImages(this.images);
         this.setRandomPosition();
         this.setRandomSpeed();
@@ -117,19 +117,52 @@ class PufferFish extends MovableObject {
     }
 
     animate() {
-        setInterval(() => super.animation(), 250);
-        setInterval(() => this.move(), 1000 / 60);
+        this.animationInterval = setInterval(() => {
+            if (!this.dead) super.animation();
+        }, 250);
+
+        this.movementInterval = setInterval(() => {
+            if (!this.dead) this.x -= this.speed;
+        }, 1000 / 60);
     }
 
-    // animation() {
-    //     let i = this.currentImage % this.images.length;
-    //     let path = this.images[i];
-    //     this.img = this.imageCache[path];
-    //     this.currentImage++;
-    // }
+    die() {
+        if (this.dead) return;
+        this.dead = true;
 
-    move() {
-        this.x -= this.speed;
+        clearInterval(this.animationInterval);
+        clearInterval(this.movementInterval);
+
+        this.images = this.DEAD_VARIANTS[this.variant];
+        this.currentImage = 0;
+        this.loadImages(this.images);
+        this.playDeathThenFloatUp();
+    }
+
+    playDeathThenFloatUp() {
+        let frame = 0;
+        const interval = setInterval(() => {
+            if (frame < this.images.length) {
+                const path = this.images[frame];
+                this.img = this.imageCache[path];
+                frame++;
+            } else {
+                clearInterval(interval);
+
+                this.img = this.imageCache[this.images[this.images.length - 1]];
+
+                setTimeout(() => this.floatUp(), 300);
+            }
+        }, 150);
+    }
+
+    floatUp() {
+        const interval = setInterval(() => {
+            if (this.y > -100) {
+                this.y -= 1.2;
+            } else {
+                clearInterval(interval);
+            }
+        }, 1000 / 60);
     }
 }
-
