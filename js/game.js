@@ -3,7 +3,7 @@ let world;
 let keyboard = new Keyboard();
 let AUDIO_OCEAN = new Audio('audio/ocean.mp3');
 AUDIO_OCEAN.loop = true;
-AUDIO_OCEAN.volume = 0.3;
+AUDIO_OCEAN.volume = 0.2;
 let AUDIO_BUBBBLE = new Audio('audio/bubble_3.mp3')
 let AUDIO_COIN = new Audio('audio/coin.mp3');
 let AUDIO_BOTTLE = new Audio('audio/bottle.mp3');
@@ -11,6 +11,10 @@ let AUDIO_SLAP = new Audio('audio/slap.mp3');
 let AUDIO_SHARKIE_DAMAGE = new Audio('audio/sharkie-damage.mp3');
 let AUDIO_WHALE_DAMAGE = new Audio('audio/whale-damage.mp3');
 let AUDIO_DAMAGE = new Audio('audio/damage.mp3');
+
+
+
+
 const body = document.body;
 const toggleBtn = document.getElementById("toggle-mode");
 const fullScreenBtn = document.getElementById('full-screen-btn');

@@ -202,6 +202,7 @@ class Sharkie extends MovableObject {
 
             else if (this.isHurt()) {
                 AUDIO_SHARKIE_DAMAGE.play();
+                AUDIO_SHARKIE_DAMAGE.volume = 0.1;
                 this.playAnimation(this.IMAGES_HURT_POISONED);
             }
 
@@ -215,12 +216,14 @@ class Sharkie extends MovableObject {
             }
             else if (this.world.keyboard.E || this.world.keyboard.W) {
                 AUDIO_BUBBBLE.play();
+                AUDIO_BUBBBLE.volume = 0.09;
                 this.shootBubble();
 
                 this.lastKeyPress = Date.now();
             }
             else if (this.world.keyboard.F) {
                 AUDIO_SLAP.play();
+                AUDIO_SLAP.volume = 0.1;
                 this.finSlapAttack();
                 this.lastKeyPress = Date.now();
             }

@@ -19,9 +19,11 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.intervals = [];
         this.draw();
         this.setWorld();
         this.run();
+
     }
 
     setWorld() {
@@ -38,7 +40,7 @@ class World {
     }
 
     run() {
-        setInterval(() => {
+        let mainInterval = setInterval(() => {
             if (this.gameOver) return;
             this.checkCollisionEnemies();
             this.checkCollisionCoins();
@@ -54,7 +56,10 @@ class World {
                 }
             });
         }, 200);
+
+        this.intervals.push(mainInterval);
     }
+
 
     checkCollisionEnemies() {
         this.level.enemies.forEach((enemy) => {
@@ -72,6 +77,7 @@ class World {
                 console.log('Sharkie collected coin');
                 AUDIO_COIN.currentTime = 0;
                 AUDIO_COIN.play();
+                AUDIO_COIN.volume = 0.1;
                 this.sharkie.coin++;
 
                 // 1 Coin = 5 %
@@ -90,6 +96,7 @@ class World {
                 console.log('Sharkie collected poison flask');
                 AUDIO_BOTTLE.currentTime = 0;
                 AUDIO_BOTTLE.play();
+                AUDIO_BOTTLE.volume = 0.09;
                 this.level.poison_flask.splice(index, 1);
 
                 let percentage = this.poisonFlaskBar.percentage + 5;
@@ -161,6 +168,7 @@ class World {
                         enemy.takeDamage(1);
                     } else {
                         AUDIO_DAMAGE.play();
+                        AUDIO_DAMAGE.volume = 0.1;
                         enemy.die();
                     }
                     this.airBubbles.splice(bubbleIndex, 1);
@@ -177,6 +185,7 @@ class World {
                         enemy.takeDamage(10);
                     } else {
                         AUDIO_DAMAGE.play();
+                        AUDIO_DAMAGE.volume = 0.1;
                         enemy.die();
                     }
                     this.poisonBubbles.splice(bubbleIndex, 1);
@@ -258,18 +267,21 @@ class World {
 
     showLoseScreen() {
         this.gameOver = true;
-        if (this.collisionInterval) {
-            clearInterval(this.collisionInterval);
-        }
+        // this.stopIntervals();
+        // this.sharkie.stopIntervals();
+        // this.level.enemies.forEach(enemy => {
+        //     if (enemy.stopIntervals) enemy.stopIntervals();
+        // });
         document.getElementById("lose-screen").classList.remove("d-none");
     }
 
     showWinScreen() {
         this.gameOver = true;
-        if (this.collisionInterval) {
-            clearInterval(this.collisionInterval);
-        }
+        // this.stopIntervals();
+        // this.sharkie.stopIntervals();
+        // this.level.enemies.forEach(enemy => {
+        //     if (enemy.stopIntervals) enemy.stopIntervals();
+        // });
         document.getElementById("win-screen").classList.remove("d-none");
     }
-
 }
