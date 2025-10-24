@@ -25,27 +25,27 @@ class HealthBar extends DrawableObject {
         let path = this.IMAGES_HEALT_BAR[this.resolveImageIndex()];
         this.img = this.imageCache[path];
         console.log("HealthBar Percentage:", this.percentage);
-
-        if (this.percentage <= 0 && this.world) {
-            console.log("Game Over triggered!");
-            this.world.showLoseScreen();
-        }
     }
 
-
     resolveImageIndex() {
-        if (this.percentage == 100) {
-            return 5;
-        } else if (this.percentage > 80) {
-            return 4;
-        } else if (this.percentage > 60) {
-            return 3;
-        } else if (this.percentage > 40) {
-            return 2;
-        } else if (this.percentage > 20) {
-            return 1;
-        } else {
+        let percentage = this.percentage;
+        if (percentage < 0) {
+            percentage = 0;
+        } else if (percentage > 100) {
+            percentage = 100;
+        }
+        if (percentage === 0) {
             return 0;
+        } else if (percentage <= 20) {
+            return 1;
+        } else if (percentage <= 40) {
+            return 2;
+        } else if (percentage <= 60) {
+            return 3;
+        } else if (percentage <= 80) {
+            return 4;
+        } else {
+            return 5;
         }
     }
 }

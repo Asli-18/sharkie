@@ -23,7 +23,6 @@ class World {
         this.draw();
         this.setWorld();
         this.run();
-
     }
 
     setWorld() {
@@ -32,7 +31,6 @@ class World {
         this.coinBar.world = this;
         this.poisonFlaskBar.world = this;
         this.endbossHealthbar.world = this;
-
         this.whale = this.level.enemies.find(enemy => enemy instanceof Whale);
         this.level.enemies.forEach(enemy => { enemy.world = this; });
         this.airBubbles.forEach(bubble => bubble.world = this);
@@ -49,7 +47,6 @@ class World {
             this.checkPoisonBubbles();
             this.checkCollisionAirBubbles();
             this.checkCollisionPoisonBubbles();
-
             this.level.enemies.forEach(enemy => {
                 if (enemy instanceof Whale) {
                     enemy.update(this.sharkie);
@@ -60,17 +57,25 @@ class World {
         this.intervals.push(mainInterval);
     }
 
-
     checkCollisionEnemies() {
         this.level.enemies.forEach((enemy) => {
             if (this.sharkie.isColliding(enemy)) {
                 console.log('Collision with Enemy: ', enemy);
-                this.sharkie.hit();
+                if (enemy instanceof JellyFish) {
+                    this.sharkie.hit(5, 'electric');
+                } else if (enemy instanceof PufferFish) {
+                    this.sharkie.hit(5, 'poisoned');
+                } else if (enemy instanceof Whale) {
+                    this.sharkie.hit(10, 'poisoned');
+                } else {
+                    this.sharkie.hit(5, 'poisoned');
+                }
                 console.log('Sharkie-Energy: ', this.sharkie.energy);
                 this.healthBar.setPercentage(this.sharkie.energy);
             }
         });
     }
+
     checkCollisionCoins() {
         this.level.coin.forEach((coin, index) => {
             if (this.sharkie.isColliding(coin) && this.coinBar.percentage < 100) {
@@ -79,13 +84,11 @@ class World {
                 AUDIO_COIN.play();
                 AUDIO_COIN.volume = 0.1;
                 this.sharkie.coin++;
-
                 // 1 Coin = 5 %
                 let percentage = this.sharkie.coin * 5;
                 if (percentage > 100) percentage = 100;
                 this.coinBar.setPercentage(percentage);
                 this.level.coin.splice(index, 1);
-
             }
         });
     }
@@ -98,7 +101,6 @@ class World {
                 AUDIO_BOTTLE.play();
                 AUDIO_BOTTLE.volume = 0.09;
                 this.level.poison_flask.splice(index, 1);
-
                 let percentage = this.poisonFlaskBar.percentage + 5;
                 if (percentage > 100) percentage = 100;
                 this.poisonFlaskBar.setPercentage(percentage);
@@ -196,19 +198,14 @@ class World {
 
     draw() {
         if (this.gameOver) return;
-
         this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-
         this.ctx.translate(this.camera_x, 0);
-
         this.addObjectsToMap(this.level.lights);
         this.addObjectsToMap(this.level.backgrounds);
-
 
         // this.ctx.translate(-this.camera_x, 0);
         // this.addToMap(this.healthBar);
         // this.ctx.translate(this.camera_x, 0);
-
 
         this.addToMap(this.sharkie);
         this.addObjectsToMap(this.level.enemies);
@@ -216,16 +213,13 @@ class World {
         this.addObjectsToMap(this.level.coin);
         this.addObjectsToMap(this.airBubbles);
         this.addObjectsToMap(this.poisonBubbles);
-
         this.ctx.translate(-this.camera_x, 0);
-
         this.addToMap(this.healthBar);
         this.addToMap(this.coinBar);
         this.addToMap(this.poisonFlaskBar);
         if (this.endbossHealthbar.visible) {
             this.addToMap(this.endbossHealthbar);
         }
-
         let self = this;
         requestAnimationFrame(function () {
             self.draw();
@@ -248,7 +242,6 @@ class World {
         }
         movebleObject.draw(this.ctx);
         movebleObject.drawFrame(this.ctx);
-        // movebleObject.drawHitbox(this.ctx);
         movebleObject.drawCollisionBorder(this.ctx);
         if (movebleObject.otherDirection) {
             this.flipImageBack(movebleObject);

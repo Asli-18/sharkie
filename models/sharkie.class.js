@@ -65,34 +65,6 @@ class Sharkie extends MovableObject {
         'assets/img/sharkie/sharkie-hurt-electric-shock-3.png'
     ];
 
-    IMAGES_DEAD_ELECTRO_SHOCK = [
-        'assets/img/sharkie/sharkie-dead-electro-shock-1.png',
-        'assets/img/sharkie/sharkie-dead-electro-shock-2.png',
-        'assets/img/sharkie/sharkie-dead-electro-shock-3.png',
-        'assets/img/sharkie/sharkie-dead-electro-shock-4.png',
-        'assets/img/sharkie/sharkie-dead-electro-shock-5.png',
-        'assets/img/sharkie/sharkie-dead-electro-shock-6.png',
-        'assets/img/sharkie/sharkie-dead-electro-shock-7.png',
-        'assets/img/sharkie/sharkie-dead-electro-shock-8.png',
-        'assets/img/sharkie/sharkie-dead-electro-shock-9.png',
-        'assets/img/sharkie/sharkie-dead-electro-shock-10.png'
-    ];
-
-    IMAGES_DEAD_TO_RISE = [
-        'assets/img/sharkie/sharkie-dead-poisoned-to-rise-1.png',
-        'assets/img/sharkie/sharkie-dead-poisoned-to-rise-2.png',
-        'assets/img/sharkie/sharkie-dead-poisoned-to-rise-3.png',
-        'assets/img/sharkie/sharkie-dead-poisoned-to-rise-4.png',
-        'assets/img/sharkie/sharkie-dead-poisoned-to-rise-5.png',
-        'assets/img/sharkie/sharkie-dead-poisoned-to-rise-6.png',
-        'assets/img/sharkie/sharkie-dead-poisoned-to-rise-7.png',
-        'assets/img/sharkie/sharkie-dead-poisoned-to-rise-8.png',
-        'assets/img/sharkie/sharkie-dead-poisoned-to-rise-9.png',
-        'assets/img/sharkie/sharkie-dead-poisoned-to-rise-10.png',
-        'assets/img/sharkie/sharkie-dead-poisoned-to-rise-11.png',
-        'assets/img/sharkie/sharkie-dead-poisoned-to-rise-12.png'
-    ];
-
     IMAGES_DEAD_WITHOUT_RISING = [
         'assets/img/sharkie/sharkie-dead-poisoned-without-rising-1.png',
         'assets/img/sharkie/sharkie-dead-poisoned-without-rising-2.png',
@@ -117,7 +89,7 @@ class Sharkie extends MovableObject {
         'assets/img/sharkie/sharkie-attack-bubble-trap-without-bubble-6.png',
         'assets/img/sharkie/sharkie-attack-bubble-trap-without-bubble-7.png'
     ];
-    // sharkie-attack-fin-slap-1
+
     IMAGES_ATTACK_FIN_SLAP = [
         'assets/img/sharkie/sharkie-attack-fin-slap-1.png',
         'assets/img/sharkie/sharkie-attack-fin-slap-2.png',
@@ -131,16 +103,12 @@ class Sharkie extends MovableObject {
 
     speed = 4;
     lastKeyPress = Date.now();
-
     coin = 0;
     poison = 0;
-
     shootingBubble = false;
     shootType = null;
-
     // false = rechts, true = links
     otherDirection = false;
-
 
     constructor() {
         super().loadImage('assets/img/sharkie/sharkie-swim-1.png');
@@ -157,14 +125,55 @@ class Sharkie extends MovableObject {
         this.loadImages(this.IMAGES_IDLE_SHORT);
         this.loadImages(this.IMAGES_IDLE_LONG);
         this.loadImages(this.IMAGES_SLEPP);
-        this.loadImages(this.IMAGES_DEAD_ELECTRO_SHOCK);
-        this.loadImages(this.IMAGES_DEAD_TO_RISE);
         this.loadImages(this.IMAGES_DEAD_WITHOUT_RISING);
         this.loadImages(this.IMAGES_HURT_POISONED);
         this.loadImages(this.IMAGES_HURT_ELECTRIC);
         this.loadImages(this.IMAGES_ATTACK_BUBBLE);
         this.loadImages(this.IMAGES_ATTACK_FIN_SLAP);
         this.animate();
+    }
+
+    deathStarted = false;
+
+    playOnce(images, frameMs = 100, onDone) {
+        let frame = 0;
+        const interval = setInterval(() => {
+            if (frame < images.length) {
+                this.img = this.imageCache[images[frame]];
+                frame++;
+            } else {
+                clearInterval(interval);
+                if (typeof onDone === 'function') onDone();
+            }
+        }, frameMs);
+    }
+
+    startDeathSequence() {
+        if (this.deathStarted) return;
+        this.deathStarted = true;
+        this.world && this.world.poisonFlaskBar && this.world.poisonFlaskBar.setPercentage(0);
+        this.speed = 0;
+        this.playOnce(this.IMAGES_DEAD_WITHOUT_RISING, 80, () => {
+            setTimeout(() => {
+                if (this.world) this.world.showLoseScreen();
+            }, 200);
+        });
+    }
+
+    hit(damage = 5, type = 'poisoned') {
+        if (this.isHurt() || this.deathStarted) return;
+
+        this.energy -= damage;
+        if (this.energy < 0) this.energy = 0;
+
+        this.lastHit = new Date().getTime();
+        this.hurtType = type;
+        if (this.world && this.world.healthBar) {
+            this.world.healthBar.setPercentage(this.energy);
+        }
+        AUDIO_SHARKIE_DAMAGE.currentTime = 0;
+        AUDIO_SHARKIE_DAMAGE.volume = 0.1;
+        AUDIO_SHARKIE_DAMAGE.play();
     }
 
     animate() {
@@ -194,40 +203,35 @@ class Sharkie extends MovableObject {
         setInterval(() => {
             const now = Date.now();
             const idleTime = now - this.lastKeyPress;
-
+            if (!this.isHurt() && this.hurtType) {
+                this.hurtType = null;
+            }
             if (this.isDead()) {
-                this.playAnimation(this.IMAGES_DEAD_ELECTRO_SHOCK);
-                this.poisonFlaskBar.setPercentage(0);
-            }
-
-            else if (this.isHurt()) {
-                AUDIO_SHARKIE_DAMAGE.play();
-                AUDIO_SHARKIE_DAMAGE.volume = 0.1;
-                this.playAnimation(this.IMAGES_HURT_POISONED);
-            }
-
-            else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
+                this.startDeathSequence();
+                return;
+            } else if (this.isHurt()) {
+                if (this.hurtType === 'electric') {
+                    this.playAnimation(this.IMAGES_HURT_ELECTRIC);
+                } else {
+                    this.playAnimation(this.IMAGES_HURT_POISONED);
+                }
+            } else if (this.world.keyboard.RIGHT || this.world.keyboard.LEFT) {
                 this.playAnimation(this.IMAGES_SWIMMING);
                 this.lastKeyPress = Date.now();
-            }
-            else if (this.world.keyboard.UP || this.world.keyboard.DOWN) {
+            } else if (this.world.keyboard.UP || this.world.keyboard.DOWN) {
                 this.playAnimation(this.IMAGES_SWIMMING);
                 this.lastKeyPress = Date.now();
-            }
-            else if (this.world.keyboard.E || this.world.keyboard.W) {
+            } else if (this.world.keyboard.E || this.world.keyboard.W) {
                 AUDIO_BUBBBLE.play();
                 AUDIO_BUBBBLE.volume = 0.09;
                 this.shootBubble();
-
                 this.lastKeyPress = Date.now();
-            }
-            else if (this.world.keyboard.F) {
+            } else if (this.world.keyboard.F) {
                 AUDIO_SLAP.play();
                 AUDIO_SLAP.volume = 0.1;
                 this.finSlapAttack();
                 this.lastKeyPress = Date.now();
-            }
-            else if (this.isAboveGround()) {
+            } else if (this.isAboveGround()) {
                 if (idleTime < 1000) {
                     this.playAnimation(this.IMAGES_IDLE_SHORT);
                     console.log("just moved");
@@ -242,13 +246,11 @@ class Sharkie extends MovableObject {
                     console.log("sleep");
                 }
             }
-            // this.playAnimation(this.IMAGES_IDLE_SHORT);
         }, 120);
     }
 
     finSlapAttack() {
         this.playAnimation(this.IMAGES_ATTACK_FIN_SLAP);
-
         let hitbox = {
             x: this.otherDirection
                 ? this.x - 60
@@ -257,7 +259,6 @@ class Sharkie extends MovableObject {
             width: 60,
             height: this.height / 2
         };
-        // this.drawHitbox(this.world.ctx, hitbox);
         this.world.level.enemies.forEach(enemy => {
             if (enemy instanceof JellyFish && this.isCollidingWithHitbox(hitbox, enemy) || enemy instanceof PufferFish && this.isCollidingWithHitbox(hitbox, enemy)) {
                 enemy.hit();
