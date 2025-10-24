@@ -9,6 +9,7 @@ class EndbossHealthBar extends DrawableObject {
     ];
 
     percentage = 100;
+    visible = false;
 
     constructor() {
         super();
@@ -19,7 +20,10 @@ class EndbossHealthBar extends DrawableObject {
         this.width = 140;
         this.setPercentage(100);
     }
-
+    show() { 
+        this.visible = true; 
+    }
+    
     setPercentage(percentage) {
         this.percentage = percentage;
         let path = this.IMAGES_HEALT_BAR[this.resolveImageIndex()];
@@ -34,20 +38,27 @@ class EndbossHealthBar extends DrawableObject {
             }, 3000);
         }
     }
-    
+
     resolveImageIndex() {
-        if (this.percentage == 100) {
-            return 5;
-        } else if (this.percentage > 80) {
-            return 4;
-        } else if (this.percentage > 60) {
-            return 3;
-        } else if (this.percentage > 40) {
-            return 2;
-        } else if (this.percentage > 20) {
-            return 1;
-        } else {
+        let percentage = this.percentage;
+        if (percentage < 0) {
+            percentage = 0;
+        } else if (percentage > 100) {
+            percentage = 100;
+        }
+
+        if (percentage === 0) {
             return 0;
+        } else if (percentage <= 20) {
+            return 1;
+        } else if (percentage <= 40) {
+            return 2;
+        } else if (percentage <= 60) {
+            return 3;
+        } else if (percentage <= 80) {
+            return 4;
+        } else {
+            return 5;
         }
     }
 }

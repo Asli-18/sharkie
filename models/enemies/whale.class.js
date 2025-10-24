@@ -95,6 +95,9 @@ class Whale extends MovableObject {
     playIntroAnimation() {
         if (this.introStarted) return;
         this.introStarted = true;
+        if (this.world && this.world.endbossHealthbar) {
+            this.world.endbossHealthbar.show();
+        }
         this.currentImage = 0;
 
         const introInterval = setInterval(() => {
@@ -151,32 +154,32 @@ class Whale extends MovableObject {
         }
     }
 
-die() {
-    if (this.isDead) return;
-    this.isDead = true;
-    this.speed = 0;
-    this.isChasing = false;
-    this.freezeDirection = this.otherDirection;
+    die() {
+        if (this.isDead) return;
+        this.isDead = true;
+        this.speed = 0;
+        this.isChasing = false;
+        this.freezeDirection = this.otherDirection;
 
-    if (this.floatingInterval) {
-        clearInterval(this.floatingInterval);
-        this.floatingInterval = null;
-    }
-
-    console.log("Endboss dead");
-
-    this.currentImage = 0;
-    const deathInterval = setInterval(() => {
-        if (this.currentImage < this.IMAGES_WHALE_DEAD.length) {
-            const path = this.IMAGES_WHALE_DEAD[this.currentImage];
-            this.img = this.imageCache[path];
-            this.currentImage++;
-        } else {
-            clearInterval(deathInterval);
-            this.floatUpAndRemove();
+        if (this.floatingInterval) {
+            clearInterval(this.floatingInterval);
+            this.floatingInterval = null;
         }
-    }, 150);
-}
+
+        console.log("Endboss dead");
+
+        this.currentImage = 0;
+        const deathInterval = setInterval(() => {
+            if (this.currentImage < this.IMAGES_WHALE_DEAD.length) {
+                const path = this.IMAGES_WHALE_DEAD[this.currentImage];
+                this.img = this.imageCache[path];
+                this.currentImage++;
+            } else {
+                clearInterval(deathInterval);
+                this.floatUpAndRemove();
+            }
+        }, 150);
+    }
 
 
     floatUpAndRemove() {

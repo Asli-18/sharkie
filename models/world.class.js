@@ -222,7 +222,9 @@ class World {
         this.addToMap(this.healthBar);
         this.addToMap(this.coinBar);
         this.addToMap(this.poisonFlaskBar);
-        this.addToMap(this.endbossHealthbar);
+        if (this.endbossHealthbar.visible) {
+            this.addToMap(this.endbossHealthbar);
+        }
 
         let self = this;
         requestAnimationFrame(function () {
