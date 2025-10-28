@@ -25,17 +25,16 @@ class MovableObject extends DrawableObject {
     }
 
     applyGravity() {
-        setInterval(() => {
+        this.gravityIntervalId = setInterval(() => {
             if (this.isAboveGround()) {
                 this.y -= this.speedY;
                 this.speedY -= this.acceleration;
             }
         }, 1000 / 25);
-
-
     }
+
     propelBubble() {
-        setInterval(() => {
+        this.propelIntervalId = setInterval(() => {
             if (this.isAboveGround()) {
                 this.x -= this.speedX;
                 this.speedX -= this.acceleration;
@@ -85,7 +84,6 @@ class MovableObject extends DrawableObject {
         }, 1000 / 60);
     }
 
-    // animation for sharkie
     playAnimation(images) {
         let i = this.currentImage % images.length;
         let path = images[i];
@@ -124,7 +122,6 @@ class MovableObject extends DrawableObject {
         }
     }
 
-    // animation for jelly fish and pufferfish
     animation() {
         let i = this.currentImage % this.images.length;
         let path = this.images[i];
@@ -176,7 +173,6 @@ class MovableObject extends DrawableObject {
         }, 1000 / 60);
     }
 
-
     removeFromWorld() {
         console.log("Removing from world:", this);
         if (!this.world || !this.world.level || !this.world.level.enemies) return;
@@ -190,6 +186,14 @@ class MovableObject extends DrawableObject {
         }
     }
 
-
-
+    stopIntervals() {
+        if (this.propelIntervalId) {
+            clearInterval(this.propelIntervalId);
+            this.propelIntervalId = null;
+        }
+        if (this.gravityIntervalId) {
+            clearInterval(this.gravityIntervalId);
+            this.gravityIntervalId = null;
+        }
+    }
 }

@@ -1,6 +1,6 @@
 class World {
     sharkie = new Sharkie(this);
-    level = level_one;
+    level;
     canvas;
     ctx;
     keyboard;
@@ -19,6 +19,7 @@ class World {
         this.ctx = canvas.getContext('2d');
         this.canvas = canvas;
         this.keyboard = keyboard;
+        this.level = createLevelOne();
         this.intervals = [];
         this.draw();
         this.setWorld();
@@ -221,7 +222,7 @@ class World {
             this.addToMap(this.endbossHealthbar);
         }
         let self = this;
-        requestAnimationFrame(function () {
+        this.animationFrameId = requestAnimationFrame(function () {
             self.draw();
         });
     }
@@ -258,6 +259,46 @@ class World {
     flipImageBack(movebleObject) {
         movebleObject.x = movebleObject.x * -1;
         this.ctx.restore();
+    }
+    stopIntervals() {
+        if (Array.isArray(this.intervals)) {
+            this.intervals.forEach(id => clearInterval(id));
+            this.intervals = [];
+        }
+        if (this.animationFrameId) {
+            cancelAnimationFrame(this.animationFrameId);
+            this.animationFrameId = null;
+        }
+    }
+
+    destroy() {
+        this.gameOver = true;
+        this.stopIntervals();
+        if (this.sharkie && typeof this.sharkie.stopIntervals === 'function') {
+            this.sharkie.stopIntervals();
+        }
+        if (this.level && Array.isArray(this.level.enemies)) {
+            this.level.enemies.forEach(enemy => {
+                if (enemy && typeof enemy.stopIntervals === 'function') {
+                    enemy.stopIntervals();
+                }
+            });
+        }
+        const stopBubbleArray = (arr) => {
+            if (Array.isArray(arr)) {
+                arr.forEach(b => {
+                    if (b && typeof b.stopIntervals === 'function') {
+                        b.stopIntervals();
+                    }
+                });
+                arr.length = 0;
+            }
+        };
+        stopBubbleArray(this.airBubbles);
+        stopBubbleArray(this.poisonBubbles);
+        if (this.ctx && this.canvas) {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        }
     }
 
     showLoseScreen() {

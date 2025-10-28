@@ -165,4 +165,15 @@ class PufferFish extends MovableObject {
             }
         }, 1000 / 60);
     }
+    stopIntervals() {
+        if (this.animationInterval) {
+            clearInterval(this.animationInterval);
+            this.animationInterval = null;
+        }
+        if (this.movementInterval) {
+            clearInterval(this.movementInterval);
+            this.movementInterval = null;
+        }
+    }
+
 }

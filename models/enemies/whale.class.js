@@ -100,18 +100,20 @@ class Whale extends MovableObject {
         }
         this.currentImage = 0;
 
-        const introInterval = setInterval(() => {
+        this.introIntervalId = setInterval(() => {
             if (this.currentImage < this.IMAGES_WHALE_INTRODUCE.length) {
                 const path = this.IMAGES_WHALE_INTRODUCE[this.currentImage];
                 this.img = this.imageCache[path];
                 this.currentImage++;
             } else {
-                clearInterval(introInterval);
+                clearInterval(this.introIntervalId);
+                this.introIntervalId = null;
                 this.playFloatingAnimation();
                 setTimeout(() => this.startChase(), 3000);
             }
         }, 100);
     }
+
 
     playFloatingAnimation() {
         this.currentImage = 0;
@@ -166,34 +168,48 @@ class Whale extends MovableObject {
             this.floatingInterval = null;
         }
 
-        console.log("Endboss dead");
-
         this.currentImage = 0;
-        const deathInterval = setInterval(() => {
+        this.deathIntervalId = setInterval(() => {
             if (this.currentImage < this.IMAGES_WHALE_DEAD.length) {
                 const path = this.IMAGES_WHALE_DEAD[this.currentImage];
                 this.img = this.imageCache[path];
                 this.currentImage++;
             } else {
-                clearInterval(deathInterval);
+                clearInterval(this.deathIntervalId);
+                this.deathIntervalId = null;
                 this.floatUpAndRemove();
             }
         }, 150);
     }
 
-
     floatUpAndRemove() {
-        console.log("Whale treibt hoch");
-
-        const floatInterval = setInterval(() => {
+        this.floatIntervalId = setInterval(() => {
             if (this.y > -this.height) {
                 this.y -= 1.5;
             } else {
-                clearInterval(floatInterval);
+                clearInterval(this.floatIntervalId);
+                this.floatIntervalId = null;
                 this.removeFromWorld();
-                console.log("wal entfernt");
             }
         }, 1000 / 60);
     }
 
+    stopIntervals() {
+        if (this.introIntervalId) {
+            clearInterval(this.introIntervalId);
+            this.introIntervalId = null;
+        }
+        if (this.floatingInterval) {
+            clearInterval(this.floatingInterval);
+            this.floatingInterval = null;
+        }
+        if (this.deathIntervalId) {
+            clearInterval(this.deathIntervalId);
+            this.deathIntervalId = null;
+        }
+        if (this.floatIntervalId) {
+            clearInterval(this.floatIntervalId);
+            this.floatIntervalId = null;
+        }
+    }
 }

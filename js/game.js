@@ -105,9 +105,13 @@ toggleBtn.addEventListener("click", () => {
 });
 
 function gameStart() {
-    let start = document.getElementById('start-screen');
+    const start = document.getElementById('start-screen');
     start.classList.add('d-none');
+    if (window.world && typeof window.world.destroy === 'function') {
+        window.world.destroy();
+    }
 }
+
 
 fullScreenBtn.addEventListener("click", () => {
     if (!document.fullscreenElement) {
@@ -165,6 +169,9 @@ function toggleInfoScreen() {
 }
 
 function backToMenu() {
+    if (window.world && typeof window.world.destroy === 'function') {
+        window.world.destroy();
+    }
     document.getElementById("lose-screen").classList.add("d-none");
     document.getElementById("win-screen").classList.add("d-none");
     document.getElementById("start-screen").classList.remove("d-none");

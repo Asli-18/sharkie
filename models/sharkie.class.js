@@ -177,8 +177,7 @@ class Sharkie extends MovableObject {
     }
 
     animate() {
-
-        setInterval(() => {
+        this.movementIntervalId = setInterval(() => {
             if (this.world.keyboard.RIGHT && this.x < this.world.level.level_end_x) {
                 this.swimRight();
                 this.otherDirection = false;
@@ -200,7 +199,7 @@ class Sharkie extends MovableObject {
             this.world.camera_x = -this.x + 50;
         }, 1000 / 60);
 
-        setInterval(() => {
+        this.stateIntervalId = setInterval(() => {
             const now = Date.now();
             const idleTime = now - this.lastKeyPress;
             if (!this.isHurt() && this.hurtType) {
@@ -234,20 +233,17 @@ class Sharkie extends MovableObject {
             } else if (this.isAboveGround()) {
                 if (idleTime < 1000) {
                     this.playAnimation(this.IMAGES_IDLE_SHORT);
-                    console.log("just moved");
                 } else if (idleTime >= 1000 && idleTime < 6000) {
                     this.playAnimation(this.IMAGES_IDLE_SHORT);
-                    console.log("idle short");
                 } else if (idleTime >= 6000 && idleTime < 7000) {
                     this.playAnimation(this.IMAGES_IDLE_LONG);
-                    console.log("idle long");
                 } else {
                     this.playAnimation(this.IMAGES_SLEPP);
-                    console.log("sleep");
                 }
             }
         }, 120);
     }
+
 
     finSlapAttack() {
         this.playAnimation(this.IMAGES_ATTACK_FIN_SLAP);
@@ -297,5 +293,17 @@ class Sharkie extends MovableObject {
             this.world.poisonFlaskBar.setPercentage(0);
         }
     }
+
+    stopIntervals() {
+        if (this.movementIntervalId) {
+            clearInterval(this.movementIntervalId);
+            this.movementIntervalId = null;
+        }
+        if (this.stateIntervalId) {
+            clearInterval(this.stateIntervalId);
+            this.stateIntervalId = null;
+        }
+    }
+
 
 }

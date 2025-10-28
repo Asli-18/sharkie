@@ -99,4 +99,15 @@ class JellyFish extends MovableObject {
             this.direction *= -1;
         }
     }
+    stopIntervals() {
+        if (this.animationInterval) {
+            clearInterval(this.animationInterval);
+            this.animationInterval = null;
+        }
+        if (this.movementInterval) {
+            clearInterval(this.movementInterval);
+            this.movementInterval = null;
+        }
+    }
+
 }
