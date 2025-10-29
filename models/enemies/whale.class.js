@@ -50,6 +50,8 @@ class Whale extends MovableObject {
     isDead = false;
     floatingInterval = null;
     otherDirection = false;
+    active = false;
+
 
     constructor(imagePath = 'assets/img/enemy/monster-whale-introduce-1.png') {
         super().loadImage(imagePath);
@@ -59,7 +61,9 @@ class Whale extends MovableObject {
         this.loadImages(this.IMAGES_WHALE_DEAD);
         this.speed = 5.5;
     }
-
+    isActive() {
+        return this.active === true;
+    }
     update(sharkie) {
         if (!this.hasPlayedIntro && this.isNear(sharkie)) {
             this.playIntroAnimation();
@@ -98,8 +102,12 @@ class Whale extends MovableObject {
         if (this.world && this.world.endbossHealthbar) {
             this.world.endbossHealthbar.show();
         }
-        this.currentImage = 0;
+        this.active = true;
+        if (this.world && this.world.endbossHealthbar) {
+            this.world.endbossHealthbar.show();
+        }
 
+        this.currentImage = 0;
         this.introIntervalId = setInterval(() => {
             if (this.currentImage < this.IMAGES_WHALE_INTRODUCE.length) {
                 const path = this.IMAGES_WHALE_INTRODUCE[this.currentImage];
@@ -141,16 +149,14 @@ class Whale extends MovableObject {
     }
 
     takeDamage(amount) {
-        if (this.isDead) return;
+        if (!this.isActive() || this.isDead) return;
         this.energy -= amount;
         AUDIO_WHALE_DAMAGE.play();
         AUDIO_WHALE_DAMAGE.volume = 0.1;
         if (this.energy < 15) this.energy = 0;
-
         if (this.world && this.world.endbossHealthbar) {
             this.world.endbossHealthbar.setPercentage(this.energy);
         }
-
         if (this.energy <= 15) {
             this.die();
         }

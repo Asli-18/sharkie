@@ -167,8 +167,9 @@ class World {
             this.level.enemies.forEach((enemy) => {
                 if (bubble.isColliding(enemy)) {
                     if (enemy instanceof Whale) {
-
-                        enemy.takeDamage(1);
+                        if (enemy.isActive()) {
+                            enemy.takeDamage(1);
+                        }
                     } else {
                         AUDIO_DAMAGE.play();
                         AUDIO_DAMAGE.volume = 0.1;
@@ -185,7 +186,9 @@ class World {
             this.level.enemies.forEach((enemy, enemyIndex) => {
                 if (bubble.isColliding(enemy)) {
                     if (enemy instanceof Whale) {
-                        enemy.takeDamage(10);
+                        if (enemy.isActive()) {
+                            enemy.takeDamage(10);
+                        }
                     } else {
                         AUDIO_DAMAGE.play();
                         AUDIO_DAMAGE.volume = 0.1;
