@@ -13,15 +13,16 @@ let AUDIO_WHALE_DAMAGE = new Audio('audio/whale-damage.mp3');
 let AUDIO_DAMAGE = new Audio('audio/damage.mp3');
 
 
-
-
 const body = document.body;
 const toggleBtn = document.getElementById("toggle-mode");
 const fullScreenBtn = document.getElementById('full-screen-btn');
 const fullScreenMode = document.getElementById('full-screen-mode');
+let audioMuted = true;
 const audioBtn = document.getElementById('audio-btn');
 const audioIcon = document.getElementById('audio-icon');
-let audioMuted = false;
+let autoplayArmed = false;
+let wantsAudio = true;
+
 
 function init() {
     canvas = document.getElementById('canvas');
@@ -151,17 +152,106 @@ function closeFullscreen() {
     }
 }
 
-audioBtn.addEventListener('click', () => {
-    if (audioMuted) {
-        AUDIO_OCEAN.play();
-        audioIcon.src = './assets/icon/audio-icon.png';
+// audioBtn.addEventListener('click', () => {
+//     if (audioMuted) {
+//         AUDIO_OCEAN.play();
+//         audioIcon.src = './assets/icon/audio-icon.png';
+//         audioMuted = false;
+//     } else {
+//         AUDIO_OCEAN.pause();
+//         audioIcon.src = './assets/icon/audio-muted-icon.png';
+//         audioMuted = true;
+//     }
+// });
+
+
+function updateAudioIcon() {
+    if (audioIcon) {
+        if (audioMuted === true) {
+            audioIcon.src = './assets/icon/audio-muted-icon.png';
+        } else {
+            audioIcon.src = './assets/icon/audio-icon.png';
+        }
+    }
+}
+
+async function startOceanAudio() {
+    try {
+        AUDIO_OCEAN.load();
+        await AUDIO_OCEAN.play();
         audioMuted = false;
-    } else {
-        AUDIO_OCEAN.pause();
-        audioIcon.src = './assets/icon/audio-muted-icon.png';
+        updateAudioIcon();
+        return true;
+    } catch (e) {
         audioMuted = true;
+        updateAudioIcon();
+        return false;
+    }
+}
+
+function armFirstInteractionStart() {
+    autoplayArmed = true;
+    let events = ['pointerdown', 'keydown', 'touchstart'];
+    function handler() {
+        if (autoplayArmed === true && wantsAudio === true) {
+            startOceanAudio().then(function (ok) {
+                if (ok) {
+                    autoplayArmed = false;
+                    for (let i = 0; i < events.length; i++) {
+                        window.removeEventListener(events[i], handler);
+                    }
+                }
+            });
+        } else {
+            autoplayArmed = false;
+            for (let j = 0; j < events.length; j++) {
+                window.removeEventListener(events[j], handler);
+            }
+        }
+    }
+    for (let i = 0; i < events.length; i++) {
+        window.addEventListener(events[i], handler, { once: true });
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    startOceanAudio().then(function (ok) {
+        if (!ok) {
+            armFirstInteractionStart();
+        } else {
+            autoplayArmed = false;
+        }
+        updateAudioIcon();
+    });
+});
+
+document.addEventListener('visibilitychange', function () {
+    if (document.hidden) {
+        AUDIO_OCEAN.pause();
+    } else {
+        if (audioMuted === false && wantsAudio === true) {
+            AUDIO_OCEAN.play().catch(function () { });
+        }
     }
 });
+
+if (audioBtn) {
+    audioBtn.addEventListener('click', function (ev) {
+        if (audioMuted === true) {
+            wantsAudio = true;
+            startOceanAudio().then(function (ok) {
+                if (ok) autoplayArmed = false;
+            });
+        } else {
+            wantsAudio = false;
+            AUDIO_OCEAN.pause();
+            audioMuted = true;
+            autoplayArmed = false;
+            updateAudioIcon();
+        }
+    });
+}
+
 
 function toggleInfoScreen() {
     const infoBtn = document.getElementById('info-screen-wrapper');
