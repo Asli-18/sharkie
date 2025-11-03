@@ -67,25 +67,35 @@ h1 {
 }
 
 .start-screen {
-    background-image: url("assets/img/background/background-final-dark-1.png");
-    background-size: contain;
+    background-image: url("assets/img/background/background-final-dark-full.png");
+    background-size: cover;
+    background-repeat: no-repeat;
     z-index: 9;
     height: 480px;
     width: 850px;
     border-radius: 16px;
     position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .info-screen-wrapper {
-    background: linear-gradient(to right, #5767d2, #6bf2c7, #5767d2, #6bf2c7);
+    /* background: linear-gradient(to right, #5767d2, #6bf2c7, #5767d2, #6bf2c7); */
+    /* background-color: rgb(30, 30, 94); */
+    background-image: url('assets/img/background/water-light-full.png');
+    background-size: cover;
+    background-repeat: no-repeat;
     z-index: 15;
     height: 480px;
     width: 850px;
     border-radius: 16px;
     position: absolute;
+    padding: 8px;
 }
 
-.info-screen {
+.info-screen,
+.text {
     width: 830px;
     height: 320px;
     /* font-weight: 500; */
@@ -93,24 +103,28 @@ h1 {
     padding: 8px;
 }
 
-.info-screen::-webkit-scrollbar {
+.info-screen::-webkit-scrollbar,
+.text::-webkit-scrollbar {
     width: 10px;
 }
 
 /* Track */
-.info-screen::-webkit-scrollbar-track {
+.info-screen::-webkit-scrollbar-track,
+.text::-webkit-scrollbar-track {
     box-shadow: inset 0 0 3px grey;
     border-radius: 6px;
 }
 
 /* Handle */
-.info-screen::-webkit-scrollbar-thumb {
+.info-screen::-webkit-scrollbar-thumb,
+.text::-webkit-scrollbar-thumb {
     background: #c3047f;
     border-radius: 6px;
 }
 
 /* Handle on hover */
-.info-screen::-webkit-scrollbar-thumb:hover {
+.info-screen::-webkit-scrollbar-thumb:hover,
+.text::-webkit-scrollbar-thumb:hover {
     background: #c3047f;
 }
 
@@ -211,6 +225,11 @@ button {
     width: 128px;
 }
 
+.copy-right {
+    display: flex;
+    justify-content: center;
+}
+
 .font-16 {
     font-size: 16px;
 }
@@ -229,9 +248,34 @@ button {
     transform: scale(1.1);
 }
 
+.h1 {
+    margin: 0;
+}
+
+.text {
+    padding: 8px;
+}
+
+.hud {
+    position: absolute;
+    z-index: 5;
+}
+
+.panel {
+    display: flex;
+    justify-content: space-between;
+    width: 850px;
+}
+
+.panel-size {
+    height: 40px;
+    width: 40px;
+}
+
 p {
     display: flex;
     flex-direction: column;
+    font-size: 24px;
 }
 
 span {
@@ -260,14 +304,119 @@ footer {
     display: none;
 }
 
+@media (max-width: 992px) {
+
+    .canvas,
+    .info-screen-wrapper,
+    .start-screen,
+    .screen {
+        width: 750px;
+        height: 400px;
+    }
+
+    .panel {
+        width: 750px;
+    }
+
+    .panel-size {
+        width: 35px;
+        height: 35px;
+    }
+
+    .info-screen,
+    .text {
+        width: 710px;
+        height: 210px;
+    }
+
+    .h1 {
+        font-size: 40px;
+    }
+
+    .img-wrapper {
+        height: 100px;
+    }
+
+    .sharkie {
+        height: 220px;
+        width: 250px;
+    }
+
+    .jelly-fish {
+        height: 100px;
+    }
+
+    .start-btn {
+        font-size: 24px;
+        /* height: 52px;
+        width: 116px; */
+    }
+
+    .controle {
+        height: 100px;
+    }
+
+    .size {
+        height: 30px;
+        width: 30px;
+    }
+}
+
 /* @media only screen and(max-width: 850px) {
     .canvas {
         width: 100%;
     }
+} */
+
+@media (max-width: 768px) {
+
+    .canvas,
+    .info-screen-wrapper,
+    .start-screen,
+    .screen {
+        width: 650px;
+        height: 320px;
+    }
+
+    .panel {
+        width: 650px;
+    }
+
+    .info-screen,
+    .text {
+        width: 610px;
+        height: 200px;
+        font-size: 18px;
+    }
+
+    h2 {
+        font-size: 24px;
+    }
+
+    h3 {
+        font-size: 20px;
+    }
+
+    span {
+        font-size: 18px;
+    }
 }
 
-@media only screen and(max-height: 480px) {
-    .canvas {
+@media (max-width: 576px) {}
+
+@media only screen and(max-height: 576px) {
+
+    .canvas,
+    .info-screen-wrapper,
+    .start-screen,
+    .screen {
         height: 100%;
     }
-} */
+}
+
+/*  
+  lg: 992px,
+  md: 768px,
+  sm: 576px,
+  xs: 480px
+  */
