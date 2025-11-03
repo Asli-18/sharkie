@@ -252,10 +252,9 @@ if (audioBtn) {
     });
 }
 
-
-function toggleInfoScreen() {
-    const infoBtn = document.getElementById('info-screen-wrapper');
-    infoBtn.classList.toggle('d-none');
+function toggleScreens(btnID){
+    let btn = document.getElementById(btnID);
+    btn.classList.toggle('d-none');
 }
 
 function backToMenu() {
