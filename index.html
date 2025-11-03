@@ -53,7 +53,7 @@
         <div id="info-screen-wrapper" class="info-screen-wrapper d-none">
             <div class="info-screen-head">
                 <h2>The adventure in the depths of the ocean begins!</h2>
-                <button onclick="toggleInfoScreen()" class="btn-hover"><img class="size " src="./assets/icon/close.png"
+                <button onclick="toggleScreens('info-screen-wrapper')" class="btn-hover"><img class="size " src="./assets/icon/close.png"
                         alt="close icon"></button>
             </div>
 
@@ -114,7 +114,7 @@
         </div>
 
         <div id="start-screen" class="start-screen">
-            <h1>Sharkie</h1>
+            <h1 class="h1">Sharkie</h1>
             <div id="wrapper" class="wrapper">
                 <div class="img-wrapper">
                     <img class="sharkie" src="../assets/img/sharkie/sharkie-idle-13.png" alt="">
@@ -132,14 +132,22 @@
                         <button id="audio-btn" class="btn-hover">
                             <img id="audio-icon" class="size" src="./assets/icon/audio-icon.png" alt="">
                         </button>
-                        <button onclick="toggleInfoScreen()" id="info-btn" class="btn-hover">
+                        <button onclick="toggleScreens('info-screen-wrapper')" id="info-btn" class="btn-hover">
                             <img class="size" src="./assets/icon/info-icon.png" alt="">
+                        </button>
+                        <button onclick="toggleScreens('privacy-police-srceen')" id="privacy-police-btn" class="btn-hover">
+                            <img class="size" src="./assets/icon/privacy-police.png" alt="">
+                        </button>
+                        <button onclick="toggleScreens('legal-notice-screen')" id="legal-notice-btn" class="btn-hover">
+                            <img class="size" src="./assets/icon/legal-notice.png" alt="">
                         </button>
                     </div>
                     <button onclick="gameStart(); init()" class="start-btn btn-hover">START</button>
 
                 </div>
+
             </div>
+            <span class="copy-right">&copy; 2025 Sharkie &hearts; Aslihan Erdogan</span>
         </div>
 
         <div id="lose-screen" class="screen d-none">
@@ -157,22 +165,68 @@
             </div>
         </div>
 
+        <div id="privacy-police-srceen" class="info-screen-wrapper d-none">
+            <div class="info-screen-head">
+                <h2>Privacy Policy</h2>
+                <button onclick="toggleScreens('privacy-police-srceen')" class="btn-hover">
+                    <img class="size " src="./assets/icon/close.png" alt="close icon">
+                </button>
+            </div>
+            <p class="text"> This game does not collect, store, or process personal data. It uses no cookies, analytics,
+                or tracking
+                technologies and does not share any data with third parties. <br>
+                Contact: asli-erdogan@gmx.de
+                <br><br>
+                Last updated: 02 Nov 2025
+            </p>
+        </div>
+
+        <div id="legal-notice-screen" class="info-screen-wrapper d-none">
+            <div class="info-screen-head">
+                <h2>Legal Notice</h2>
+                <button onclick="toggleScreens('legal-notice-screen')" class="btn-hover">
+                    <img class="size " src="./assets/icon/close.png" alt="close icon">
+                </button>
+            </div>
+            <p class="text">Name: Aslihan Erdogan <br>
+                Email: asli-erdogan@gmx.de <br>
+                Responsible for content: Aslihan Erdogan <br>
+                Copyright: © 2025 Aslihan Erdogan. All rights reserved. <br>
+                Liability for content & links: The contents are created with the greatest care; however, no guarantee is
+                given for accuracy, completeness, or timeliness. The operators of the linked pages are solely
+                responsible for their content. <br><br>
+                Last updated: 02 Nov 2025
+            </p>
+        </div>
+
         <canvas id="canvas" class="canvas" width="850" height="480">
 
         </canvas>
 
+        <div class="hud">
+            <div class="panel">
+                <div class="panel-wrapper">
+                    <button id="btn-left"><img class="panel-size" src="./assets/icon/arrow-left-48.png" alt=""></button>
+                    <button id="btn-right"><img class="panel-size" src="./assets/icon/arrow-right.png" alt=""></button>
+                </div>
+                <div class="panel-wrapper">
+                    <button id="btn-down"><img class="panel-size" src="./assets/icon/arrow-down.png" alt=""></button>
+                    <button id="btn-up"><img class="panel-size" src="./assets/icon/arrow-up.png" alt=""></button>
+                </div>
+            </div>
+            <div class="panel">
+                <div class="panel-wrapper">
+                    <button id="btn-air-bubble"><img class="panel-size" src="./assets/icon/w.png" alt=""></button>
+                    <button id="btn-poison-bubble"><img class="panel-size" src="./assets/icon/e.png" alt=""></button>
+                </div>
+                <div class="panel-wrapper">
+                    <button id="btn-fin-slap"><img class="panel-size" src="./assets/icon/f.png" alt=""></button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <footer>
-        <div>
-            <span>&copy; 2025 Sharkie &hearts; Aslihan Erdogan</span>
-        </div>
 
-        <div class="legal-contaier">
-            <button class="btn-hover font-16">privacy policy</button>
-            <button class="btn-hover font-16">legal notice</button>
-        </div>
-    </footer>
 </body>
 
 </html>
