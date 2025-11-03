@@ -13,7 +13,7 @@ class World {
     poisonBubbles = [];
     gameOver = false;
     collisionInterval = null;
-
+    POISON_COST = 5;
 
     constructor(canvas, keyboard) {
         this.ctx = canvas.getContext('2d');
@@ -120,19 +120,15 @@ class World {
     }
 
     checkPoisonBubbles() {
-        if (this.keyboard.E && this.keyboard.canShootE && this.poisonFlaskBar.percentage >= 5) {
+        if (this.keyboard.E && this.keyboard.canShootE && this.poisonFlaskBar.percentage >= this.POISON_COST) {
             this.keyboard.canShootE = false;
+            this.poisonFlaskBar.setPercentage(this.poisonFlaskBar.percentage - this.POISON_COST);
             this.sharkie.shootBubble(() => {
                 this.spawnBubble("poison");
-
-                let percentage = this.poisonFlaskBar.percentage - 5;
-                if (percentage < 0) percentage = 0;
-                this.poisonFlaskBar.setPercentage(percentage);
-
                 setTimeout(() => this.keyboard.canShootE = true, 300);
             });
         } else if (this.keyboard.E && this.keyboard.canShootE) {
-            console.log("Nicht genug Poison-Energie, um Bubble zu schießen", this.poisonFlaskBar.percentage);
+            console.log("Nicht genug Poison-Energie:", this.poisonFlaskBar.percentage);
         }
     }
 
@@ -146,10 +142,9 @@ class World {
             this.airBubbles.push(airBubble);
         }
         if (type === "poison") {
-            if (this.shouldDisplayPoisonFlaskBar()) {
+            if (this.poisonFlaskBar && this.poisonFlaskBar.percentage >= 0) {
                 const poisonBubble = new PoisonBubbles(this.sharkie.x + 180, this.sharkie.y + 90);
                 this.poisonBubbles.push(poisonBubble);
-                this.sharkie.world.poisonFlaskBar.setPercentage(this.sharkie.world.poisonFlaskBar.percentage - 10);
             }
         }
     }
