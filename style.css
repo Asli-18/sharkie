@@ -1,7 +1,3 @@
-/* *{
-    font-family: 'LuckiestGuy';
-} */
-
 body {
     display: flex;
     flex-direction: column;
@@ -28,16 +24,13 @@ body::before {
     transition: filter 0.5s ease, background-color 0.5s ease;
 }
 
-/* Day-Mode */
 body.day::before {
     filter: brightness(1.1);
 }
 
-/* Night-Mode */
 body.night::before {
     filter: brightness(0.4);
     background-color: rgba(0, 0, 50, 0.3);
-    /* leichter blauer Overlay */
     background-blend-mode: multiply;
 }
 
@@ -272,6 +265,42 @@ button {
     width: 40px;
 }
 
+.rotate-screen-message {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.75);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.rotate-screen-message.is-visible {
+    display: flex;
+}
+
+.rotate-screen-message-box {
+    background: rgba(54, 53, 53, 0.459);
+    border: 2px solid #c3047f;
+    border-radius: 16px;
+    padding: 16px 24px;
+    color: #c3047f;
+    font-size: 18px;
+    height: 90%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.rotate-screen-message-icon {
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 12px;
+}
+
 p {
     display: flex;
     flex-direction: column;
@@ -304,119 +333,58 @@ footer {
     display: none;
 }
 
+#canvas {
+    display: block;
+}
+
+.canvas,
+.start-screen,
+.info-screen-wrapper,
+.screen {
+    width: 850px;
+    height: 480px;
+}
+
+.panel {
+    width: 850px;
+}
+
+.panel-size {
+    width: 40px;
+    height: 40px;
+}
+
 @media (max-width: 992px) {
+  #canvas.canvas {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    height: 100svh;
+    border-radius: 0;
+    z-index: 1;
+  }
 
-    .canvas,
-    .info-screen-wrapper,
-    .start-screen,
-    .screen {
-        width: 750px;
-        height: 400px;
-    }
+  .hud,
+  .start-screen,
+  .info-screen-wrapper,
+  .screen,
+  .rotate-screen-message {
+    position: relative;
+    z-index: 5;
+    width: 100%;
+  }
 
-    .panel {
-        width: 750px;
-    }
-
-    .panel-size {
-        width: 35px;
-        height: 35px;
-    }
-
-    .info-screen,
-    .text {
-        width: 710px;
-        height: 210px;
-    }
-
-    .h1 {
-        font-size: 40px;
-    }
-
-    .img-wrapper {
-        height: 100px;
-    }
-
-    .sharkie {
-        height: 220px;
-        width: 250px;
-    }
-
-    .jelly-fish {
-        height: 100px;
-    }
-
-    .start-btn {
-        font-size: 24px;
-        /* height: 52px;
-        width: 116px; */
-    }
-
-    .controle {
-        height: 100px;
-    }
-
-    .size {
-        height: 30px;
-        width: 30px;
-    }
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+  }
 }
 
-/* @media only screen and(max-width: 850px) {
-    .canvas {
-        width: 100%;
-    }
-} */
-
-@media (max-width: 768px) {
-
-    .canvas,
-    .info-screen-wrapper,
-    .start-screen,
-    .screen {
-        width: 650px;
-        height: 320px;
-    }
-
-    .panel {
-        width: 650px;
-    }
-
-    .info-screen,
-    .text {
-        width: 610px;
-        height: 200px;
-        font-size: 18px;
-    }
-
-    h2 {
-        font-size: 24px;
-    }
-
-    h3 {
-        font-size: 20px;
-    }
-
-    span {
-        font-size: 18px;
+@media (max-width: 992px) and (orientation: portrait) {
+    .rotate-screen-message {
+        display: flex;
     }
 }
-
-@media (max-width: 576px) {}
-
-@media only screen and(max-height: 576px) {
-
-    .canvas,
-    .info-screen-wrapper,
-    .start-screen,
-    .screen {
-        height: 100%;
-    }
-}
-
-/*  
-  lg: 992px,
-  md: 768px,
-  sm: 576px,
-  xs: 480px
-  */

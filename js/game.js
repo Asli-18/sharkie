@@ -26,6 +26,7 @@ let wantsAudio = true;
 
 function init() {
     canvas = document.getElementById('canvas');
+    resizeCanvasForViewport();
     world = new World(canvas, keyboard);
 
     console.log("My Character is ", world.sharkie);
@@ -214,6 +215,39 @@ function armFirstInteractionStart() {
     }
 }
 
+function isSmallPortrait() {
+    return window.innerWidth <= 992 && window.innerHeight > window.innerWidth;
+}
+
+function updateOrientationOverlay() {
+    const overlay = document.getElementById('rotate-screen-message');
+    if (!overlay) return;
+    overlay.classList.toggle('is-visible', isSmallPortrait());
+}
+
+function resizeCanvasForViewport() {
+    const ctx = document.getElementById('canvas');
+    if (!ctx) return;
+
+    const small = window.innerWidth <= 992;
+    const vpHeight = Math.ceil((window.visualViewport && window.visualViewport.height) || window.innerHeight);
+    const vpWidth = Math.ceil((window.visualViewport && window.visualViewport.width) || window.innerWidth);
+
+    if (small) {
+        ctx.style.width = '100%';
+        ctx.style.height = '100%';
+        ctx.width = vpWidth;
+        ctx.height = vpHeight;
+    } else {
+        ctx.style.position = '';
+        ctx.style.inset = '';
+        ctx.style.width = '850px';
+        ctx.style.height = '480px';
+        ctx.width = 850;
+        ctx.height = 480;
+    }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
     startOceanAudio().then(function (ok) {
         if (!ok) {
@@ -223,7 +257,15 @@ document.addEventListener('DOMContentLoaded', function () {
         }
         updateAudioIcon();
     });
+    updateOrientationOverlay();
+    resizeCanvasForViewport();
 });
+
+window.addEventListener('resize', updateOrientationOverlay);
+window.addEventListener('orientationchange', updateOrientationOverlay);
+
+window.addEventListener('resize', resizeCanvasForViewport);
+window.addEventListener('orientationchange', resizeCanvasForViewport);
 
 document.addEventListener('visibilitychange', function () {
     if (document.hidden) {
@@ -252,7 +294,7 @@ if (audioBtn) {
     });
 }
 
-function toggleScreens(btnID){
+function toggleScreens(btnID) {
     let btn = document.getElementById(btnID);
     btn.classList.toggle('d-none');
 }

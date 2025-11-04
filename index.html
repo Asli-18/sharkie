@@ -53,8 +53,8 @@
         <div id="info-screen-wrapper" class="info-screen-wrapper d-none">
             <div class="info-screen-head">
                 <h2>The adventure in the depths of the ocean begins!</h2>
-                <button onclick="toggleScreens('info-screen-wrapper')" class="btn-hover"><img class="size " src="./assets/icon/close.png"
-                        alt="close icon"></button>
+                <button onclick="toggleScreens('info-screen-wrapper')" class="btn-hover"><img class="size "
+                        src="./assets/icon/close.png" alt="close icon"></button>
             </div>
 
             <div id="info-screen" class="info-screen">
@@ -135,7 +135,8 @@
                         <button onclick="toggleScreens('info-screen-wrapper')" id="info-btn" class="btn-hover">
                             <img class="size" src="./assets/icon/info-icon.png" alt="">
                         </button>
-                        <button onclick="toggleScreens('privacy-police-srceen')" id="privacy-police-btn" class="btn-hover">
+                        <button onclick="toggleScreens('privacy-police-srceen')" id="privacy-police-btn"
+                            class="btn-hover">
                             <img class="size" src="./assets/icon/privacy-police.png" alt="">
                         </button>
                         <button onclick="toggleScreens('legal-notice-screen')" id="legal-notice-btn" class="btn-hover">
@@ -199,9 +200,16 @@
             </p>
         </div>
 
-        <canvas id="canvas" class="canvas" width="850" height="480">
+        <canvas id="canvas" class="canvas">
 
         </canvas>
+
+        <div id="rotate-screen-message" class="rotate-screen-message">
+            <div class="rotate-screen-message-box">
+                <img class="rotate-screen-message-icon" src="./assets/icon/turn.png" alt="rotate">
+                <p>Please rotate your device to landscape mode to play.</p>
+            </div>
+        </div>
 
         <div class="hud">
             <div class="panel">
