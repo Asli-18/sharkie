@@ -26,12 +26,8 @@ let wantsAudio = true;
 
 function init() {
     canvas = document.getElementById('canvas');
-    resizeCanvasForViewport();
     world = new World(canvas, keyboard);
-
-    console.log("My Character is ", world.sharkie);
-
-    // AUDIO_OCEAN.play();
+    // console.log("My Character is ", world.sharkie);
 }
 
 window.addEventListener('keydown', (event) => {
@@ -61,7 +57,6 @@ window.addEventListener('keydown', (event) => {
     }
     // console.log(event);
     // console.log("TRUE");
-
 });
 
 window.addEventListener('keyup', (event) => {
@@ -127,13 +122,10 @@ function openFullScreen() {
     if (fullScreenMode.requestFullscreen) {
         fullScreenMode.requestFullscreen();
     } else if (fullScreenMode.mozRequestFullScreen) {
-        // Firefox
         fullScreenMode.mozRequestFullScreen();
     } else if (fullScreenMode.webkitRequestFullscreen) {
-        // Chrome, Safari & Opera
         fullScreenMode.webkitRequestFullscreen();
     } else if (fullScreenMode.msRequestFullscreen) {
-        // IE/Edge
         fullScreenMode.msRequestFullscreen();
     }
 }
@@ -142,29 +134,13 @@ function closeFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
     } else if (document.mozCancelFullScreen) {
-        // Firefox
         document.mozCancelFullScreen();
     } else if (document.webkitExitFullscreen) {
-        // Chrome, Safari & Opera
         document.webkitExitFullscreen();
     } else if (document.msExitFullscreen) {
-        // IE/Edge
         document.msExitFullscreen();
     }
 }
-
-// audioBtn.addEventListener('click', () => {
-//     if (audioMuted) {
-//         AUDIO_OCEAN.play();
-//         audioIcon.src = './assets/icon/audio-icon.png';
-//         audioMuted = false;
-//     } else {
-//         AUDIO_OCEAN.pause();
-//         audioIcon.src = './assets/icon/audio-muted-icon.png';
-//         audioMuted = true;
-//     }
-// });
-
 
 function updateAudioIcon() {
     if (audioIcon) {
@@ -225,28 +201,6 @@ function updateOrientationOverlay() {
     overlay.classList.toggle('is-visible', isSmallPortrait());
 }
 
-function resizeCanvasForViewport() {
-    const ctx = document.getElementById('canvas');
-    if (!ctx) return;
-
-    const small = window.innerWidth <= 992;
-    const vpHeight = Math.ceil((window.visualViewport && window.visualViewport.height) || window.innerHeight);
-    const vpWidth = Math.ceil((window.visualViewport && window.visualViewport.width) || window.innerWidth);
-
-    if (small) {
-        ctx.style.width = '100%';
-        ctx.style.height = '100%';
-        ctx.width = vpWidth;
-        ctx.height = vpHeight;
-    } else {
-        ctx.style.position = '';
-        ctx.style.inset = '';
-        ctx.style.width = '850px';
-        ctx.style.height = '480px';
-        ctx.width = 850;
-        ctx.height = 480;
-    }
-}
 
 document.addEventListener('DOMContentLoaded', function () {
     startOceanAudio().then(function (ok) {
@@ -258,14 +212,11 @@ document.addEventListener('DOMContentLoaded', function () {
         updateAudioIcon();
     });
     updateOrientationOverlay();
-    resizeCanvasForViewport();
 });
 
 window.addEventListener('resize', updateOrientationOverlay);
 window.addEventListener('orientationchange', updateOrientationOverlay);
 
-window.addEventListener('resize', resizeCanvasForViewport);
-window.addEventListener('orientationchange', resizeCanvasForViewport);
 
 document.addEventListener('visibilitychange', function () {
     if (document.hidden) {

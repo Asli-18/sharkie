@@ -3,12 +3,8 @@ body {
     flex-direction: column;
     align-items: center;
     font-family: 'LuckiestGuy';
-
     margin: 0;
     height: 100vh;
-
-
-
     background: blue;
     color: #c3047f;
     position: relative;
@@ -42,12 +38,11 @@ h1 {
 }
 
 .canvas {
-    background-color: black;
     border-radius: 16px;
     z-index: 2;
     position: relative;
     /* für media queries */
-    /* display: block; */
+    display: block;
 }
 
 .container {
@@ -74,8 +69,6 @@ h1 {
 }
 
 .info-screen-wrapper {
-    /* background: linear-gradient(to right, #5767d2, #6bf2c7, #5767d2, #6bf2c7); */
-    /* background-color: rgb(30, 30, 94); */
     background-image: url('assets/img/background/water-light-full.png');
     background-size: cover;
     background-repeat: no-repeat;
@@ -91,7 +84,6 @@ h1 {
 .text {
     width: 830px;
     height: 320px;
-    /* font-weight: 500; */
     overflow-y: auto;
     padding: 8px;
 }
@@ -101,21 +93,18 @@ h1 {
     width: 10px;
 }
 
-/* Track */
 .info-screen::-webkit-scrollbar-track,
 .text::-webkit-scrollbar-track {
     box-shadow: inset 0 0 3px grey;
     border-radius: 6px;
 }
 
-/* Handle */
 .info-screen::-webkit-scrollbar-thumb,
 .text::-webkit-scrollbar-thumb {
     background: #c3047f;
     border-radius: 6px;
 }
 
-/* Handle on hover */
 .info-screen::-webkit-scrollbar-thumb:hover,
 .text::-webkit-scrollbar-thumb:hover {
     background: #c3047f;
@@ -168,7 +157,6 @@ button {
 }
 
 .controle {
-
     height: 150px;
     width: 100%;
     display: flex;
@@ -186,7 +174,6 @@ button {
 .sharkie {
     height: 300px;
     width: 300px;
-
 }
 
 .jelly-fish {
@@ -249,27 +236,11 @@ button {
     padding: 8px;
 }
 
-.hud {
-    position: absolute;
-    z-index: 5;
-}
-
-.panel {
-    display: flex;
-    justify-content: space-between;
-    width: 850px;
-}
-
-.panel-size {
-    height: 40px;
-    width: 40px;
-}
-
 .rotate-screen-message {
     display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.75);
+    background: rgb(10, 22, 77);
     z-index: 9999;
     align-items: center;
     justify-content: center;
@@ -287,8 +258,6 @@ button {
     padding: 16px 24px;
     color: #c3047f;
     font-size: 18px;
-    height: 90%;
-    width: 90%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -305,6 +274,7 @@ p {
     display: flex;
     flex-direction: column;
     font-size: 24px;
+    text-wrap: auto;
 }
 
 span {
@@ -333,58 +303,110 @@ footer {
     display: none;
 }
 
-#canvas {
-    display: block;
-}
-
-.canvas,
-.start-screen,
-.info-screen-wrapper,
-.screen {
-    width: 850px;
-    height: 480px;
-}
-
-.panel {
-    width: 850px;
-}
-
 .panel-size {
     width: 40px;
     height: 40px;
 }
 
-@media (max-width: 992px) {
-  #canvas.canvas {
-    position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100dvh;
-    height: 100svh;
-    border-radius: 0;
-    z-index: 1;
-  }
-
-  .hud,
-  .start-screen,
-  .info-screen-wrapper,
-  .screen,
-  .rotate-screen-message {
-    position: relative;
-    z-index: 5;
-    width: 100%;
-  }
-
-  html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    overflow: hidden;
-  }
+.hud {
+    display: none;
 }
 
-@media (max-width: 992px) and (orientation: portrait) {
-    .rotate-screen-message {
+@media only screen and (max-width: 956px) {
+
+    .canvas,
+    .start-screen,
+    .info-screen-wrapper,
+    .screen {
+        width: 100vw;
+        border-radius: 0;
+    }
+
+    .info-screen,
+    .text {
+        width: auto;
+        height: 260px;
+        margin: 0 8px;
+    }
+
+    .info-screen-wrapper {
+        overflow: hidden;
+        position: fixed;
+    }
+
+    .hud {
+        width: 100%;
         display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        position: absolute;
+        inset-inline: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .hud .panel {
+        pointer-events: auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .sharkie {
+        width: 200px;
+        height: 200px;
+    }
+
+    .jelly-fish {
+        height: 100px;
+    }
+
+    .size {
+        width: 30px;
+        height: 30px;
+    }
+
+    .start-btn {
+        font-size: 20px;
+    }
+}
+
+@media only screen and (max-height: 480px) {
+
+    .canvas,
+    .start-screen,
+    .info-screen-wrapper,
+    .screen {
+        height: 100vh;
+    }
+
+    .hud {
+        height: 100vh;
+    }
+
+    .info-screen,
+    .text {
+        height: 230px;
+    }
+}
+
+@media only screen and (max-height: 375px) {
+
+    .info-screen,
+    .text {
+        height: 200px;
+    }
+
+    .info-screen-head {
+        max-height: 48px;
+    }
+
+    h2 {
+        font-size: 28px;
     }
 }
