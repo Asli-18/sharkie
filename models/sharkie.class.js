@@ -244,7 +244,6 @@ class Sharkie extends MovableObject {
         }, 120);
     }
 
-
     finSlapAttack() {
         this.playAnimation(this.IMAGES_ATTACK_FIN_SLAP);
         let hitbox = {
