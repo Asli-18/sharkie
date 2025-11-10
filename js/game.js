@@ -11,8 +11,6 @@ let AUDIO_SLAP = new Audio('audio/slap.mp3');
 let AUDIO_SHARKIE_DAMAGE = new Audio('audio/sharkie-damage.mp3');
 let AUDIO_WHALE_DAMAGE = new Audio('audio/whale-damage.mp3');
 let AUDIO_DAMAGE = new Audio('audio/damage.mp3');
-
-
 const body = document.body;
 const toggleBtn = document.getElementById("toggle-mode");
 const fullScreenBtn = document.getElementById('full-screen-btn');
@@ -24,12 +22,19 @@ let autoplayArmed = false;
 let wantsAudio = true;
 
 
+/**
+ * Initializes the game world and binds the canvas.
+ * Creates a new {@link World} instance with the global keyboard state.
+ * @returns {void}
+ */
 function init() {
     canvas = document.getElementById('canvas');
     world = new World(canvas, keyboard);
-    // console.log("My Character is ", world.sharkie);
 }
 
+/**
+ * Global keydown handler: sets movement/attack flags on the shared keyboard state.
+ */
 window.addEventListener('keydown', (event) => {
     if (event.keyCode == 32) {
         keyboard.SPACE = true;
@@ -55,10 +60,11 @@ window.addEventListener('keydown', (event) => {
     if (event.keyCode == 70) {
         keyboard.F = true;
     }
-    // console.log(event);
-    // console.log("TRUE");
 });
 
+/**
+ * Global keyup handler: clears movement/attack flags and re-arms shot rate-limiters.
+ */
 window.addEventListener('keyup', (event) => {
     if (event.keyCode == 32) {
         keyboard.SPACE = false;
@@ -86,9 +92,11 @@ window.addEventListener('keyup', (event) => {
     if (event.keyCode == 70) {
         keyboard.F = false;
     }
-    // console.log(event);
 });
 
+/**
+ * Toggles day/night CSS theme and updates the toggle icon.
+ */
 toggleBtn.addEventListener("click", () => {
     if (body.classList.contains("day")) {
         body.classList.remove("day");
@@ -101,6 +109,11 @@ toggleBtn.addEventListener("click", () => {
     }
 });
 
+/**
+ * Hides the start screen and cleans up a previous world instance if present.
+ * Intended to be called when starting/restarting the game.
+ * @returns {void}
+ */
 function gameStart() {
     const start = document.getElementById('start-screen');
     start.classList.add('d-none');
@@ -109,7 +122,9 @@ function gameStart() {
     }
 }
 
-
+/**
+ * Fullscreen button handler: toggles fullscreen on/off.
+ */
 fullScreenBtn.addEventListener("click", () => {
     if (!document.fullscreenElement) {
         openFullScreen();
@@ -118,6 +133,10 @@ fullScreenBtn.addEventListener("click", () => {
     }
 });
 
+/**
+ * Requests fullscreen mode for the main container.
+ * @returns {void}
+ */
 function openFullScreen() {
     if (fullScreenMode.requestFullscreen) {
         fullScreenMode.requestFullscreen();
@@ -130,6 +149,10 @@ function openFullScreen() {
     }
 }
 
+/**
+ * Exits fullscreen mode.
+ * @returns {void}
+ */
 function closeFullscreen() {
     if (document.exitFullscreen) {
         document.exitFullscreen();
@@ -142,6 +165,10 @@ function closeFullscreen() {
     }
 }
 
+/**
+ * Updates the speaker icon to reflect the current mute state.
+ * @returns {void}
+ */
 function updateAudioIcon() {
     if (audioIcon) {
         if (audioMuted === true) {
@@ -152,6 +179,10 @@ function updateAudioIcon() {
     }
 }
 
+/**
+ * Attempts to start the ocean ambience. If autoplay is blocked, the call will fail and the function returns false.
+ * @returns {Promise<boolean>} True if playback started, else false.
+ */
 async function startOceanAudio() {
     try {
         AUDIO_OCEAN.load();
@@ -166,6 +197,10 @@ async function startOceanAudio() {
     }
 }
 
+/**
+ * Arms a one-time user interaction (pointer/keyboard/touch) to trigger audio playback when autoplay is blocked.
+ * @returns {void}
+ */
 function armFirstInteractionStart() {
     autoplayArmed = true;
     let events = ['pointerdown', 'keydown', 'touchstart'];
@@ -191,17 +226,27 @@ function armFirstInteractionStart() {
     }
 }
 
+/**
+ * Returns true when a small portrait device is detected.
+ * @returns {boolean}
+ */
 function isSmallPortrait() {
     return window.innerWidth <= 992 && window.innerHeight > window.innerWidth;
 }
 
+/**
+ * Shows/hides the rotate-screen overlay depending on device orientation/size.
+ * @returns {void}
+ */
 function updateOrientationOverlay() {
     const overlay = document.getElementById('rotate-screen-message');
     if (!overlay) return;
     overlay.classList.toggle('is-visible', isSmallPortrait());
 }
 
-
+/**
+ * Bootstraps UI on initial DOM load: tries to start ocean audio, updates the speaker icon and updates the rotate-screen overlay.
+ */
 document.addEventListener('DOMContentLoaded', function () {
     startOceanAudio().then(function (ok) {
         if (!ok) {
@@ -214,10 +259,20 @@ document.addEventListener('DOMContentLoaded', function () {
     updateOrientationOverlay();
 });
 
+/**
+ * Recalculates orientation overlay on viewport resize.
+ */
 window.addEventListener('resize', updateOrientationOverlay);
+
+/**
+ * Recalculates orientation overlay on device orientation change.
+ */
 window.addEventListener('orientationchange', updateOrientationOverlay);
 
 
+/**
+ * Pauses ocean audio when the tab is hidden, resumes if unmuted and desired.
+ */
 document.addEventListener('visibilitychange', function () {
     if (document.hidden) {
         AUDIO_OCEAN.pause();
@@ -228,6 +283,9 @@ document.addEventListener('visibilitychange', function () {
     }
 });
 
+/**
+ * Audio button click handler: toggles mute state and (re)starts/pauses ambience.
+ */
 if (audioBtn) {
     audioBtn.addEventListener('click', function (ev) {
         if (audioMuted === true) {
@@ -245,11 +303,20 @@ if (audioBtn) {
     });
 }
 
+/**
+ * Toggle visibility of overlay screens by id (start-screen, info-screen, privacy-policy-screen, legal-notice-screen).
+ * @param {string} btnID - Element id of the screen wrapper to toggle.
+ * @returns {void}
+ */
 function toggleScreens(btnID) {
     let btn = document.getElementById(btnID);
     btn.classList.toggle('d-none');
 }
 
+/**
+ * Returns to the main menu: stops the current world, hides win/lose screens and shows the start screen.
+ * @returns {void}
+ */
 function backToMenu() {
     if (window.world && typeof window.world.destroy === 'function') {
         window.world.destroy();

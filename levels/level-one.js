@@ -1,3 +1,9 @@
+/**
+ * Creates and returns the configuration for Level 1: foreground light sources, water/background/seafloor layers, 
+ * enemy list (jellyfish, pufferfish, whales), collectible poison vials and coins with world locations, initial bubble arrangements (air/poison)
+ * 
+ * @returns {Level} Initialized level instance.
+ */
 function createLevelOne() {
     return new Level(
         [
@@ -41,16 +47,6 @@ function createLevelOne() {
             new JellyFish(),
             new PufferFish("greenSalmon"),
             new Whale()
-            // new JellyFish(),
-            // new PufferFish("pinkGreen"),
-            // new PufferFish("greenSalmon"),
-            // new JellyFish(),
-
-            // new JellyFish("lilaPink"),
-            // new JellyFish("lilaPink"),
-            // new PufferFish("pinkGreen"),
-            // new PufferFish("greenSalmon"),
-
         ],
         [
             new PoisonFlask(300, 410),
@@ -66,11 +62,9 @@ function createLevelOne() {
             new PoisonFlask(1380, 300),
             new PoisonFlask(1420, 300),
             new PoisonFlask(1460, 300),
-
             new PoisonFlask(1700, 410),
             new PoisonFlask(1735, 400),
             new PoisonFlask(1770, 410),
-
             // ->
             new PoisonFlask(1900, 200),
             new PoisonFlask(1940, 200),
@@ -80,16 +74,6 @@ function createLevelOne() {
             new PoisonFlask(2000, 165),
             new PoisonFlask(1960, 270),
             new PoisonFlask(2000, 235),
-
-            // new PoisonFlask(2400, 210),// 1900
-            // new PoisonFlask(2440, 210),// 1940
-            // new PoisonFlask(2480, 210),// 1980
-            // new PoisonFlask(2540, 210),// 2040
-            // new PoisonFlask(2460, 140),// 1960
-            // new PoisonFlask(2500, 175),// 2000
-            // new PoisonFlask(2460, 280),// 1960
-            // new PoisonFlask(2500, 245),// 2000
-
             new PoisonFlask(2900, 210),// 1900
             new PoisonFlask(2940, 210),// 1940
             new PoisonFlask(2980, 210),// 1980
@@ -133,7 +117,6 @@ function createLevelOne() {
             new Coin(1445, 210),
             new Coin(1460, 240),
             new Coin(1400, 210),
-
             // ->
             new Coin(2400, 210),// 1900
             new Coin(2440, 210),// 1940

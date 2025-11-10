@@ -297,10 +297,8 @@ class Whale extends MovableObject {
         this.speed = 0;
         this.isChasing = false;
         this.freezeDirection = this.otherDirection;
-
         if (this.floatingInterval) {
-            clearInterval(this.floatingInterval);
-            this.floatingInterval = null;
+            this.clearFloatingInterval()
         }
         this.currentImage = 0;
         this.deathIntervalId = setInterval(() => {
@@ -309,8 +307,7 @@ class Whale extends MovableObject {
                 this.img = this.imageCache[path];
                 this.currentImage++;
             } else {
-                clearInterval(this.deathIntervalId);
-                this.deathIntervalId = null;
+                this.clearDeathInterval();
                 this.floatUpAndRemove();
             }
         }, this.DIE_ANIMATION_INTERVAL_MS);
@@ -325,8 +322,7 @@ class Whale extends MovableObject {
             if (this.y > -this.height) {
                 this.y -= 1.5;
             } else {
-                clearInterval(this.floatIntervalId);
-                this.floatIntervalId = null;
+                this.clearFloatInterval();
                 this.removeFromWorld();
             }
         }, this.REMOVE_ANIMATION_INTERVAL_MS);
@@ -339,20 +335,53 @@ class Whale extends MovableObject {
      */
     stopIntervals() {
         if (this.introIntervalId) {
-            clearInterval(this.introIntervalId);
-            this.introIntervalId = null;
+            this.clearIntroInterval();
         }
         if (this.floatingInterval) {
-            clearInterval(this.floatingInterval);
-            this.floatingInterval = null;
+            this.clearFloatingInterval();
         }
         if (this.deathIntervalId) {
-            clearInterval(this.deathIntervalId);
-            this.deathIntervalId = null;
+            this.clearDeathInterval();
         }
         if (this.floatIntervalId) {
-            clearInterval(this.floatIntervalId);
-            this.floatIntervalId = null;
+            this.clearFloatInterval();
         }
     }
+
+    /**
+     * helper function to clear the intervale
+     */
+    clearFloatingInterval() {
+        clearInterval(this.floatingInterval);
+        this.floatingInterval = null;
+    }
+
+    /**
+     * helper function to clear the intervale
+     */
+    clearIntroInterval() {
+        clearInterval(this.introIntervalId);
+        this.introIntervalId = null;
+    }
+
+    /**
+     * helper function to clear the intervale
+     */
+    clearDeathInterval() {
+        clearInterval(this.deathIntervalId);
+        this.deathIntervalId = null;
+    }
+
+    /**
+     * helper function to clear the intervale
+     */
+    clearFloatInterval() {
+        clearInterval(this.floatIntervalId);
+        this.floatIntervalId = null;
+    }
+
+    // clearIntervals(){
+    //     clearInterval(this.intervalID);
+    //     this.intervalID = null;
+    // }
 }
